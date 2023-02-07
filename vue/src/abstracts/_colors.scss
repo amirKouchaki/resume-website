@@ -1,5 +1,11 @@
 $main-color: #007ced;
 $main-bg-color: #222;
 $main-text-color: #f5f5f5;
-$link-color: rgba(245, 245, 245, 0.55);
-$active-link-color: #f5f5f5;
+$o-main-text-color: $main-bg-color;
+$secondary-text-color: rgba(245, 245, 245, 0.55);
+$long-text-color: #d5d5d5;
+$link-color: $secondary-text-color;
+$active-link-color: $main-text-color;
+$hero-border-color: #313131;
+$main-button-border-color: $main-color;
+$secondary-button-border-color: $main-text-color;

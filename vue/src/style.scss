@@ -32,6 +32,11 @@ html {
     color: $main-text-color;
 }
 
+button {
+    display: block;
+    cursor: pointer;
+}
+
 a {
     text-decoration: none;
     color: $link-color;
@@ -63,7 +68,6 @@ a {
     margin-inline: auto;
     margin-block: 2em;
     background-color: $main-bg-color;
-    height: 30em;
     padding: 2em;
 }
 
