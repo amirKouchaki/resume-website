@@ -1,3 +1,5 @@
+@use "./abstracts" as *;
+
 @font-face {
     font-family: "open sans";
     src: url("./assets/fonts//open\ sans/OpenSans-Regular.ttf");
@@ -11,10 +13,10 @@
     font-weight: bold;
 }
 
-:root {
-    --main-font-size: 0.8rem;
-    --main-font-family: "open sans";
-}
+// :root {
+//     --main-font-size: 0.8rem;
+//     --main-font-family: "open sans";
+// }
 
 * {
     margin: 0;
@@ -24,21 +26,21 @@
 
 html {
     height: 100vh;
-    background-color: var(--main-color);
-    font-family: var(--main-font-family);
-    font-size: var(--main-font-size);
-    color: var(--main-text-color);
+    background-color: $main-color;
+    font-family: $main-font-family;
+    font-size: $main-font-size;
+    color: $main-text-color;
 }
 
 a {
     text-decoration: none;
-    color: var(--link-color);
+    color: $link-color;
     &:visited {
-        color: var(--link-color);
+        color: $link-color;
     }
 
     &:hover {
-        color: var(--active-link-color);
+        color: $active-link-color;
         transition: color 250ms ease-in-out;
     }
 }
@@ -47,24 +49,24 @@ a {
     height: 100%;
 }
 
-.dark-theme {
-    --main-color: #007ced;
-    --main-bg-color: #222;
-    --main-text-color: #f5f5f5;
-    --link-color: rgba(245, 245, 245, 0.55);
-    --active-link-color: #f5f5f5;
-}
+// .dark-theme {
+//     --main-color: #007ced;
+//     --main-bg-color: #222;
+//     --main-text-color: #f5f5f5;
+//     --link-color: rgba(245, 245, 245, 0.55);
+//     --active-link-color: #f5f5f5;
+// }
 
 .container {
     width: min(75em, 92%);
     border-radius: 1.5em;
     margin-inline: auto;
     margin-block: 2em;
-    background-color: var(--main-bg-color);
+    background-color: $main-bg-color;
     height: 30em;
     padding: 2em;
 }
 
 .active {
-    color: var(--active-link-color);
+    color: $active-link-color;
 }
