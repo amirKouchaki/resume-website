@@ -47,6 +47,26 @@
                     </div>
                 </div>
             </section>
+            <generic-section title="What I Do">
+                <div class="job-descriptions">
+                    <section
+                        class="job-description-section"
+                        v-for="n in 4"
+                        :key="n"
+                    >
+                        <div class="job-description-logo"></div>
+                        <div class="job-description-info">
+                            <h3 class="job-description-header">Copywrite</h3>
+                            <p class="job-description">
+                                Lorem ipsum dolor, sit amet consectetur
+                                adipisicing elit. Incidunt id doloribus sint,
+                                cum recusandae quas. Eligendi laborum assumenda
+                                numquam perferendis.
+                            </p>
+                        </div>
+                    </section>
+                </div>
+            </generic-section>
         </section>
     </article>
 </template>
@@ -54,6 +74,7 @@
 <script setup>
 import MobileSidebarNav from "../components/resume/MobileSidebarNav.vue";
 import mainNavLinks from "../components/resume/MainNavLinks.vue";
+import GenericSection from "../components/resume/GenericSection.vue";
 import { ref } from "@vue/reactivity";
 
 const showSideBar = ref(false);
@@ -172,6 +193,37 @@ const showSideBar = ref(false);
     display: none;
 }
 
+.job-descriptions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5em;
+}
+
+.job-description-section {
+    display: flex;
+    gap: 1em;
+}
+
+.job-description-logo {
+    flex-grow: 1;
+    background-color: $main-color;
+    -webkit-mask: url($megaphone-logo) no-repeat center;
+    mask: url($megaphone-logo) no-repeat center;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.job-description-info {
+    flex: 17;
+}
+
+@media (max-width: $sm-screen) {
+    .job-descriptions {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: $md-screen) {
     .desktop {
         display: none;
@@ -185,6 +237,8 @@ const showSideBar = ref(false);
         width: 30px;
     }
 }
+
+//TODO: add new screen sizes
 
 @media (max-width: $md-screen) {
     .hero-info {
