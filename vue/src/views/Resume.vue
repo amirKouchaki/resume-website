@@ -12,7 +12,7 @@
                     <span class="last-name"> Kouchaki</span>
                 </h1>
             </div>
-            <nav class="main-nav">
+            <nav class="main-nav desktop">
                 <router-link :to="{ name: 'resume' }">About me</router-link>
                 <router-link :to="{ name: 'resume' }">Resume</router-link>
                 <router-link :to="{ name: 'resume' }">Portfolio</router-link>
@@ -20,6 +20,9 @@
                 <router-link :to="{ name: 'resume' }">Contact</router-link>
                 <router-link :to="{ name: 'resume' }">Extra</router-link>
             </nav>
+            <aside class="mobile">
+                <div class="sidebar-nav"></div>
+            </aside>
         </header>
         <section class="hero-section">
             <img src="../assets/images/profile.jpg" alt="" class="hero-img" />
@@ -79,6 +82,7 @@
 .hero-section {
     display: flex;
     gap: 3em;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     padding-block: 5em;
@@ -89,7 +93,8 @@
 }
 
 .hero-img {
-    width: 200px;
+    max-width: 200px;
+    min-width: 180px;
     border-radius: 999px;
     object-position: left;
     box-shadow: 0 0 23px 0 rgba(0, 0, 0, 0.8);
@@ -125,7 +130,7 @@
     &:hover {
         background-color: $border-color;
         color: $o-main-text-color;
-        transition: all 250ms ease-in-out;
+        transition: all 350ms ease-in-out;
     }
 }
 
@@ -134,6 +139,58 @@
     border: 1.1px solid $border-color;
     &:hover {
         background-color: $border-color;
+    }
+}
+
+.sidebar-nav {
+    background-color: $main-text-color;
+    -webkit-mask: url(../../public/menu-bars.svg) no-repeat center;
+    mask: url(../../public/menu-bars.svg) no-repeat center;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+}
+
+.mobile {
+    display: none;
+}
+
+@media (max-width: $md-screen) {
+    .desktop {
+        display: none;
+    }
+
+    .mobile {
+        display: inherit;
+    }
+
+    .alphabet-profile {
+        width: 30px;
+    }
+}
+
+@media (max-width: $md-screen) {
+    .hero-info {
+        text-align: center;
+    }
+
+    .hero-btns {
+        justify-content: center;
+    }
+
+    .hero-img {
+        max-width: unset;
+        width: clamp(200px, 100px + 30vw, 275px);
+    }
+
+    .hero-description {
+        width: 100%;
+    }
+    .container {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+        min-height: 100vh;
     }
 }
 </style>
