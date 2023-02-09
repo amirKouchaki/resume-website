@@ -1,5 +1,5 @@
 <template>
-    <article class="container">
+    <article class="container resume">
         <header class="resume-header">
             <div class="header-profile-info">
                 <img
@@ -13,41 +13,58 @@
                 </h1>
             </div>
             <nav class="main-nav desktop">
-                <router-link :to="{ name: 'resume' }">About me</router-link>
-                <router-link :to="{ name: 'resume' }">Resume</router-link>
-                <router-link :to="{ name: 'resume' }">Portfolio</router-link>
-                <router-link :to="{ name: 'resume' }">Blog</router-link>
-                <router-link :to="{ name: 'resume' }">Contact</router-link>
-                <router-link :to="{ name: 'resume' }">Extra</router-link>
+                <main-nav-links />
             </nav>
-            <aside class="mobile">
-                <div class="sidebar-nav"></div>
+            <aside class="mobile sidebar">
+                <div
+                    class="sidebar-logo"
+                    @click="showSideBar = !showSideBar"
+                ></div>
             </aside>
         </header>
-        <section class="hero-section">
-            <img src="../assets/images/profile.jpg" alt="" class="hero-img" />
-            <div class="hero-info">
-                <p class="short-intro">Web Designer</p>
-                <h2 class="hero-name">Amir Kouchaki</h2>
-                <p class="hero-description">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quam illum excepturi assumenda magnam, error, eligendi
-                    suscipit placeat vitae, tempora perferendis atque? Ipsa odit
-                    veritatis repellat eveniet fuga quae.
-                </p>
-                <div class="hero-btns">
-                    <button class="hero-cv-btn hero-btn">Download CV</button
-                    ><button class="hero-btn hero-contact-btn">Contact</button>
+        <section class="main-section">
+            <mobile-sidebar-nav :class="{ visible: showSideBar }" />
+            <section class="hero-section">
+                <img
+                    src="../assets/images/profile.jpg"
+                    alt=""
+                    class="hero-img"
+                />
+                <div class="hero-info">
+                    <p class="short-intro">Web Designer</p>
+                    <h2 class="hero-name">Amir Kouchaki</h2>
+                    <p class="hero-description">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Quam illum excepturi assumenda magnam, error, eligendi
+                        suscipit placeat vitae, tempora perferendis atque? Ipsa
+                        odit veritatis repellat eveniet fuga quae.
+                    </p>
+                    <div class="hero-btns">
+                        <button class="hero-cv-btn hero-btn">Download CV</button
+                        ><button class="hero-btn hero-contact-btn">
+                            Contact
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </section>
         </section>
     </article>
 </template>
 
-<script setup></script>
+<script setup>
+import MobileSidebarNav from "../components/resume/MobileSidebarNav.vue";
+import mainNavLinks from "../components/resume/MainNavLinks.vue";
+import { ref } from "@vue/reactivity";
+
+const showSideBar = ref(false);
+</script>
 
 <style lang="scss" scoped>
 @use "../abstracts" as *;
+
+.main-section {
+    position: relative;
+}
 .resume-header {
     display: flex;
     align-items: center;
@@ -142,7 +159,7 @@
     }
 }
 
-.sidebar-nav {
+.sidebar-logo {
     background-color: $main-text-color;
     -webkit-mask: url(../../public/menu-bars.svg) no-repeat center;
     mask: url(../../public/menu-bars.svg) no-repeat center;
@@ -191,6 +208,7 @@
         margin: 0;
         border-radius: 0;
         min-height: 100vh;
+        padding-block: 0.5em;
     }
 }
 </style>

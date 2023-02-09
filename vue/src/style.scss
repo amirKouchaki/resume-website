@@ -32,12 +32,17 @@ html {
     color: $main-text-color;
 }
 
+nav {
+    display: block;
+}
+
 button {
     display: block;
     cursor: pointer;
 }
 
 a {
+    display: block;
     text-decoration: none;
     color: $link-color;
     &:visited {
@@ -68,7 +73,7 @@ a {
     margin-inline: auto;
     margin-block: 2em;
     background-color: $main-bg-color;
-    padding: 2em;
+    padding: 2em $container-inline-padding;
 }
 
 .active {
