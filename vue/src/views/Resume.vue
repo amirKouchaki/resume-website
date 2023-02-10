@@ -1,89 +1,107 @@
 <template>
-    <article class="container resume">
-        <header class="resume-header">
-            <div class="header-profile-info">
-                <img
-                    class="alphabet-profile"
-                    src="../assets/images/resume-alphabet-profile.png"
-                    alt=""
-                />
-                <h1 class="header-name">
-                    <span class="first-name">Amir</span>
-                    <span class="last-name"> Kouchaki</span>
-                </h1>
-            </div>
-            <nav class="main-nav desktop">
-                <main-nav-links />
-            </nav>
-            <aside class="mobile sidebar">
-                <div
-                    class="sidebar-logo"
-                    @click="showSideBar = !showSideBar"
-                ></div>
-            </aside>
-        </header>
-        <section class="main-section">
-            <mobile-sidebar-nav :class="{ visible: showSideBar }" />
-            <section class="hero-section">
-                <img
-                    src="../assets/images/profile.jpg"
-                    alt=""
-                    class="hero-img"
-                />
-                <div class="hero-info">
-                    <p class="short-intro">Web Designer</p>
-                    <h2 class="hero-name">Amir Kouchaki</h2>
-                    <p class="hero-description">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Quam illum excepturi assumenda magnam, error, eligendi
-                        suscipit placeat vitae, tempora perferendis atque? Ipsa
-                        odit veritatis repellat eveniet fuga quae.
-                    </p>
-                    <div class="hero-btns">
-                        <button class="hero-cv-btn hero-btn">Download CV</button
-                        ><button class="hero-btn hero-contact-btn">
-                            Contact
-                        </button>
-                    </div>
-                </div>
-            </section>
-            <generic-section title="What I Do">
-                <div class="job-descriptions">
-                    <section
-                        class="job-description-section"
-                        v-for="jobDescription in jobDescriptions"
-                        :key="jobDescription.id"
-                    >
-                        <div
-                            class="job-description-logo"
-                            :style="` -webkit-mask: url(${jobDescription.logo}) no-repeat center; mask: url(${jobDescription.logo}) no-repeat center;`"
-                        ></div>
-                        <div class="job-description-info">
-                            <h3 class="job-description-heading">
-                                {{ jobDescription.title }}
-                            </h3>
-                            <p class="job-description">
-                                {{ jobDescription.description }}
-                            </p>
-                        </div>
-                    </section>
-                </div>
-            </generic-section>
-            <generic-section title="Technologies I Use">
-                <carousel></carousel>
-            </generic-section>
-
-            <generic-section title="Fun Facts">
-                <div class="fact-cards">
-                    <fact-card
-                        v-for="funFact in funFacts"
-                        :key="funFact.id"
-                        :funFact="funFact"
+    <div class="container">
+        <article class="resume">
+            <header class="resume-header">
+                <div class="header-profile-info">
+                    <img
+                        class="alphabet-profile"
+                        src="../assets/images/resume-alphabet-profile.png"
+                        alt=""
                     />
+                    <h1 class="header-name">
+                        <span class="first-name">Amir</span>
+                        <span class="last-name"> Kouchaki</span>
+                    </h1>
                 </div>
-            </generic-section>
-        </section>
-    </article>
+                <nav class="main-nav desktop">
+                    <main-nav-links />
+                </nav>
+                <aside class="mobile sidebar">
+                    <div class="sidebar-logo" @click="toggleSidebar"></div>
+                </aside>
+            </header>
+            <section class="main-section">
+                <mobile-sidebar-nav :class="{ visible: showSideBar }" />
+                <section class="hero-section">
+                    <img
+                        src="../assets/images/profile.jpg"
+                        alt=""
+                        class="hero-img"
+                    />
+                    <div class="hero-info">
+                        <p class="short-intro">Web Designer</p>
+                        <h2 class="hero-name">Amir Kouchaki</h2>
+                        <p class="hero-description">
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Quam illum excepturi assumenda magnam, error,
+                            eligendi suscipit placeat vitae, tempora perferendis
+                            atque? Ipsa odit veritatis repellat eveniet fuga
+                            quae.
+                        </p>
+                        <div class="hero-btns">
+                            <button class="hero-cv-btn hero-btn">
+                                Download CV</button
+                            ><button class="hero-btn hero-contact-btn">
+                                Contact
+                            </button>
+                        </div>
+                    </div>
+                </section>
+                <generic-section title="What I Do">
+                    <div class="job-descriptions">
+                        <section
+                            class="job-description-section"
+                            v-for="jobDescription in jobDescriptions"
+                            :key="jobDescription.id"
+                        >
+                            <div
+                                class="job-description-logo"
+                                :style="` -webkit-mask: url(${jobDescription.logo}) no-repeat center; mask: url(${jobDescription.logo}) no-repeat center;`"
+                            ></div>
+                            <div class="job-description-info">
+                                <h3 class="job-description-heading">
+                                    {{ jobDescription.title }}
+                                </h3>
+                                <p class="job-description">
+                                    {{ jobDescription.description }}
+                                </p>
+                            </div>
+                        </section>
+                    </div>
+                </generic-section>
+                <generic-section title="Technologies I Use">
+                    <carousel></carousel>
+                </generic-section>
+
+                <generic-section title="Fun Facts">
+                    <div class="fact-cards">
+                        <fact-card
+                            v-for="funFact in funFacts"
+                            :key="funFact.id"
+                            :funFact="funFact"
+                        />
+                    </div>
+                </generic-section>
+            </section>
+            <section class="resume-footer">
+                <nav class="footer-nav">
+                    <a target="_blank" href="https://github.com/amirKouchaki"
+                        >Github</a
+                    >
+                    <a target="_blank" href="https://t.me/amir3409">Telegram</a>
+                    <a href="mailto:amirkouchaki1@gmail.com">Email</a>
+                </nav>
+                <p class="copywrite">
+                    The design belongs to
+                    <a
+                        target="_blank"
+                        href="https://lmpixels.com/wp/leven-wp/dark/"
+                        >Impixels.com</a
+                    >
+                </p>
+            </section>
+        </article>
+    </div>
 </template>
 
 <script setup>
@@ -129,29 +147,34 @@ const jobDescriptions = [
 const funFacts = [
     {
         id: 1,
-        logo: "/heart.svg",
+        logo: "heart.svg",
         title: "Happy Clients",
         data: 578,
     },
     {
         id: 1,
-        logo: "/clock.svg",
+        logo: "clock.svg",
         title: "Working Hours",
         data: 4780,
     },
     {
         id: 1,
-        logo: "/star.svg",
+        logo: "star.svg",
         title: "Awards Won",
         data: 15,
     },
     {
         id: 1,
-        logo: "/mug.svg",
+        logo: "mug.svg",
         title: "Coffee Consumed",
         data: 1286,
     },
 ];
+
+const toggleSidebar = () => {
+    document.body.classList.toggle("ov-hid");
+    showSideBar.value = !showSideBar.value;
+};
 </script>
 
 <style lang="scss" scoped>
@@ -159,11 +182,13 @@ const funFacts = [
 
 .main-section {
     position: relative;
+    padding: 2em $container-inline-padding;
 }
 .resume-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 2em $container-inline-padding;
 }
 
 .header-profile-info {
@@ -256,8 +281,8 @@ const funFacts = [
 
 .sidebar-logo {
     background-color: $main-text-color;
-    -webkit-mask: url(../../public/menu-bars.svg) no-repeat center;
-    mask: url(../../public/menu-bars.svg) no-repeat center;
+    -webkit-mask: url(/menu-bars.svg) no-repeat center;
+    mask: url(/menu-bars.svg) no-repeat center;
     width: 22px;
     height: 22px;
     cursor: pointer;
@@ -301,9 +326,50 @@ const funFacts = [
     gap: 1.5em;
 }
 
+.resume-footer {
+    padding-inline: $container-inline-padding;
+    display: flex;
+    justify-content: space-between;
+    padding-block: 1em;
+    font-size: 0.9rem;
+    background-color: $footer-bg-color;
+    border-top: 2px solid $footer-border-color;
+}
+
+.footer-nav {
+    display: flex;
+    gap: 1.5em;
+}
+
+.copywrite {
+    display: flex;
+    gap: 0.2em;
+}
+
 @media (max-width: $sm-screen) {
     .job-descriptions {
         grid-template-columns: 1fr;
+    }
+
+    .fact-cards {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .resume-footer {
+        flex-direction: column;
+        gap: 0.7em;
+    }
+
+    .footer-nav,
+    .copywrite {
+        justify-content: center;
+    }
+}
+
+@media (max-width: $sm-to-md-screen) {
+    .fact-cards {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 

@@ -2,6 +2,10 @@ import { createRouter, createWebHistory } from "vue-router";
 import Resume from "../views/Resume.vue";
 const routes = [
     {
+        name: "/",
+        redirect: { name: "resume" },
+    },
+    {
         path: "/resume",
         name: "resume",
         component: Resume,

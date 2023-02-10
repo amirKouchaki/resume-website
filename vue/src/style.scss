@@ -73,9 +73,13 @@ a {
     margin-inline: auto;
     margin-block: 2em;
     background-color: $main-bg-color;
-    padding: 2em $container-inline-padding;
+    overflow: hidden;
 }
 
 .active {
     color: $active-link-color;
+}
+
+.ov-hid {
+    overflow: hidden;
 }
