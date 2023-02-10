@@ -16,6 +16,7 @@ const routes = [
 ];
 
 const router = createRouter({
+    base: "/resume-website/",
     history: createWebHistory(),
     routes,
 });
