@@ -13,11 +13,11 @@ const routes = [
             title: "resume",
         },
     },
+    { path: "/:pathMatch(.*)*", redirect: { name: "resume" } },
 ];
 
 const router = createRouter({
-    base: "/resume-website/",
-    history: createWebHistory(),
+    history: createWebHistory(process.env.BASE_URL),
     routes,
 });
 

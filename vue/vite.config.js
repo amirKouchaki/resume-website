@@ -3,6 +3,7 @@ import vue from "@vitejs/plugin-vue";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    base: "/resume-website/",
+    publicPath:
+        process.env.NODE_ENV === "production" ? "/faroptic-clone/" : "/",
     plugins: [vue()],
 });
