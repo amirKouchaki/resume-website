@@ -51,20 +51,35 @@
                 <div class="job-descriptions">
                     <section
                         class="job-description-section"
-                        v-for="n in 4"
-                        :key="n"
+                        v-for="jobDescription in jobDescriptions"
+                        :key="jobDescription.id"
                     >
-                        <div class="job-description-logo"></div>
+                        <div
+                            class="job-description-logo"
+                            :style="` -webkit-mask: url(${jobDescription.logo}) no-repeat center; mask: url(${jobDescription.logo}) no-repeat center;`"
+                        ></div>
                         <div class="job-description-info">
-                            <h3 class="job-description-header">Copywrite</h3>
+                            <h3 class="job-description-heading">
+                                {{ jobDescription.title }}
+                            </h3>
                             <p class="job-description">
-                                Lorem ipsum dolor, sit amet consectetur
-                                adipisicing elit. Incidunt id doloribus sint,
-                                cum recusandae quas. Eligendi laborum assumenda
-                                numquam perferendis.
+                                {{ jobDescription.description }}
                             </p>
                         </div>
                     </section>
+                </div>
+            </generic-section>
+            <generic-section title="Technologies I Use">
+                <carousel></carousel>
+            </generic-section>
+
+            <generic-section title="Fun Facts">
+                <div class="fact-cards">
+                    <fact-card
+                        v-for="funFact in funFacts"
+                        :key="funFact.id"
+                        :funFact="funFact"
+                    />
                 </div>
             </generic-section>
         </section>
@@ -76,8 +91,67 @@ import MobileSidebarNav from "../components/resume/MobileSidebarNav.vue";
 import mainNavLinks from "../components/resume/MainNavLinks.vue";
 import GenericSection from "../components/resume/GenericSection.vue";
 import { ref } from "@vue/reactivity";
-
+import Carousel from "../components/Carousel.vue";
+import FactCard from "../components/resume/FactCard.vue";
 const showSideBar = ref(false);
+
+const jobDescriptions = [
+    {
+        id: 1,
+        logo: "/pencil.svg",
+        title: "Copywrite",
+        description:
+            " Lorem ipsum dolor, sit amet consecteturadipisicing elit. Incidunt id doloribus sint,cum recusandae quas. Eligendi laborum assumenda numquam perferendis.",
+    },
+    {
+        id: 2,
+        logo: "/shop.svg",
+        title: "Ecommerce",
+        description:
+            " Lorem ipsum dolor, sit amet consecteturadipisicing elit. Incidunt id doloribus sint,cum recusandae quas. Eligendi laborum assumenda numquam perferendis.",
+    },
+    {
+        id: 3,
+        logo: "/monitor.svg",
+        title: "Web Design",
+        description:
+            " Lorem ipsum dolor, sit amet consecteturadipisicing elit. Incidunt id doloribus sint,cum recusandae quas. Eligendi laborum assumenda numquam perferendis.",
+    },
+    {
+        id: 4,
+        logo: "/megaphone.svg",
+        title: "Marketing",
+        description:
+            " Lorem ipsum dolor, sit amet consecteturadipisicing elit. Incidunt id doloribus sint,cum recusandae quas. Eligendi laborum assumenda numquam perferendis.",
+    },
+];
+
+const funFacts = [
+    {
+        id: 1,
+        logo: "/heart.svg",
+        title: "Happy Clients",
+        data: 578,
+    },
+    {
+        id: 1,
+        logo: "/clock.svg",
+        title: "Working Hours",
+        data: 4780,
+    },
+    {
+        id: 1,
+        logo: "/star.svg",
+        title: "Awards Won",
+        data: 15,
+    },
+    {
+        id: 1,
+        logo: "/mug.svg",
+        title: "Coffee Consumed",
+        data: 1286,
+    },
+];
 </script>
 
 <style lang="scss" scoped>
@@ -204,11 +278,14 @@ const showSideBar = ref(false);
     gap: 1em;
 }
 
+.job-description-heading {
+    margin-bottom: 0.3em;
+}
+
 .job-description-logo {
     flex-grow: 1;
     background-color: $main-color;
-    -webkit-mask: url($megaphone-logo) no-repeat center;
-    mask: url($megaphone-logo) no-repeat center;
+
     width: 25px;
     height: 25px;
     cursor: pointer;
@@ -216,6 +293,12 @@ const showSideBar = ref(false);
 
 .job-description-info {
     flex: 17;
+}
+
+.fact-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5em;
 }
 
 @media (max-width: $sm-screen) {

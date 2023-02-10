@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="generic-section">
         <h2 class="generic-heading">{{ title }}</h2>
         <slot> </slot>
     </section>
@@ -13,6 +13,10 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 @use "../../abstracts" as *;
+
+.generic-section {
+    margin-bottom: 5em;
+}
 .generic-heading {
     position: relative;
     font-size: 1.2rem;
@@ -30,7 +34,7 @@ const props = defineProps({
         line-height: 1.6;
         bottom: 0;
         width: 100%;
-        transform: translateY(2px);
+        transform: translateY(3px);
     }
 
     &::after {
@@ -42,7 +46,7 @@ const props = defineProps({
         background-color: $main-color;
         line-height: 1.6;
         bottom: 0;
-        transform: translateY(2px);
+        transform: translateY(3px);
     }
 }
 </style>
