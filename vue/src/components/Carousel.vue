@@ -23,14 +23,14 @@ import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 
 const technologies = [
-    { id: 1, logo: "/assets/svgs/css.svg" },
-    { id: 2, logo: "/assets/svgs/database.svg" },
-    { id: 3, logo: "/assets/svgs/docker.svg" },
-    { id: 4, logo: "/assets/svgs/git.svg" },
-    { id: 5, logo: "/assets/svgs/javascript.svg" },
-    { id: 6, logo: "/assets/svgs/laravel.svg" },
-    { id: 7, logo: "/assets/svgs/linux.svg" },
-    { id: 8, logo: "/assets/svgs/vue.svg" },
+    { id: 1, logo: "svgs/css.svg" },
+    { id: 2, logo: "svgs/database.svg" },
+    { id: 3, logo: "svgs/docker.svg" },
+    { id: 4, logo: "svgs/git.svg" },
+    { id: 5, logo: "svgs/javascript.svg" },
+    { id: 6, logo: "svgs/laravel.svg" },
+    { id: 7, logo: "svgs/linux.svg" },
+    { id: 8, logo: "svgs/vue.svg" },
 ];
 </script>
 

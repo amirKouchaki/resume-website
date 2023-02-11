@@ -112,32 +112,31 @@ import { ref } from "@vue/reactivity";
 import Carousel from "../components/Carousel.vue";
 import FactCard from "../components/resume/FactCard.vue";
 const showSideBar = ref(false);
-
 const jobDescriptions = [
     {
         id: 1,
-        logo: "/assets/svgs/pencil.svg",
+        logo: "svgs/pencil.svg",
         title: "Copywrite",
         description:
             " Lorem ipsum dolor, sit amet consecteturadipisicing elit. Incidunt id doloribus sint,cum recusandae quas. Eligendi laborum assumenda numquam perferendis.",
     },
     {
         id: 2,
-        logo: "/assets/svgs/shop.svg",
+        logo: "svgs/shop.svg",
         title: "Ecommerce",
         description:
             " Lorem ipsum dolor, sit amet consecteturadipisicing elit. Incidunt id doloribus sint,cum recusandae quas. Eligendi laborum assumenda numquam perferendis.",
     },
     {
         id: 3,
-        logo: "/assets/svgs/monitor.svg",
+        logo: "svgs/monitor.svg",
         title: "Web Design",
         description:
             " Lorem ipsum dolor, sit amet consecteturadipisicing elit. Incidunt id doloribus sint,cum recusandae quas. Eligendi laborum assumenda numquam perferendis.",
     },
     {
         id: 4,
-        logo: "/assets/svgs/megaphone.svg",
+        logo: "svgs/megaphone.svg",
         title: "Marketing",
         description:
             " Lorem ipsum dolor, sit amet consecteturadipisicing elit. Incidunt id doloribus sint,cum recusandae quas. Eligendi laborum assumenda numquam perferendis.",
@@ -147,25 +146,25 @@ const jobDescriptions = [
 const funFacts = [
     {
         id: 1,
-        logo: "/assets/svgs/heart.svg",
+        logo: "svgs/heart.svg",
         title: "Happy Clients",
         data: 578,
     },
     {
         id: 2,
-        logo: "/assets/svgs/clock.svg",
+        logo: "svgs/clock.svg",
         title: "Working Hours",
         data: 4780,
     },
     {
         id: 3,
-        logo: "/assets/svgs/star.svg",
+        logo: "svgs/star.svg",
         title: "Awards Won",
         data: 15,
     },
     {
         id: 4,
-        logo: "/assets/svgs/mug.svg",
+        logo: "svgs/mug.svg",
         title: "Coffee Consumed",
         data: 1286,
     },
@@ -264,25 +263,29 @@ const toggleSidebar = () => {
     padding: 0.45em 1.4em;
     border-radius: 1.2em;
 
-    &:hover {
+    &:hover,
+    &:focus {
         background-color: $border-color;
         color: $o-main-text-color;
         transition: all 350ms ease-in-out;
+        outline: none;
     }
 }
 
 .hero-cv-btn {
     $border-color: $main-button-border-color;
     border: 1.1px solid $border-color;
-    &:hover {
+    user-select: none;
+    &:hover,
+    &:focus {
         background-color: $border-color;
     }
 }
 
 .sidebar-logo {
     background-color: $main-text-color;
-    -webkit-mask: url(/menu-bars.svg) no-repeat center;
-    mask: url(/menu-bars.svg) no-repeat center;
+    -webkit-mask: url(../assets/menu-bars.svg) no-repeat center;
+    mask: url(../assets/menu-bars.svg) no-repeat center;
     width: 22px;
     height: 22px;
     cursor: pointer;
