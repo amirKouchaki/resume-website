@@ -116,28 +116,28 @@ const showSideBar = ref(false);
 const jobDescriptions = [
     {
         id: 1,
-        logo: "/pencil.svg",
+        logo: "/assets/svgs/pencil.svg",
         title: "Copywrite",
         description:
             " Lorem ipsum dolor, sit amet consecteturadipisicing elit. Incidunt id doloribus sint,cum recusandae quas. Eligendi laborum assumenda numquam perferendis.",
     },
     {
         id: 2,
-        logo: "/shop.svg",
+        logo: "/assets/svgs/shop.svg",
         title: "Ecommerce",
         description:
             " Lorem ipsum dolor, sit amet consecteturadipisicing elit. Incidunt id doloribus sint,cum recusandae quas. Eligendi laborum assumenda numquam perferendis.",
     },
     {
         id: 3,
-        logo: "/monitor.svg",
+        logo: "/assets/svgs/monitor.svg",
         title: "Web Design",
         description:
             " Lorem ipsum dolor, sit amet consecteturadipisicing elit. Incidunt id doloribus sint,cum recusandae quas. Eligendi laborum assumenda numquam perferendis.",
     },
     {
         id: 4,
-        logo: "/megaphone.svg",
+        logo: "/assets/svgs/megaphone.svg",
         title: "Marketing",
         description:
             " Lorem ipsum dolor, sit amet consecteturadipisicing elit. Incidunt id doloribus sint,cum recusandae quas. Eligendi laborum assumenda numquam perferendis.",
@@ -147,25 +147,25 @@ const jobDescriptions = [
 const funFacts = [
     {
         id: 1,
-        logo: "heart.svg",
+        logo: "/assets/svgs/heart.svg",
         title: "Happy Clients",
         data: 578,
     },
     {
-        id: 1,
-        logo: "clock.svg",
+        id: 2,
+        logo: "/assets/svgs/clock.svg",
         title: "Working Hours",
         data: 4780,
     },
     {
-        id: 1,
-        logo: "star.svg",
+        id: 3,
+        logo: "/assets/svgs/star.svg",
         title: "Awards Won",
         data: 15,
     },
     {
-        id: 1,
-        logo: "mug.svg",
+        id: 4,
+        logo: "/assets/svgs/mug.svg",
         title: "Coffee Consumed",
         data: 1286,
     },

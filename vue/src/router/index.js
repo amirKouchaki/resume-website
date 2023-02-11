@@ -2,11 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Resume from "../views/Resume.vue";
 const routes = [
     {
-        name: "/",
-        redirect: { name: "resume" },
-    },
-    {
-        path: "/resume",
+        path: "/",
         name: "resume",
         component: Resume,
         meta: {
@@ -17,7 +13,7 @@ const routes = [
 ];
 
 const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
+    history: createWebHistory("resume-website"),
     routes,
 });
 
