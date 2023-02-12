@@ -2,8 +2,10 @@
     <div class="fact-card">
         <div
             class="fact-logo"
-            :style="`-webkit-mask: url(${funFact.logo}) no-repeat center;
-    mask: url(${funFact.logo}) no-repeat center;`"
+            :style="`-webkit-mask: url(${publicPath(
+                funFact.logo
+            )}) no-repeat center;
+    mask: url(${publicPath(funFact.logo)}) no-repeat center;`"
         ></div>
         <h3 class="fact-heading">{{ funFact.title }}</h3>
         <p class="fact-data">
@@ -17,6 +19,7 @@
 </template>
 
 <script setup>
+import { publicPath } from "../../composables/publicUrl";
 const props = defineProps({
     funFact: Object,
 });

@@ -56,7 +56,11 @@
                         >
                             <div
                                 class="job-description-logo"
-                                :style="` -webkit-mask: url(${jobDescription.logo}) no-repeat center; mask: url(${jobDescription.logo}) no-repeat center;`"
+                                :style="` -webkit-mask: url(${publicPath(
+                                    jobDescription.logo
+                                )}) no-repeat center; mask: url(${publicPath(
+                                    jobDescription.logo
+                                )}) no-repeat center;`"
                             ></div>
                             <div class="job-description-info">
                                 <h3 class="job-description-heading">
@@ -105,6 +109,7 @@
 </template>
 
 <script setup>
+import { publicPath } from "../composables/publicUrl";
 import MobileSidebarNav from "../components/resume/MobileSidebarNav.vue";
 import mainNavLinks from "../components/resume/MainNavLinks.vue";
 import GenericSection from "../components/resume/GenericSection.vue";
@@ -284,8 +289,8 @@ const toggleSidebar = () => {
 
 .sidebar-logo {
     background-color: $main-text-color;
-    -webkit-mask: url(../assets/menu-bars.svg) no-repeat center;
-    mask: url(../assets/menu-bars.svg) no-repeat center;
+    -webkit-mask: url(/svgs/menu-bars.svg) no-repeat center;
+    mask: url(/svgs/menu-bars.svg) no-repeat center;
     width: 22px;
     height: 22px;
     cursor: pointer;

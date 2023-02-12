@@ -7,7 +7,11 @@
     >
         <Slide v-for="technology in technologies" :key="technology.id">
             <div class="carousel__item">
-                <img class="technology-logo" :src="technology.logo" alt="" />
+                <img
+                    class="technology-logo"
+                    :src="publicPath(technology.logo)"
+                    alt=""
+                />
             </div>
         </Slide>
 
@@ -18,6 +22,7 @@
 </template>
 
 <script setup>
+import { publicPath } from "../composables/publicUrl";
 // If you are using PurgeCSS, make sure to whitelist the carousel CSS classes
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
@@ -27,7 +32,10 @@ const technologies = [
     { id: 2, logo: "svgs/database.svg" },
     { id: 3, logo: "svgs/docker.svg" },
     { id: 4, logo: "svgs/git.svg" },
-    { id: 5, logo: "svgs/javascript.svg" },
+    {
+        id: 5,
+        logo: "svgs/javascript.svg",
+    },
     { id: 6, logo: "svgs/laravel.svg" },
     { id: 7, logo: "svgs/linux.svg" },
     { id: 8, logo: "svgs/vue.svg" },
