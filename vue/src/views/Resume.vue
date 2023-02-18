@@ -188,6 +188,7 @@ const toggleSidebar = () => {
     position: relative;
     padding: 2em $container-inline-padding;
 }
+
 .resume-header {
     display: flex;
     align-items: center;
