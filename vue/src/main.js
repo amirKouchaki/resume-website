@@ -6,4 +6,22 @@ import router from "./router";
 
 const pinia = createPinia();
 
-createApp(App).use(router).use(pinia).mount("#app");
+const app = createApp(App);
+
+app.directive("modal-click-away", {
+    mounted: (el, bindings) => {
+        document.addEventListener("click", (e) => {
+            const modal =
+                document.getElementsByClassName("modal-background")[0];
+            if (
+                el !== null &&
+                el.contains(e.target) === false &&
+                e.target === modal
+            ) {
+                bindings.value();
+            }
+        });
+    },
+});
+
+app.use(router).use(pinia).mount("#app");

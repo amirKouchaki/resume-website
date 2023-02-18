@@ -1,27 +1,20 @@
 <template>
-    <div class="h" @click="isActive = !isActive">hello</div>
+    <div class="h" @click="toggleModal">hello</div>
 
-    <div id="modal-container" :class="{ six: isActive }">
+    <div
+        id="modal-container"
+        class="model-container"
+        :class="{ active: isActive }"
+    >
         <div class="modal-background">
-            <div class="border-animation" :class="{ active: isActive }">
-                <div class="border-animation__inner">
-                    <div class="modal h2">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Dicta praesentium vero atque unde nihil nulla fuga
-                        tempora cum tenetur explicabo est eum distinctio, hic,
-                        officiis odio dolores suscipit facilis labore deserunt
-                        velit, quibusdam sequi asperiores. A praesentium quis
-                        placeat veniam, reiciendis asperiores, quasi ut
-                        excepturi enim ducimus rerum unde voluptatem molestias
-                        porro cupiditate nemo perferendis corporis eos! Ut,
-                        voluptatum! Dolores aut iusto at maxime similique
-                        reiciendis est dignissimos tempora necessitatibus illum
-                        accusamus doloremque odio obcaecati beatae, distinctio
-                        autem architecto nihil quia ab? Voluptatum laboriosam
-                        ipsam nisi, obcaecati nostrum inventore veritatis nobis
-                        pariatur fuga dolore temporibus officia in itaque
-                        cupiditate repudiandae.
-                    </div>
+            <div
+                class="border-animation"
+                :class="{ active: isActive }"
+                v-modal-click-away="closeModal"
+            >
+                <div class="modal">
+                    <h3>{{ title }}</h3>
+                    <slot></slot>
                 </div>
             </div>
         </div>
@@ -31,13 +24,23 @@
 <script setup>
 import { ref } from "@vue/reactivity";
 
-const isActive = ref(false);
+const props = defineProps({ title: String });
+const isActive = ref(true);
+const closeModal = () => {
+    document.body.classList.remove("ov-hid");
+    isActive.value = false;
+};
+const toggleModal = () => {
+    document.body.classList.toggle("ov-hid");
+    isActive.value = !isActive.value;
+};
 </script>
 
 <style lang="scss" scoped>
+@use "../abstracts" as *;
 .border-animation {
-    --border-width: 0.2em;
-    --animation-speed: 0.6s;
+    --border-width: 5px;
+    --animation-speed: 0.8s;
     position: relative;
     display: inline-block;
     line-height: 1em;
@@ -159,23 +162,29 @@ const isActive = ref(false);
         border-bottom-color: transparent;
         border-left-color: transparent;
     }
-    33% {
-        border-top-color: var(--color);
+    25% {
+        border-top-color: $main-modal-border-color;
         border-right-color: transparent;
         border-bottom-color: transparent;
         border-left-color: transparent;
     }
-    66% {
-        border-top-color: var(--color);
-        border-right-color: var(--color);
+    50% {
+        border-top-color: $main-modal-border-color;
+        border-right-color: $main-modal-border-color;
         border-bottom-color: transparent;
-        border-left-color: var(--color);
+        border-left-color: transparent;
+    }
+    75% {
+        border-top-color: $main-modal-border-color;
+        border-right-color: $main-modal-border-color;
+        border-bottom-color: $main-modal-border-color;
+        border-left-color: transparent;
     }
     100% {
-        border-top-color: var(--color);
-        border-right-color: var(--color);
-        border-bottom-color: var(--color);
-        border-left-color: var(--color);
+        border-top-color: $main-modal-border-color;
+        border-right-color: $main-modal-border-color;
+        border-bottom-color: $main-modal-border-color;
+        border-left-color: $main-modal-border-color;
     }
 }
 
@@ -189,7 +198,7 @@ const isActive = ref(false);
     transform: scale(0);
     z-index: 1;
 
-    &.six {
+    &.active {
         transform: scale(1);
         .modal-background {
             background: rgba(0, 0, 0, 0);
@@ -237,71 +246,10 @@ const isActive = ref(false);
         vertical-align: middle;
         .modal {
             background: gray;
-            padding: 50px;
             display: inline-block;
             border-radius: 3px;
             font-weight: 300;
-            width: 300px;
             position: relative;
-            h2 {
-                font-size: 25px;
-                line-height: 25px;
-                margin-bottom: 15px;
-            }
-            p {
-                font-size: 18px;
-                line-height: 22px;
-            }
-            .modal-svg {
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 100%;
-                width: 100%;
-                border-radius: 3px;
-                rect {
-                    stroke: #fff;
-                    stroke-width: 2px;
-                    stroke-dasharray: 778;
-                    stroke-dashoffset: 778;
-                }
-            }
-        }
-    }
-}
-
-.content {
-    min-height: 100%;
-    height: 100%;
-    background: white;
-    position: relative;
-    z-index: 0;
-    h1 {
-        padding: 75px 0 30px 0;
-        text-align: center;
-        font-size: 30px;
-        line-height: 30px;
-    }
-    .buttons {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 0;
-        text-align: center;
-        .button {
-            display: inline-block;
-            text-align: center;
-            padding: 10px 15px;
-            margin: 10px;
-            background: red;
-            font-size: 18px;
-            background-color: #efefef;
-            border-radius: 3px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            &:hover {
-                color: white;
-                background: #009bd5;
-            }
         }
     }
 }
@@ -546,13 +494,13 @@ const isActive = ref(false);
         background-color: transparent;
     }
     100% {
-        background-color: gray;
+        background-color: $main-modal-bg-color;
     }
 }
 
 @keyframes modalFadeOut {
     0% {
-        background-color: gray;
+        background-color: $main-modal-bg-color;
     }
     100% {
         background-color: transparent;
