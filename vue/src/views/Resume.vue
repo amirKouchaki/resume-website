@@ -1,4 +1,5 @@
 <template>
+    <h3 @click="isActive = !isActive">hello</h3>
     <div class="container">
         <article class="resume">
             <header class="resume-header">
@@ -106,6 +107,15 @@
             </section>
         </article>
     </div>
+    <support-modal v-model="isActive">
+        <form class="support-form">
+            <h3 class="contact-form-heading">Contact me</h3>
+            <form-input type="text" labelText="Name" inputType="normal" />
+            <form-input type="email" labelText="Email" inputType="normal" />
+            <form-input labelText="Text" inputType="textarea" />
+            <form-button />
+        </form>
+    </support-modal>
 </template>
 
 <script setup>
@@ -116,6 +126,10 @@ import GenericSection from "../components/resume/GenericSection.vue";
 import { ref } from "@vue/reactivity";
 import Carousel from "../components/Carousel.vue";
 import FactCard from "../components/resume/FactCard.vue";
+import supportModal from "../components/SupportModal.vue";
+import FormInput from "../components/FormInput.vue";
+import FormButton from "../components/FormButton.vue";
+const isActive = ref(false);
 const showSideBar = ref(false);
 const jobDescriptions = [
     {
@@ -422,5 +436,17 @@ const toggleSidebar = () => {
         min-height: 100vh;
         padding-block: 0.5em;
     }
+}
+
+.support-form {
+    padding: 2em 1em;
+}
+
+.contact-form-heading {
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 2rem;
+    letter-spacing: 0.7px;
+    line-height: 1.6;
 }
 </style>

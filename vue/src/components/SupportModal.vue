@@ -1,19 +1,16 @@
 <template>
-    <div class="h" @click="toggleModal">hello</div>
-
     <div
         id="modal-container"
         class="model-container"
-        :class="{ active: isActive }"
+        :class="{ active: modelValue }"
     >
         <div class="modal-background">
             <div
                 class="border-animation"
-                :class="{ active: isActive }"
+                :class="{ active: modelValue }"
                 v-modal-click-away="closeModal"
             >
                 <div class="modal">
-                    <h3>{{ title }}</h3>
                     <slot></slot>
                 </div>
             </div>
@@ -24,15 +21,11 @@
 <script setup>
 import { ref } from "@vue/reactivity";
 
-const props = defineProps({ title: String });
-const isActive = ref(true);
+const props = defineProps(["modelValue", "title"]);
+const emits = defineEmits(["update:modelValue"]);
 const closeModal = () => {
     document.body.classList.remove("ov-hid");
-    isActive.value = false;
-};
-const toggleModal = () => {
-    document.body.classList.toggle("ov-hid");
-    isActive.value = !isActive.value;
+    emits("update:modelValue", false);
 };
 </script>
 
@@ -41,6 +34,7 @@ const toggleModal = () => {
 .border-animation {
     --border-width: 5px;
     --animation-speed: 0.8s;
+    width: min(50em, 80%);
     position: relative;
     display: inline-block;
     line-height: 1em;
@@ -250,6 +244,7 @@ const toggleModal = () => {
             border-radius: 3px;
             font-weight: 300;
             position: relative;
+            width: 100%;
         }
     }
 }
