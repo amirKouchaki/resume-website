@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Listeners\UpdateAdminOnNewUserRegistration;
+use App\Listeners\UpdateUserOnRegistrationStatus;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;

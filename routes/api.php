@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
+
     return $request->user();
 });
 Route::post('send-sms',function (Request $request){
@@ -32,4 +33,7 @@ Route::post('send-sms',function (Request $request){
     }
 });
 
-require __DIR__.'/auth.php';
+Route::post('/hello',function (Request $request){
+   return "hello from me";
+});
+

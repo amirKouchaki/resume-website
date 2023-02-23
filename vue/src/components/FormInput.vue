@@ -11,7 +11,7 @@
     <div
         class="form-group text-area"
         v-if="inputType == 'textarea'"
-        @click="hello"
+        @click="focusElement"
     >
         <textarea
             ref="inputRef"
@@ -29,7 +29,7 @@ import { ref } from "@vue/reactivity";
 
 const props = defineProps(["type", "labelText", "inputType"]);
 const inputRef = ref(null);
-const hello = () => {
+const focusElement = () => {
     console.log(inputRef.value.focus());
 };
 </script>
