@@ -29,11 +29,13 @@ class CreateNewUser implements CreatesNewUsers
                 'max:255',
                 Rule::unique(User::class),
             ],
+            'phone' => ['required','string','max:30'],
             'password' => $this->passwordRules(),
         ])->validate();
         $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
+            'phone' =>$input['phone'],
             'password' => Hash::make($input['password']),
         ]);
 
