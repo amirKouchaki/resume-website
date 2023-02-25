@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->text('title');
             $table->longText('body');
-            $table->morphs('sender');
-            $table->foreignIdFor(\App\Models\ThreadMessage::class,'thread_message_id');
+            $table->morphs('replyable');
+            $table->foreignIdFor(\App\Models\MessageThread::class,'message_thread_id');
             $table->timestamps();
         });
     }

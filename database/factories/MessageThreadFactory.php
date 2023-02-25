@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ThreadMessage>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\MessageThread>
  */
-class ThreadMessageFactory extends Factory
+class MessageThreadFactory extends Factory
 {
     /**
      * Define the model's default state.

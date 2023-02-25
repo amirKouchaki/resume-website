@@ -51,16 +51,17 @@ class User extends Authenticatable
     }
 
 
-    public function messages(): HasManyThrough
+    public function messageThreads(): HasManyThrough
     {
-        return $this->hasManyThrough(Message::class, ContactPerson::class);
+        return $this->hasManyThrough(MessageThread::class, ContactPerson::class);
     }
 
-    public function ownsMessage($messageId): bool
+    public function ownsThreadMessage($messageThread): bool
     {
-        $message = User::query()->whereRelation('messages', 'id', 'message_id', $messageId)->first();
+        //checks if the id of any of the message threads created by the user matches the one they want to reply to
+        $messageThread = User::query()->whereRelation('messageThreads', 'id', $messageThread->id)->first();
 
-        if (is_null($message))
+        if (is_null($messageThread))
             return false;
         return true;
     }
