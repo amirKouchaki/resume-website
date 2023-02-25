@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::create('replies', function (Blueprint $table) {
             $table->id();
             $table->text('title');
             $table->longText('body');
-            $table->foreignIdFor(\App\Models\Message::class,'message_id')->nullable();
-            $table->foreignId('contact_person_id')->constrained();
+            $table->morphs('sender');
+            $table->foreignIdFor(\App\Models\ThreadMessage::class,'thread_message_id');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('messages');
+        Schema::dropIfExists('replies');
     }
 };

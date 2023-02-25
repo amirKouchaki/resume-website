@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email');
-            $table->string('phone')->unique();
+            $table->string('phone');
             $table->foreignIdFor(\App\Models\User::class,'user_id')->nullable();
             $table->timestamps();
         });
