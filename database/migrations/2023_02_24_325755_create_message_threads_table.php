@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('title');
             $table->longText('body');
-            $table->foreignIdFor(\App\Models\ContactPerson::class,'contact_person_id');
+            $table->foreignIdFor(\App\Models\ContactPerson::class,'contact_person_id')->constrained();
             $table->timestamps();
         });
     }
