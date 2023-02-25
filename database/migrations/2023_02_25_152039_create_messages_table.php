@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id();
             $table->text('title');
             $table->longText('body');
-            $table->foreignIdFor(\App\Models\Message::class,'reply_to')->nullable();
-            $table->foreignId('user_id')->nullable()->constrained();
-            $table->foreignId('contact_person_id')->nullable()->constrained();
+            $table->foreignIdFor(\App\Models\Message::class,'message_id')->nullable();
+            $table->foreignId('contact_person_id')->constrained();
             $table->timestamps();
         });
     }
