@@ -56,14 +56,6 @@ class User extends Authenticatable
         return $this->hasManyThrough(MessageThread::class, ContactPerson::class);
     }
 
-    public function ownsThreadMessage(MessageThread $messageThread): bool
-    {
-        //checks if the id of any of the message threads created by the user matches the one they want to reply to
-        $messageThread = User::query()->whereRelation('messageThreads', 'id', $messageThread->id)->first();
 
-        if (is_null($messageThread))
-            return false;
-        return true;
-    }
 
 }

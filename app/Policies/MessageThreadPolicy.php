@@ -13,25 +13,23 @@ class MessageThreadPolicy
 
     #[Pure] public function before(User $user, string $ability): ?bool
     {
-        if ($user->isAdministrator())
+        if ($user?->isAdministrator())
             return true;
 
         return null;
     }
 
 
-
-
-    public function replyTo(User $user,MessageThread $messageThread): bool
+    public function replyTo(User $user, MessageThread $messageThread): bool
     {
         /*
          * TODO: handle snowflake authentication
          */
-        if($user->ownsThreadMessage($messageThread))
-            return true;
+        if (is_null($user) && $messageThread->isCreatedByAnAuthenticatedUser())
+            return false;
 
 
-        return false;
+        return true;
     }
 
 
@@ -40,7 +38,7 @@ class MessageThreadPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+
     }
 
     /**
@@ -48,7 +46,11 @@ class MessageThreadPolicy
      */
     public function view(User $user, MessageThread $messageThread): bool
     {
-        //
+        if (is_null($user) && $messageThread->isCreatedByAnAuthenticatedUser())
+            return false;
+
+
+        return true;
     }
 
     /**
