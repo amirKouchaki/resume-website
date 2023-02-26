@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\ContactPerson;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class MessageThreadFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => fake()->title(),
+            'body' => fake()->paragraph(),
+            'contact_person_id' => ContactPerson::factory()
         ];
     }
 }

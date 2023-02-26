@@ -12,6 +12,6 @@ class MessageThreadSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+
     }
 }
