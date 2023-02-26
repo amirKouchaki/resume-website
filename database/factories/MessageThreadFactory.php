@@ -18,7 +18,7 @@ class MessageThreadFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->title(),
+            'title' => fake()->sentence(),
             'body' => fake()->paragraph(),
             'contact_person_id' => ContactPerson::factory()
         ];

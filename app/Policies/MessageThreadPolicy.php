@@ -38,7 +38,7 @@ class MessageThreadPolicy
      */
     public function viewAny(User $user): bool
     {
-
+        return false;
     }
 
     /**
@@ -74,7 +74,7 @@ class MessageThreadPolicy
      */
     public function delete(User $user, MessageThread $messageThread): bool
     {
-        //
+
     }
 
     /**

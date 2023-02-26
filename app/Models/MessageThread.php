@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Kra8\Snowflake\HasShortflakePrimary;
 
 class MessageThread extends Model
@@ -13,6 +14,11 @@ class MessageThread extends Model
     public function isCreatedByAnAuthenticatedUser(): bool
     {
         //checks if there are any users associated with the requested messageThread
-        return User::query()->whereRelation('messageThreads','id',$this->id)->exists();
+        return User::query()->whereRelation('messageThreads', 'id', $this->id)->exists();
+    }
+
+    public function replies(): HasMany
+    {
+        return $this->hasMany(Reply::class);
     }
 }
