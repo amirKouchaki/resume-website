@@ -14,6 +14,14 @@ class ContactPersonResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'name' => $this->name,
+            $this->mergeWhen(\request()->user()?->isAdministrator(), [
+                'email' => $this->email,
+                'phone' => $this->phone,
+            ]),
+            'created_at' => $this->created_at,
+            'message_thread' => new MessageThreadResource($this->whenLoaded('messageThread'))
+        ];
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\MessageThread;
+use App\Models\Reply;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +11,10 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ReplyFactory extends Factory
 {
+
+
+    protected $model = Reply::class;
+
     /**
      * Define the model's default state.
      *
@@ -17,7 +23,10 @@ class ReplyFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => fake()->sentence(),
+            'body' => fake()->paragraph(),
+            'message_thread_id' => MessageThread::factory()
+
         ];
     }
 }

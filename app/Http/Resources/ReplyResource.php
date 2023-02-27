@@ -3,29 +3,29 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class ReplyCollection extends ResourceCollection
+class ReplyResource extends JsonResource
 {
     /**
-     * Transform the resource collection into an array.
+     * Transform the resource into an array.
      *
-     * @return array<int|string, mixed>
+     * @return array<string, mixed>
      */
     public function toArray(Request $request): array
     {
         return [
             'title' => $this->title,
             'body' => $this->body,
-            $this->mergeWhen(auth()->user()?->isAdministrator(),[
-                $this->whenLoaded('replyable',[
+            $this->mergeWhen(auth()->user()?->isAdministrator(),
+                $this->whenLoaded('replyable', [
                     'sender' => [
                         'name' => $this->replyable->name,
                         'email' => $this->replyable->email,
                         'phone' => $this->replyable->phone
                     ]
                 ])
-            ]),
+            ),
             'created_at' => $this->created_at
         ];
     }

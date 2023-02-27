@@ -19,7 +19,7 @@ class MessageThreadResource extends JsonResource
             'title' => $this->title,
             'body' => $this->body,
             'created_at' => $this->created_at,
-            'replies' => new ReplyCollection($this->whenLoaded('replies'))
+            'replies' => ReplyResource::collection($this->whenLoaded('replies'))
         ];
     }
 }

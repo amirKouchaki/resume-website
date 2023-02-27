@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -54,6 +55,11 @@ class User extends Authenticatable
     public function messageThreads(): HasManyThrough
     {
         return $this->hasManyThrough(MessageThread::class, ContactPerson::class);
+    }
+
+    public function contactPeople(): HasMany
+    {
+        return $this->hasMany(ContactPerson::class,'contact_person_id');
     }
 
 
