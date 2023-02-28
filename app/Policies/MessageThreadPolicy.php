@@ -58,7 +58,7 @@ class MessageThreadPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return false;
     }
 
     /**
@@ -66,7 +66,7 @@ class MessageThreadPolicy
      */
     public function update(User $user, MessageThread $messageThread): bool
     {
-        //
+        return false;
     }
 
     /**
@@ -74,7 +74,7 @@ class MessageThreadPolicy
      */
     public function delete(User $user, MessageThread $messageThread): bool
     {
-
+        return false;
     }
 
     /**
@@ -82,7 +82,7 @@ class MessageThreadPolicy
      */
     public function restore(User $user, MessageThread $messageThread): bool
     {
-        //
+        return false;
     }
 
     /**
@@ -90,6 +90,6 @@ class MessageThreadPolicy
      */
     public function forceDelete(User $user, MessageThread $messageThread): bool
     {
-        //
+        return false;
     }
 }
