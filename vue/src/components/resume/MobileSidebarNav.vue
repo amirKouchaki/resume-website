@@ -22,7 +22,6 @@ import mainNavLinks from "./MainNavLinks.vue";
     background-color: $main-bg-color;
     transition: width 250ms ease-in-out;
     overflow: hidden;
-    transform: translateX($container-inline-padding);
 }
 
 .visible {

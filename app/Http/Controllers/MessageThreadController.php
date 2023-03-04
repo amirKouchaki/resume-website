@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMessageThreadRequest;
-use App\Http\Resources\ContactPersonCollection;
 use App\Http\Resources\ContactPersonResource;
 use App\Http\Resources\MessageThreadResource;
 use App\Models\ContactPerson;
@@ -66,9 +65,9 @@ class MessageThreadController extends Controller
 
         if(!is_null($user)){
             $data = array_merge($data,[
-                'name' => $user->name,
-                'email' => $user->email,
-                'phone' => $user->phone,
+                'name' => $user['name'],
+                'email' => $user['email'],
+                'phone' => $user['phone'],
             ]);
         }
 
@@ -78,18 +77,18 @@ class MessageThreadController extends Controller
          */
 
         $contactPerson = ContactPerson::create([
-            'name' => $data->name,
-            'email' => $data->email,
-            'phone' => $data->phone,
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'phone' => $data['phone'],
             'user_id' => $user?->id
         ]);
 
         $contactPerson->messageThread()->create([
-            'title' => $data->title,
-            'body' => $data->body
+            'title' => $data['title'],
+            'body' => $data['body']
         ]);
 
-        return response()->noContent();
+        return new ContactPersonResource($contactPerson->load('messageThread'));
     }
 
     /**

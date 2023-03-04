@@ -11,6 +11,8 @@ class MessageThread extends Model
 {
     use HasFactory, HasShortflakePrimary;
 
+    protected $fillable = ['title','body'];
+
     public function isCreatedByAnAuthenticatedUser(): bool
     {
         //checks if there are any users associated with the requested messageThread

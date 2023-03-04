@@ -1,25 +1,27 @@
 <template>
-    <div
-        id="modal-container"
-        class="model-container"
-        :class="{ active: modelValue }"
-    >
-        <div class="modal-background">
-            <div
-                class="border-animation"
-                :class="{ active: modelValue }"
-                v-modal-click-away="closeModal"
-            >
-                <div class="modal">
-                    <slot></slot>
+    <Teleport to="body">
+        <div
+            id="modal-container"
+            class="model-container"
+            :class="{ active: modelValue }"
+        >
+            <div class="modal-background">
+                <div
+                    class="border-animation"
+                    :class="{ active: modelValue }"
+                    v-modal-click-away="closeModal"
+                >
+                    <div class="modal">
+                        <slot></slot>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
+            </div></div
+    ></Teleport>
 </template>
 
 <script setup>
 import { ref } from "@vue/reactivity";
+import { watch } from "vue";
 
 const props = defineProps(["modelValue", "title"]);
 const emits = defineEmits(["update:modelValue"]);
@@ -41,7 +43,7 @@ const closeModal = () => {
     font-size: 1em;
     transform: scale(1, 0.8);
     border: var(--border-width) solid transparent;
-    border-radius: 0.5em;
+    border-radius: 2em;
     overflow: hidden;
 
     .border-animation__inner {
@@ -60,6 +62,7 @@ const closeModal = () => {
     &:after {
         content: "";
         position: absolute;
+        pointer-events: none;
     }
 
     &.active {
@@ -184,11 +187,10 @@ const closeModal = () => {
 
 #modal-container {
     position: fixed;
-    display: table;
-    height: 100%;
-    width: 100%;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
     transform: scale(0);
     z-index: 1;
 
@@ -234,11 +236,14 @@ const closeModal = () => {
         }
     }
     .modal-background {
-        display: table-cell;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         background: rgba(0, 0, 0, 0.8);
-        text-align: center;
-        vertical-align: middle;
         .modal {
+            padding: 2em;
             background: gray;
             display: inline-block;
             border-radius: 3px;

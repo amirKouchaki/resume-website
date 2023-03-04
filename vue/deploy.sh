@@ -3,7 +3,6 @@
 set -e
 # build
 npm run build
-cp .htaccess.example dist/.htaccess
 # navigate into the build output directory
 cd dist
 # if you are deploying to a custom domain
@@ -11,5 +10,5 @@ cd dist
 git init
 git add -A
 git commit -m 'deploy'
-git push -f git@github.com:amirKouchaki/resume-website.git main:gh-pages
+git push origin production-vue
 cd -

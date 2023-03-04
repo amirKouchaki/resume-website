@@ -1,10 +1,12 @@
 <template>
-    <div class="form-group" v-if="inputType == 'normal'" @click="hello()">
+    <div class="form-group" v-if="inputType == 'normal'">
         <input
             ref="inputRef"
             :type="type"
             class="form-control"
             placeholder=""
+            :value="modelValue"
+            @input="$emit('update:modelValue', $event.target.value)"
         />
         <span :data-placeholder="labelText" class="input-focus"></span>
     </div>
@@ -15,10 +17,12 @@
     >
         <textarea
             ref="inputRef"
-            rows="10"
+            :rows="tRow"
             :type="type"
             class="form-control"
             placeholder=""
+            :value="modelValue"
+            @input="$emit('update:modelValue', $event.target.value)"
         />
         <span :data-placeholder="labelText" class="input-focus"></span>
     </div>
@@ -27,7 +31,14 @@
 <script setup>
 import { ref } from "@vue/reactivity";
 
-const props = defineProps(["type", "labelText", "inputType"]);
+const props = defineProps([
+    "type",
+    "labelText",
+    "inputType",
+    "modelValue",
+    "tRow",
+]);
+const emits = defineEmits(["update:modelValue"]);
 const inputRef = ref(null);
 const focusElement = () => {
     console.log(inputRef.value.focus());
@@ -43,7 +54,6 @@ const focusElement = () => {
     cursor: pointer;
 }
 .form-control {
-    pointer-events: none;
     padding-block: 1.4em;
     padding-inline: 0.6em;
     color: $main-text-color;

@@ -3,7 +3,7 @@ import "./style.scss";
 import App from "./App.vue";
 import { createPinia } from "pinia";
 import router from "./router";
-
+import Particles from "vue3-particles";
 const pinia = createPinia();
 
 const app = createApp(App);
@@ -11,12 +11,10 @@ const app = createApp(App);
 app.directive("modal-click-away", {
     mounted: (el, bindings) => {
         document.addEventListener("click", (e) => {
-            const modal =
-                document.getElementsByClassName("modal-background")[0];
             if (
                 el !== null &&
                 el.contains(e.target) === false &&
-                e.target === modal
+                e.target === el.parentNode
             ) {
                 bindings.value();
             }
@@ -24,4 +22,4 @@ app.directive("modal-click-away", {
     },
 });
 
-app.use(router).use(pinia).mount("#app");
+app.use(router).use(pinia).use(Particles).mount("#app");

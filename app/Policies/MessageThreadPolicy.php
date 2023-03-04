@@ -11,7 +11,7 @@ class MessageThreadPolicy
 {
 
 
-    #[Pure] public function before(User $user, string $ability): ?bool
+    #[Pure] public function before(User $user, string $ability)
     {
         if ($user?->isAdministrator())
             return true;
@@ -58,7 +58,7 @@ class MessageThreadPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
