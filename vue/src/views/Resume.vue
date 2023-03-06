@@ -426,16 +426,4 @@ const toggleSidebar = () => {
         padding-block: 0.5em;
     }
 }
-
-.support-form {
-    padding: 2em 1em;
-}
-
-.contact-form-heading {
-    font-family: sans-serif;
-    font-weight: bold;
-    font-size: 2rem;
-    letter-spacing: 0.7px;
-    line-height: 1.6;
-}
 </style>

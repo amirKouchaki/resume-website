@@ -1,10 +1,6 @@
 <template>
     <Teleport to="body">
-        <div
-            id="modal-container"
-            class="model-container"
-            :class="{ active: modelValue }"
-        >
+        <div class="modal-container" :class="{ active: modelValue }">
             <div class="modal-background">
                 <div
                     class="border-animation"
@@ -20,9 +16,6 @@
 </template>
 
 <script setup>
-import { ref } from "@vue/reactivity";
-import { watch } from "vue";
-
 const props = defineProps(["modelValue", "title"]);
 const emits = defineEmits(["update:modelValue"]);
 const closeModal = () => {
@@ -185,7 +178,7 @@ const closeModal = () => {
     }
 }
 
-#modal-container {
+.modal-container {
     position: fixed;
     top: 0;
     left: 0;
