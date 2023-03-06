@@ -106,6 +106,8 @@
             </section>
         </article>
     </div>
+    <message-thread-modal />
+    <track-message-modal />
 </template>
 
 <script setup>
@@ -117,6 +119,11 @@ import { ref } from "@vue/reactivity";
 import Carousel from "../components/Carousel.vue";
 import FactCard from "../components/resume/FactCard.vue";
 import axiosClient from "../../axios";
+import MessageThreadModal from "../components/modals/MessageThreadModal.vue";
+import TrackMessageModal from "../components/modals/TrackMessageModal.vue";
+import useModals from "../stores/modals";
+
+const modals = useModals();
 
 const showSideBar = ref(false);
 
