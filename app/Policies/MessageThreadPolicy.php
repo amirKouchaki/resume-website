@@ -11,7 +11,7 @@ class MessageThreadPolicy
 {
 
 
-    #[Pure] public function before(User $user, string $ability)
+    #[Pure] public function before(?User $user, string $ability)
     {
         if ($user?->isAdministrator())
             return true;
@@ -44,7 +44,7 @@ class MessageThreadPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, MessageThread $messageThread): bool
+    public function view(?User $user, MessageThread $messageThread): bool
     {
         if (is_null($user) && $messageThread->isCreatedByAnAuthenticatedUser())
             return false;

@@ -1,24 +1,59 @@
 <template>
     <div class="steps">
-        <span class="step started">track</span>
-        <span class="step">visit</span>
-        <span class="step">add</span>
+        <span
+            v-for="step in steps"
+            :key="step.id"
+            :style="`width: ${100 / steps.length}%`"
+            :class="{ active: step.isActive }"
+            class="step"
+            >{{ step.name }}</span
+        >
         <button @click="next()">next</button>
+        <button @click="previous()">prev</button>
     </div>
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
+import { ref } from "vue";
 
 const page = ref(0);
+
 const next = () => {
-    page.value++;
+    if (page.value < steps.value.length - 1) page.value++;
+    updateActivatedSteps(true);
 };
-const steps = document.getElementsByClassName("step");
-console.log(steps);
-watch(page.value, (newVal) => {
-    steps[newVal].classList.toggle("started");
-});
+
+const previous = () => {
+    updateActivatedSteps(false);
+    if (page.value >= 1) page.value--;
+};
+
+const updateActivatedSteps = (updatedValue) => {
+    if (page.value != 0) steps.value[page.value].isActive = updatedValue;
+};
+
+let steps = ref([
+    {
+        id: 1,
+        name: "track",
+        isActive: true,
+    },
+    {
+        id: 2,
+        name: "visit",
+        isActive: false,
+    },
+    {
+        id: 3,
+        name: "add",
+        isActive: false,
+    },
+    {
+        id: 4,
+        name: "goodbye",
+        isActive: false,
+    },
+]);
 </script>
 
 <style lang="scss" scoped>
@@ -63,7 +98,7 @@ watch(page.value, (newVal) => {
     }
 }
 
-.started {
+.active {
     &::before {
         background-color: $main-color !important;
     }

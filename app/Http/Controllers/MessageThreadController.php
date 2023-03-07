@@ -19,8 +19,9 @@ class MessageThreadController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->only(['index']);
         $this->authorizeResource(MessageThread::class,'messageThread');
+        $this->middleware('auth:sanctum')->only(['index']);
+
     }
 
 
