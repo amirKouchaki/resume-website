@@ -1,8 +1,9 @@
 <template>
     <modal v-model="modals.showTrackMessageModal">
+        <multi-step />
         <form action="" class="support-form" @submit.prevent="getMessage()">
             <h3 class="contact-form-heading">Track Your message</h3>
-            <multi-step />
+
             <form-input
                 type="text"
                 labelText="Tracking Code"
