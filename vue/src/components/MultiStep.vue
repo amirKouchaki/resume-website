@@ -136,7 +136,7 @@ console.log(steps.value);
         min-height: 3px;
         left: -50%;
         top: 28%;
-        background-color: blue;
+        background-color: $secondary-bg-color;
         z-index: 1;
     }
 }

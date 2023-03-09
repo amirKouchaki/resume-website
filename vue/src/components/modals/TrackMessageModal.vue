@@ -1,7 +1,7 @@
 <template>
     <modal v-model="modals.showTrackMessageModal">
         <!-- <multi-step /> -->
-        <tabs-wrapper>
+        <tabs-wrapper navigation>
             <tab title="tab 1">hello</tab>
             <tab title="tab 2">from</tab>
             <tab title="tab 3">the</tab>
