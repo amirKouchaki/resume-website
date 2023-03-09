@@ -4,7 +4,7 @@ const useModals = defineStore("modals", {
     state: () => {
         return {
             showMessageThreadModal: false,
-            showTrackMessageModal: false,
+            showTrackMessageModal: true,
         };
     },
     getters: {},

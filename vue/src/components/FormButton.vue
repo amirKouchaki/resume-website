@@ -39,17 +39,17 @@
         transform-origin: top;
         width: 110%;
         transform: translateX(-100%) skew(-30deg);
-        transition: all 300ms ease;
+        transition: all 300ms ease-in-out;
     }
     &:hover::before,
     &:focus::before {
         transform: translateX(0);
-        transition-delay: 1s;
+        transition-delay: 0.4s;
     }
     &:hover,
     &:focus {
         color: $secondary-text-color;
-        animation: borderColors 0.7s steps(30) forwards;
+        animation: borderColors 0.3s steps(30) forwards;
     }
 }
 

@@ -49,7 +49,7 @@ const focusElement = () => {
 @use "../abstracts" as *;
 .form-group {
     position: relative;
-    margin-bottom: 5em;
+    margin-bottom: 2em;
     width: 100%;
     cursor: pointer;
 }

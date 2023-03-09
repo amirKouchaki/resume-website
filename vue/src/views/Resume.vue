@@ -29,14 +29,14 @@
                         class="hero-img"
                     />
                     <div class="hero-info">
-                        <p class="short-intro">Web Designer</p>
+                        <p class="short-intro">Fullstack Web Developer</p>
                         <h2 class="hero-name">Amir Kouchaki</h2>
                         <p class="hero-description">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Quam illum excepturi assumenda magnam, error,
-                            eligendi suscipit placeat vitae, tempora perferendis
-                            atque? Ipsa odit veritatis repellat eveniet fuga
-                            quae.
+                            Software Engineering major in Guilan University.
+                            Experienced in Laravel and php with a good
+                            understanding of MySQL , HTML , CSS , Vue ,
+                            Javascript. Enthusiastic to learn new
+                            frameworks,languages or patterns .
                         </p>
                         <div class="hero-btns">
                             <button class="hero-cv-btn hero-btn">
@@ -131,30 +131,30 @@ const jobDescriptions = [
     {
         id: 1,
         logo: "svgs/pencil.svg",
-        title: "Copywrite",
+        title: "Backend",
         description:
-            " Lorem ipsum dolor, sit amet consecteturadipisicing elit. Incidunt id doloribus sint,cum recusandae quas. Eligendi laborum assumenda numquam perferendis.",
+            "Development of rest or stateful APIs to add the desired functionality to your website's design using Latest version of php with Laravel .",
     },
     {
         id: 2,
         logo: "svgs/shop.svg",
-        title: "Ecommerce",
+        title: "Deployment",
         description:
-            " Lorem ipsum dolor, sit amet consecteturadipisicing elit. Incidunt id doloribus sint,cum recusandae quas. Eligendi laborum assumenda numquam perferendis.",
+            "Deploying and configuring your website on vps , linux host ( cpanel , directAdmin )  from scratch using nginx. Deploying your fullstack website on your custom domain with required subdomains . ",
     },
     {
         id: 3,
         logo: "svgs/monitor.svg",
-        title: "Web Design",
+        title: "Frontend",
         description:
-            " Lorem ipsum dolor, sit amet consecteturadipisicing elit. Incidunt id doloribus sint,cum recusandae quas. Eligendi laborum assumenda numquam perferendis.",
+            "Customer-oriented development and conversion of the desired UI/UX to HTML,CSS,SCSS,Javascript and connecting it to The backend and server .",
     },
     {
         id: 4,
         logo: "svgs/megaphone.svg",
-        title: "Marketing",
+        title: "TDD",
         description:
-            " Lorem ipsum dolor, sit amet consecteturadipisicing elit. Incidunt id doloribus sint,cum recusandae quas. Eligendi laborum assumenda numquam perferendis.",
+            "Writing tests using phpunit before implementing the features so when anyone needs to refactor the code, the tests will fail if anything goes wrong so you can add features or change features much faster .",
     },
 ];
 

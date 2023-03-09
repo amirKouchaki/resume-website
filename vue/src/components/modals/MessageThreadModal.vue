@@ -30,7 +30,7 @@
                 labelText="Text"
                 inputType="textarea"
                 v-model="messageThread.body"
-                t-row="10"
+                t-row="5"
             />
             <form-button />
         </form>
@@ -68,7 +68,7 @@ const createMessageThread = async () => {
 
 <style lang="scss" scoped>
 .support-form {
-    padding: 2em 1em;
+    padding: 1em;
 }
 
 .contact-form-heading {
@@ -77,5 +77,6 @@ const createMessageThread = async () => {
     font-size: 2rem;
     letter-spacing: 0.7px;
     line-height: 1.6;
+    margin-bottom: 1em;
 }
 </style>

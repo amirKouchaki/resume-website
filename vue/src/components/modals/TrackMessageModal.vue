@@ -1,6 +1,13 @@
 <template>
     <modal v-model="modals.showTrackMessageModal">
-        <multi-step />
+        <!-- <multi-step /> -->
+        <tabs-wrapper>
+            <tab title="tab 1">hello</tab>
+            <tab title="tab 2">from</tab>
+            <tab title="tab 3">the</tab>
+            <tab title="tab 4">other</tab>
+            <tab title="tab 5">side</tab>
+        </tabs-wrapper>
         <form action="" class="support-form" @submit.prevent="getMessage()">
             <h3 class="contact-form-heading">Track Your message</h3>
 
@@ -23,6 +30,8 @@ import FormButton from "../../components/FormButton.vue";
 import { ref } from "vue";
 import axiosClient from "../../../axios";
 import useModals from "../../stores/modals";
+import TabsWrapper from "../TabsWrapper.vue";
+import Tab from "../Tab.vue";
 
 const modals = useModals();
 

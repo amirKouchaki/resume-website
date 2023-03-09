@@ -28,7 +28,7 @@ const closeModal = () => {
 @use "../abstracts" as *;
 .border-animation {
     --border-width: 5px;
-    --animation-speed: 0.8s;
+    --animation-speed: 0.3s;
     width: min(50em, 80%);
     position: relative;
     display: inline-block;
@@ -36,7 +36,7 @@ const closeModal = () => {
     font-size: 1em;
     transform: scale(1, 0.8);
     border: var(--border-width) solid transparent;
-    border-radius: 2em;
+    border-radius: 0.5em;
     overflow: hidden;
 
     .border-animation__inner {
@@ -194,7 +194,7 @@ const closeModal = () => {
             animation: fadeIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
             .modal {
                 background-color: transparent;
-                animation: modalFadeIn 0.5s 0.8s
+                animation: modalFadeIn 0.5s 0.4s
                     cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
                 h2,
                 p {
