@@ -2,11 +2,14 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ContactPersonResource extends JsonResource
 {
+    public static $wrap = false;
+
     /**
      * Transform the resource into an array.
      *
@@ -20,7 +23,7 @@ class ContactPersonResource extends JsonResource
                 'email' => $this->email,
                 'phone' => $this->phone,
             ]),
-            'created_at' => $this->created_at,
+            'created_at' => Carbon::parse($this->created_at,'UTC')->isoFormat('MMMM Do YYYY, h:mm:ss a'),
             'message_thread' => new MessageThreadResource($this->whenLoaded('messageThread'))
         ];
     }

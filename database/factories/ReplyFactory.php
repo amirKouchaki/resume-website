@@ -26,7 +26,6 @@ class ReplyFactory extends Factory
             'title' => fake()->sentence(),
             'body' => fake()->paragraph(),
             'message_thread_id' => MessageThread::factory()
-
         ];
     }
 }

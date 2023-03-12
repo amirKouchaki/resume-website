@@ -1,5 +1,8 @@
 <template>
-    <modal v-model="modals.showMessageThreadModal">
+    <modal
+        v-if="modals.showMessageThreadModal"
+        :toggle="modals.toggleMessageModal"
+    >
         <form class="support-form" @submit.prevent="createMessageThread()">
             <h3 class="contact-form-heading">Contact me</h3>
             <form-input
@@ -38,7 +41,6 @@
 </template>
 
 <script setup>
-import MultiStep from "../MultiStep.vue";
 import Modal from "../../components/Modal.vue";
 import FormInput from "../../components/FormInput.vue";
 import FormButton from "../../components/FormButton.vue";

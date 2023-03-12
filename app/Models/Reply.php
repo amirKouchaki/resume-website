@@ -13,6 +13,7 @@ class Reply extends Model
 
     public function replyable(): MorphTo
     {
+
         return $this->morphTo();
     }
 

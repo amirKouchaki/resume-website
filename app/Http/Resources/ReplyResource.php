@@ -2,11 +2,15 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ReplyResource extends JsonResource
 {
+
+    public static $wrap = false;
+
     /**
      * Transform the resource into an array.
      *
@@ -17,16 +21,17 @@ class ReplyResource extends JsonResource
         return [
             'title' => $this->title,
             'body' => $this->body,
-            $this->mergeWhen(auth()->user()?->isAdministrator(),
-                $this->whenLoaded('replyable', [
-                    'sender' => [
-                        'name' => $this->replyable->name,
-                        'email' => $this->replyable->email,
-                        'phone' => $this->replyable->phone
-                    ]
-                ])
-            ),
-            'created_at' => $this->created_at
+
+            'sender' => $this->whenLoaded('replyable', [
+                'name' => $this->replyable->name,
+                'is_admin' => $this->replyable->is_admin ?? 0,
+                $this->mergeWhen(auth()->user()?->isAdministrator(), [
+                    'email' => $this->replyable->email,
+                    'phone' => $this->replyable->phone
+                ]),
+            ]),
+
+            'created_at' => Carbon::parse($this->created_at,'UTC')->isoFormat('MMMM Do YYYY, h:mm:ss a')
         ];
     }
 }

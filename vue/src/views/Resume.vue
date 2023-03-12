@@ -186,6 +186,7 @@ const funFacts = [
 ];
 
 const toggleSidebar = () => {
+    console.log("hello");
     document.body.classList.toggle("ov-hid");
     showSideBar.value = !showSideBar.value;
 };

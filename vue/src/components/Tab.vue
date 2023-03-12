@@ -1,7 +1,9 @@
 <template>
-    <div class="tab" v-show="selectedTitle == title">
-        <slot></slot>
-    </div>
+    <transition name="fade">
+        <div class="tab" v-show="selectedTitle == title">
+            <slot></slot>
+        </div>
+    </transition>
 </template>
 
 <script setup>
@@ -12,4 +14,23 @@ const props = defineProps(["title"]);
 const selectedTitle = inject("selectedTitle");
 </script>
 
-<style></style>
+<style>
+.tab {
+    display: flex;
+    flex-direction: column;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.fade-enter-active {
+    transition-delay: 0.3s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+</style>

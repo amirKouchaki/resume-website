@@ -37,6 +37,10 @@ const props = defineProps({
     background-color: $secondary-bg-color;
     border: 2px solid $fact-border-color;
     border-radius: 0.5em;
+
+    &:hover {
+        animation: moveUp linear 0.3s forwards;
+    }
 }
 .fact-logo {
     background-color: $main-color;
@@ -49,5 +53,23 @@ const props = defineProps({
 
 .fact-data {
     font-size: 2.5rem;
+}
+
+@keyframes moveUp {
+    0% {
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes moveDown {
+    0% {
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(150px);
+    }
 }
 </style>

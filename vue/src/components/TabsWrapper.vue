@@ -24,11 +24,13 @@ import { provide, ref, useSlots } from "vue";
 const props = defineProps({
     navigation: Boolean,
 });
+
 const tabNum = ref(0);
 const slots = useSlots();
 const slotTitles = ref(slots.default().map((tab) => tab.props.title));
 const selectedTitle = ref(slotTitles.value[tabNum.value]);
 provide("selectedTitle", selectedTitle);
+
 const changeSelectedTitle = (index) => {
     tabNum.value = index;
     updateTitle();
@@ -51,14 +53,20 @@ const previous = () => {
 const updateTitle = () => {
     selectedTitle.value = slotTitles.value[tabNum.value];
 };
+
+defineExpose({
+    next,
+    previous,
+});
 </script>
 
 <style lang="scss" scoped>
 @use "../abstracts" as *;
+
 .steps {
     display: flex;
-    margin: 2em;
     counter-reset: step;
+    margin-bottom: 2em;
 }
 
 .step {
@@ -66,6 +74,7 @@ const updateTitle = () => {
     width: 33.33%;
     text-align: center;
     position: relative;
+    cursor: pointer;
     &::before {
         position: relative;
         font-size: 1.4rem;
@@ -74,9 +83,9 @@ const updateTitle = () => {
         counter-increment: step;
         display: block;
         margin-inline: auto;
-        border-radius: 50%;
-        padding: 0.3em;
-        width: 15px;
+        border-radius: 0.4em;
+        padding: 0.2em 0.5em;
+        width: 25px;
         aspect-ratio: 1;
         text-align: center;
         background-color: $secondary-bg-color;
@@ -87,8 +96,8 @@ const updateTitle = () => {
         content: "";
         position: absolute;
         min-width: 100%;
-        min-height: 3px;
-        left: -50%;
+        min-height: 4px;
+        left: -60%;
         top: 28%;
         background-color: $secondary-bg-color;
         z-index: 1;

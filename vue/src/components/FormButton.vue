@@ -1,8 +1,15 @@
 <template>
-    <button class="form-btn" type="submit">send</button>
+    <button class="form-btn" type="submit">{{ btnText }}</button>
 </template>
 
-<script setup></script>
+<script setup>
+const props = defineProps({
+    btnText: {
+        type: String,
+        default: "send",
+    },
+});
+</script>
 
 <style lang="scss">
 @use "../abstracts" as *;
@@ -50,39 +57,6 @@
     &:focus {
         color: $secondary-text-color;
         animation: borderColors 0.3s steps(30) forwards;
-    }
-}
-
-@keyframes borderColors {
-    0% {
-        border-top-color: transparent;
-        border-right-color: transparent;
-        border-bottom-color: transparent;
-        border-left-color: transparent;
-    }
-    25% {
-        border-top-color: $main-color;
-        border-right-color: transparent;
-        border-bottom-color: transparent;
-        border-left-color: transparent;
-    }
-    50% {
-        border-top-color: $main-color;
-        border-right-color: $main-color;
-        border-bottom-color: transparent;
-        border-left-color: transparent;
-    }
-    75% {
-        border-top-color: $main-color;
-        border-right-color: $main-color;
-        border-bottom-color: $main-color;
-        border-left-color: transparent;
-    }
-    100% {
-        border-top-color: $main-color;
-        border-right-color: $main-color;
-        border-bottom-color: $main-color;
-        border-left-color: $main-color;
     }
 }
 </style>
