@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMessageThreadRequest;
+use App\Http\Requests\StoreReplyRequest;
 use App\Http\Resources\ContactPersonResource;
 use App\Http\Resources\MessageThreadResource;
+use App\Http\Resources\ReplyResource;
 use App\Models\ContactPerson;
 use App\Models\MessageThread;
 use app\Models\User;
-use http\Message;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
@@ -122,5 +123,39 @@ class MessageThreadController extends Controller
         $messageThread->deleteOrFail();
 
         return response()->noContent();
+    }
+
+
+    public function reply(StoreReplyRequest $request,MessageThread $messageThread) {
+        $this->authorize('reply',$messageThread);
+        $data = $request->validated();
+        $user = auth()->user();
+        $messageThread = $messageThread->load('contactPerson');
+
+
+        /**
+         * 1. guest
+         * 2. authenticated and normal user
+         * 3, authenticated and admin
+         */
+        if(is_null($user) || !$user->is_admin){
+         $data['replyable_id'] = $messageThread->contactPerson->id;
+         $data['replyable_type'] = get_class($messageThread->contactPerson);
+        }
+        else{
+            $data['replyable_id'] = $user->id;
+            $data['replyable_type'] = get_class($user->contactPerson);
+        }
+
+
+
+        $reply = $messageThread->replies()->create([
+            'title' => $data['title'],
+            'body' => $data['body'],
+            'replyable_id' => $data['replyable_id'],
+            'replyable_type' => $data['replyable_type']
+        ]);
+
+        return new ReplyResource($reply);
     }
 }

@@ -25,3 +25,4 @@ Route::post('/hello',function (Request $request){
 
 
 Route::apiResource('/messageThread',\App\Http\Controllers\MessageThreadController::class);
+Route::post('/messageThread/{messageThread}/reply/',[\App\Http\Controllers\MessageThreadController::class,'reply']);

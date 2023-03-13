@@ -301,7 +301,7 @@ const toggleSidebar = () => {
 
 .sidebar-logo {
     background-color: $main-text-color;
-    -webkit-mask: url(/svgs/menu-bars.svg) no-repeat center;
+    -webkit-mask: url(svgs/menu-bars.svg) no-repeat center;
     mask: url(/svgs/menu-bars.svg) no-repeat center;
     width: 22px;
     height: 22px;

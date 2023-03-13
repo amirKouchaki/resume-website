@@ -20,7 +20,7 @@ class MessageThreadPolicy
     }
 
 
-    public function replyTo(User $user, MessageThread $messageThread): bool
+    public function reply(?User $user, MessageThread $messageThread): bool
     {
         /*
          * TODO: handle snowflake authentication
