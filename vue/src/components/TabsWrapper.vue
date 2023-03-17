@@ -1,5 +1,5 @@
 <template>
-    <div class="steps">
+    <div class="steps" v-if="type == 'multi-step'">
         <span
             v-for="(title, index) in slotTitles"
             :key="title"
@@ -7,6 +7,17 @@
             :style="`width: ${100 / slotTitles.length}%`"
             :class="{ active: tabNum >= index }"
             class="step"
+            >{{ title }}</span
+        >
+    </div>
+    <div class="pages" v-else-if="type == 'multi-page'">
+        <span
+            v-for="(title, index) in slotTitles"
+            :key="title"
+            @click="changeSelectedTitle(index)"
+            :class="{ 'active-page': tabNum == index }"
+            :style="`width: ${100 / slotTitles.length}%`"
+            class="page"
             >{{ title }}</span
         >
     </div>
@@ -23,6 +34,10 @@
 import { provide, ref, useSlots } from "vue";
 const props = defineProps({
     navigation: Boolean,
+    type: {
+        type: String,
+        default: "",
+    },
 });
 
 const tabNum = ref(0);
@@ -75,6 +90,7 @@ defineExpose({
     text-align: center;
     position: relative;
     cursor: pointer;
+    user-select: none;
     &::before {
         position: relative;
         font-size: 1.4rem;
@@ -104,6 +120,21 @@ defineExpose({
     }
 }
 
+.pages {
+    display: flex;
+    gap: 1em;
+    margin-block: 1.5em;
+}
+
+.page {
+    text-align: center;
+    padding: clamp(0.3em, 4vw, 0.7em) clamp(0.1em, 4vw, 0.3em);
+    background-color: $secondary-bg-color;
+    cursor: pointer;
+    border-radius: 0.2em;
+    user-select: none;
+}
+
 .active {
     &::before {
         background-color: $main-color !important;
@@ -112,5 +143,9 @@ defineExpose({
     &::after {
         background-color: $main-color !important;
     }
+}
+
+.active-page {
+    background-color: $main-color !important;
 }
 </style>

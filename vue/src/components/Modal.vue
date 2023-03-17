@@ -41,6 +41,7 @@ const close = () => {
     border: 5px solid transparent;
     outline: none;
     border-radius: 0.5em;
+    padding: 0.7em 1em;
 }
 
 .modal-content {

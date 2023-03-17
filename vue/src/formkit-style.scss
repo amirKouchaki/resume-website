@@ -1,0 +1,32 @@
+@use "./abstracts/" as *;
+
+.my-formkit-outer {
+    margin-block: 2em !important;
+}
+
+.my-formkit-wrapper {
+    max-width: 100% !important;
+}
+
+.my-formkit-inner {
+}
+
+.my-formkit-input {
+    color: $main-text-color !important;
+}
+
+.my-formkit-label {
+}
+
+[data-floating-label="true"] input:focus ~ .my-formkit-label,
+[data-floating-label="true"] textarea:focus ~ .my-formkit-label,
+[data-floating-label="true"] .my-formkit-label[data-has-value="true"],
+[data-floating-label="true"][data-expanded="true"] .my-formkit-label {
+    color: $main-text-color;
+    background-color: $main-modal-bg-color !important;
+    font-size: 0.95rem !important;
+}
+
+textarea.my-formkit-input {
+    min-height: 10em !important;
+}

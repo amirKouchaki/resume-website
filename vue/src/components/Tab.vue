@@ -22,11 +22,11 @@ const selectedTitle = inject("selectedTitle");
 
 .fade-enter-active,
 .fade-leave-active {
-    transition: opacity 0.3s ease;
+    transition: opacity 0.2s ease;
 }
 
 .fade-enter-active {
-    transition-delay: 0.3s;
+    transition-delay: 0.2s;
 }
 
 .fade-enter-from,

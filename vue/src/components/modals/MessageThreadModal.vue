@@ -3,40 +3,38 @@
         v-if="modals.showMessageThreadModal"
         :toggle="modals.toggleMessageModal"
     >
-        <form class="support-form" @submit.prevent="createMessageThread()">
+        <FormKit
+            type="form"
+            @submit="createMessageThread"
+            submit-label="Create Thread"
+        >
             <h3 class="contact-form-heading">Contact me</h3>
-            <form-input
+            <FormKit
                 type="text"
-                labelText="Name"
-                inputType="normal"
-                v-model="contactPerson.name"
-            />
-            <form-input
+                label="Name"
+                name="name"
+                v-model="contactPerson.name" />
+            <FormKit
                 type="email"
-                labelText="Email"
-                inputType="normal"
-                v-model="contactPerson.email"
-            />
-            <form-input
+                label="Email"
+                name="email"
+                v-model="contactPerson.email" />
+            <FormKit
                 type="tel"
-                labelText="Phone"
-                inputType="normal"
-                v-model="contactPerson.phone"
-            />
-            <form-input
-                labelText="title"
-                inputType="textarea"
-                v-model="messageThread.title"
-                t-row="2"
-            />
-            <form-input
-                labelText="Text"
-                inputType="textarea"
+                label="Phone"
+                name="phone"
+                v-model="contactPerson.phone" />
+            <FormKit
+                type="text"
+                label="title"
+                name="title"
+                v-model="messageThread.title" />
+            <FormKit
+                type="textarea"
+                label="Text"
+                name="body"
                 v-model="messageThread.body"
-                t-row="5"
-            />
-            <form-button />
-        </form>
+        /></FormKit>
     </modal>
 </template>
 

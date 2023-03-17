@@ -3,23 +3,21 @@
         v-if="modals.showTrackMessageModal"
         :toggle="modals.toggleTrackMessageModal"
     >
-        <tabs-wrapper ref="tabWrapper">
-            <tab title="track   ">
-                <form
-                    action=""
-                    class="support-form"
-                    @submit.prevent="getMessage()"
+        <tabs-wrapper ref="tabWrapper" type="multi-page">
+            <tab title="track">
+                <FormKit
+                    type="form"
+                    @submit="trackMessageThread"
+                    submit-label="Find Thread"
                 >
                     <h3 class="contact-form-heading">Track Your message</h3>
-
-                    <form-input
+                    <FormKit
                         type="text"
-                        labelText="Tracking Code"
-                        inputType="normal"
+                        label="Thread code"
                         v-model="trackMessage"
                     />
-                    <form-button /></form
-            ></tab>
+                </FormKit>
+            </tab>
             <tab title="show"
                 ><show-messages :thread="messageThread" />
                 <div class="edit-thread-btns">
@@ -33,12 +31,43 @@
                     </button>
                 </div>
             </tab>
-            <tab title="tab 3">the</tab>
-            <tab title="tab 4">other</tab>
-            <tab title="tab 5">side</tab>
+            <tab title="reply">
+                <FormKit
+                    type="form"
+                    @submit="addReply"
+                    submit-label="Add Reply"
+                    v-model="reply"
+                >
+                    <h3 class="contact-form-heading">Add a reply</h3>
+                    <FormKit type="text" label="Title" name="title" />
+                    <!-- <FormKit
+                        type="textarea"
+                        label="Floating Textarea Label via prop" /> -->
+                    <FormKit type="textarea" label="Body" name="body"
+                /></FormKit>
+            </tab>
+            <tab title="test">
+                <FormKit
+                    type="form"
+                    @submit="sendTest"
+                    submit-label="send Test"
+                    v-model="testData"
+                >
+                    <FormKit
+                        type="text"
+                        label="Floating Text Label via prop"
+                        name="username" />
+                    <!-- <FormKit
+                        type="textarea"
+                        label="Floating Textarea Label via prop" /> -->
+                    <FormKit
+                        type="email"
+                        label="I have a standard label"
+                        name="email"
+                /></FormKit>
+            </tab>
         </tabs-wrapper>
     </modal>
-    >
 </template>
 
 <script setup>
@@ -55,22 +84,59 @@ import ShowMessages from "../ShowMessages.vue";
 const tabWrapper = ref();
 const modals = useModals();
 const messageThread = ref({});
-const trackMessage = ref(null);
-const getMessage = async () => {
+const trackMessage = ref("");
+
+const reply = ref({
+    title: "",
+    body: "",
+});
+
+const testData = ref({
+    username: "",
+    email: "",
+});
+
+const addReply = async () => {
+    const res = await axiosClient.post(
+        `/api/messageThread/${messageThread.value.id}/reply`,
+        {
+            title: reply.value.title,
+            body: reply.value.body,
+        }
+    );
+    await getMessageThread();
+    reply.value = {
+        title: "",
+        body: "",
+    };
+
+    tabWrapper.value.previous();
+};
+
+const trackMessageThread = async () => {
+    await getMessageThread();
+    tabWrapper.value.next();
+};
+
+const getMessageThread = async () => {
     const res = await axiosClient.get(
         `/api/messageThread/${trackMessage.value}`
     );
     messageThread.value = res.data;
-    console.log(messageThread.value);
-    tabWrapper.value.next();
+};
+function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+const sendTest = async (data) => {
+    await sleep(3000);
+    console.log("hello");
+    console.log(data);
 };
 </script>
 
 <style lang="scss" scoped>
 @use "../../abstracts" as *;
-.support-form {
-    padding: 2em 1em;
-}
 
 .contact-form-heading {
     font-family: sans-serif;
@@ -91,6 +157,10 @@ const getMessage = async () => {
     font-size: 1.1rem;
     letter-spacing: 0.7px;
     margin-block: 1em;
+    border-radius: 0.2em;
+    background-color: $secondary-bg-color;
+    border: 1px solid $fact-border-color;
+    color: $main-text-color;
 }
 
 .v-enter-active,

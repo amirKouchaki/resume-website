@@ -35,10 +35,11 @@ class MessageThreadController extends Controller
         /*
          * TODO: It might be better to transfer this function to index function of ContactPersonController
          */
-
+//        auth()->login(User::find(1));
         /**
          * @var User $user
          */
+
         $user = auth()->user();
 
         //basically admin
@@ -101,7 +102,7 @@ class MessageThreadController extends Controller
     {
 
 
-        return new MessageThreadResource($messageThread->load('replies'));
+        return new MessageThreadResource($messageThread->load('replies.replyable'));
     }
 
     /**
