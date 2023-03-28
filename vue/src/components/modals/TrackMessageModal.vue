@@ -12,13 +12,15 @@
                 >
                     <h3 class="contact-form-heading">Track Your message</h3>
                     <FormKit
-                        type="text"
+                        type="number"
                         label="Thread code"
                         v-model="trackMessage"
                     />
                 </FormKit>
             </tab>
-            <tab title="show"
+            <tab
+                title="show"
+                :renderRule="Object.keys(messageThread).length !== 0"
                 ><show-messages :thread="messageThread" />
                 <div class="edit-thread-btns">
                     <button
@@ -31,7 +33,10 @@
                     </button>
                 </div>
             </tab>
-            <tab title="reply">
+            <tab
+                title="reply"
+                :renderRule="Object.keys(messageThread).length !== 0"
+            >
                 <FormKit
                     type="form"
                     @submit="addReply"
@@ -119,10 +124,14 @@ const trackMessageThread = async () => {
 };
 
 const getMessageThread = async () => {
-    const res = await axiosClient.get(
-        `/api/messageThread/${trackMessage.value}`
-    );
-    messageThread.value = res.data;
+    try {
+        const res = await axiosClient.get(
+            `/api/messageThread/${trackMessage.value}`
+        );
+        messageThread.value = res.data;
+    } catch (err) {
+        console.log(err);
+    }
 };
 function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
