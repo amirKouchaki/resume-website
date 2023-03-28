@@ -9,7 +9,15 @@
 <script setup>
 import { inject } from "vue";
 
-const props = defineProps(["title"]);
+const props = defineProps({
+    title: String,
+    renderRule: {
+        type: Boolean,
+        default: true,
+    },
+});
+
+console.log(props.renderRule);
 
 const selectedTitle = inject("selectedTitle");
 </script>

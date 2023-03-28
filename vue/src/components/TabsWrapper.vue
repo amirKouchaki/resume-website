@@ -32,6 +32,8 @@
 
 <script setup>
 import { provide, ref, useSlots } from "vue";
+import { computed } from "@vue/reactivity";
+
 const props = defineProps({
     navigation: Boolean,
     type: {
@@ -43,24 +45,37 @@ const props = defineProps({
 const tabNum = ref(0);
 const slots = useSlots();
 const slotTitles = ref(slots.default().map((tab) => tab.props.title));
+
+const slotRenderRules = computed(() => {
+    return slots.default().reduce((acc, tab, index) => {
+        acc.set(index, tab.props.renderRule ?? true);
+        return acc;
+    }, new Map());
+});
+console.log("hello" + slots.default()[1].props.renderRule);
+console.log(slotRenderRules.value);
 const selectedTitle = ref(slotTitles.value[tabNum.value]);
 provide("selectedTitle", selectedTitle);
 
 const changeSelectedTitle = (index) => {
+    if (!slotRenderRules.value.get(index)) return;
     tabNum.value = index;
     updateTitle();
 };
 
-const next = () => {
-    if (tabNum.value < slotTitles.value.length - 1) {
-        tabNum.value++;
+const next = (num = 1) => {
+    if (
+        tabNum.value + num < slotTitles.value.length &&
+        slotRenderRules.value.get(tabNum.value + num)
+    ) {
+        tabNum.value = tabNum.value + num;
         updateTitle();
     }
 };
 
-const previous = () => {
-    if (tabNum.value >= 1) {
-        tabNum.value--;
+const previous = (num = 1) => {
+    if (tabNum.value >= num && slotRenderRules.value.get(tabNum.value - num)) {
+        tabNum.value = tabNum.value - num;
         updateTitle();
     }
 };
