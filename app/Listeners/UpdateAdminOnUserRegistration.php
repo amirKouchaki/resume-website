@@ -27,6 +27,6 @@ class UpdateAdminOnUserRegistration
      */
     public function handle(Registered $event)
     {
-        $event->user->notify(new EmailUserOnRegistration($event->user));
+        $event->user->notify(new EmailUserOnRegistration());
     }
 }

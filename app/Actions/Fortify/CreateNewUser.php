@@ -32,6 +32,7 @@ class CreateNewUser implements CreatesNewUsers
             'phone' => ['required','string','max:30'],
             'password' => $this->passwordRules(),
         ])->validate();
+
         $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],

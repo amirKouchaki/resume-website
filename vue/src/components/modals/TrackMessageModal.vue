@@ -51,26 +51,7 @@
                     <FormKit type="textarea" label="Body" name="body"
                 /></FormKit>
             </tab>
-            <tab title="test">
-                <FormKit
-                    type="form"
-                    @submit="sendTest"
-                    submit-label="send Test"
-                    v-model="testData"
-                >
-                    <FormKit
-                        type="text"
-                        label="Floating Text Label via prop"
-                        name="username" />
-                    <!-- <FormKit
-                        type="textarea"
-                        label="Floating Textarea Label via prop" /> -->
-                    <FormKit
-                        type="email"
-                        label="I have a standard label"
-                        name="email"
-                /></FormKit>
-            </tab>
+           
         </tabs-wrapper>
     </modal>
 </template>

@@ -19,9 +19,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 
 
-Route::post('/hello',function (Request $request){
-   return "hello from me";
-});
+
 
 
 Route::apiResource('/messageThread',\App\Http\Controllers\MessageThreadController::class);

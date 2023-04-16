@@ -5,7 +5,7 @@ import "@formkit/themes/genesis";
 import App from "./App.vue";
 import { createPinia } from "pinia";
 import router from "./router";
-import Particles from "vue3-particles";
+import Particles from "vue3-particles"; 
 import { plugin } from "@formkit/vue";
 import config from "../formkit.config";
 
