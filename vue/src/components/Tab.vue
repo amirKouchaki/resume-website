@@ -17,8 +17,6 @@ const props = defineProps({
     },
 });
 
-console.log(props.renderRule);
-
 const selectedTitle = inject("selectedTitle");
 </script>
 

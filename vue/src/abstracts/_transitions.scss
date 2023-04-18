@@ -1,0 +1,67 @@
+@use "./colors" as *;
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.mobile-sidebar-enter-active,
+.mobile-sidebar-leave-active {
+    transition: transform 0.3s ease;
+}
+
+.mobile-sidebar-enter-active {
+    animation: borderColors 0.9s steps(30) forwards;
+}
+
+.mobile-sidebar-leave-active {
+    animation: borderColors 0.9s steps(30) reverse;
+}
+
+.mobile-sidebar-enter-from,
+.mobile-sidebar-leave-to {
+    transform: translateX(100%);
+}
+
+.mobile-sidebar-enter-to,
+.mobile-sidebar-leave-from {
+    transform: translateX(-10%);
+    border-color: $main-modal-border-color;
+}
+
+@keyframes borderColors {
+    0% {
+        border-top-color: transparent;
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        border-left-color: transparent;
+    }
+    25% {
+        border-top-color: $main-modal-border-color;
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        border-left-color: transparent;
+    }
+    50% {
+        border-top-color: $main-modal-border-color;
+        border-right-color: $main-modal-border-color;
+        border-bottom-color: transparent;
+        border-left-color: transparent;
+    }
+    75% {
+        border-top-color: $main-modal-border-color;
+        border-right-color: $main-modal-border-color;
+        border-bottom-color: $main-modal-border-color;
+        border-left-color: transparent;
+    }
+    100% {
+        border-top-color: $main-modal-border-color;
+        border-right-color: $main-modal-border-color;
+        border-bottom-color: $main-modal-border-color;
+        border-left-color: $main-modal-border-color;
+    }
+}

@@ -16,16 +16,12 @@ import mainNavLinks from "./MainNavLinks.vue";
     flex-direction: column;
     gap: 1.5em;
     right: 0;
-    width: 0;
     top: 0;
-    bottom: 0;
-    background-color: $main-bg-color;
-    transition: width 250ms ease-in-out;
-    overflow: hidden;
-}
-
-.visible {
     width: 20em;
-    padding: 0.5em 1em;
+    background-color: $main-bg-color;
+    border-radius: 0.5em;
+    padding: 1em 1.5em;
+    border: 2px solid $main-modal-border-color;
+    transform: translateX(-10%);
 }
 </style>

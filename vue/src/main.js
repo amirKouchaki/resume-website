@@ -5,7 +5,7 @@ import "@formkit/themes/genesis";
 import App from "./App.vue";
 import { createPinia } from "pinia";
 import router from "./router";
-import Particles from "vue3-particles"; 
+import Particles from "vue3-particles";
 import { plugin } from "@formkit/vue";
 import config from "../formkit.config";
 
@@ -26,5 +26,20 @@ app.directive("modal-click-away", {
         });
     },
 });
+
+// app.directive("click-outside", {
+//     mounted: function (el, binding, vnode) {
+//         console.log(el);
+//         event = function (event) {
+//             if (!(el == event.target || el.contains(event.target))) {
+//                 binding.value();
+//             }
+//         };
+//         document.body.addEventListener("click", event);
+//     },
+//     unbind: function (el) {
+//         document.body.removeEventListener("click", event);
+//     },
+// });
 
 app.use(router).use(plugin, config).use(pinia).use(Particles).mount("#app");

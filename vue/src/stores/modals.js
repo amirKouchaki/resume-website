@@ -5,17 +5,28 @@ const useModals = defineStore("modals", {
         return {
             showMessageThreadModal: false,
             showTrackMessageModal: false,
+            showMobileSidebar: false,
         };
     },
     getters: {},
     actions: {
         toggleMessageModal() {
-            document.body.classList.toggle("ov-hid");
             this.showMessageThreadModal = !this.showMessageThreadModal;
+            this.updateScrollStatus(this.showMessageThreadModal);
         },
         toggleTrackMessageModal() {
-            document.body.classList.toggle("ov-hid");
             this.showTrackMessageModal = !this.showTrackMessageModal;
+            this.updateScrollStatus(this.showTrackMessageModal);
+        },
+        toggleSidebar() {
+            this.showMobileSidebar = !this.showMobileSidebar;
+            this.updateScrollStatus(this.showMobileSidebar);
+        },
+        updateScrollStatus(visibilityStatus) {
+            const doc = document.body.classList;
+            visibilityStatus === false
+                ? doc.remove("ov-hid")
+                : doc.add("ov-hid");
         },
     },
 });

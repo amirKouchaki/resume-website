@@ -52,8 +52,7 @@ const slotRenderRules = computed(() => {
         return acc;
     }, new Map());
 });
-console.log("hello" + slots.default()[1].props.renderRule);
-console.log(slotRenderRules.value);
+
 const selectedTitle = ref(slotTitles.value[tabNum.value]);
 provide("selectedTitle", selectedTitle);
 

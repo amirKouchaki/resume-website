@@ -1,50 +1,49 @@
 <template>
-    <modal
-        v-if="modals.showMessageThreadModal"
-        :toggle="modals.toggleMessageModal"
-    >
-        <FormKit
-            type="form"
-            @submit="createMessageThread"
-            submit-label="Create Thread"
+    <modal-transition>
+        <modal
+            v-if="modals.showMessageThreadModal"
+            :toggle="modals.toggleMessageModal"
         >
-            <h3 class="contact-form-heading">Contact me</h3>
             <FormKit
-                type="text"
-                label="Name"
-                name="name"
-                v-model="contactPerson.name" />
-            <FormKit
-                type="email"
-                label="Email"
-                name="email"
-                v-model="contactPerson.email" />
-            <FormKit
-                type="tel"
-                label="Phone"
-                name="phone"
-                v-model="contactPerson.phone" />
-            <FormKit
-                type="text"
-                label="title"
-                name="title"
-                v-model="messageThread.title" />
-            <FormKit
-                type="textarea"
-                label="Text"
-                name="body"
-                v-model="messageThread.body"
-        /></FormKit>
-    </modal>
+                type="form"
+                @submit="createMessageThread"
+                submit-label="Create Thread"
+            >
+                <h3 class="contact-form-heading">Contact me</h3>
+                <FormKit
+                    type="text"
+                    label="Name"
+                    name="name"
+                    v-model="contactPerson.name" />
+                <FormKit
+                    type="email"
+                    label="Email"
+                    name="email"
+                    v-model="contactPerson.email" />
+                <FormKit
+                    type="tel"
+                    label="Phone"
+                    name="phone"
+                    v-model="contactPerson.phone" />
+                <FormKit
+                    type="text"
+                    label="title"
+                    name="title"
+                    v-model="messageThread.title" />
+                <FormKit
+                    type="textarea"
+                    label="Text"
+                    name="body"
+                    v-model="messageThread.body"
+            /></FormKit> </modal
+    ></modal-transition>
 </template>
 
 <script setup>
 import Modal from "../../components/Modal.vue";
-import FormInput from "../../components/FormInput.vue";
-import FormButton from "../../components/FormButton.vue";
-import { ref } from "vue";
 import axiosClient from "../../../axios";
 import useModals from "../../stores/modals";
+import ModalTransition from "../transitions/ModalTransition.vue";
 const modals = useModals();
 const contactPerson = {
     name: "",

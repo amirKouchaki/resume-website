@@ -21,7 +21,10 @@
                 </aside>
             </header>
             <section class="main-section">
-                <mobile-sidebar-nav :class="{ visible: showSideBar }" />
+                <div></div>
+                <Transition name="mobile-sidebar">
+                    <mobile-sidebar-nav v-if="showSidebar"
+                /></Transition>
                 <section class="hero-section">
                     <img
                         src="../assets/images/profile.jpg"
@@ -115,17 +118,19 @@ import { publicPath } from "../composables/publicUrl";
 import MobileSidebarNav from "../components/resume/MobileSidebarNav.vue";
 import mainNavLinks from "../components/resume/MainNavLinks.vue";
 import GenericSection from "../components/resume/GenericSection.vue";
-import { ref } from "@vue/reactivity";
 import Carousel from "../components/Carousel.vue";
 import FactCard from "../components/resume/FactCard.vue";
-import axiosClient from "../../axios";
 import MessageThreadModal from "../components/modals/MessageThreadModal.vue";
 import TrackMessageModal from "../components/modals/TrackMessageModal.vue";
 import useModals from "../stores/modals";
+import { ref } from "vue";
 
 const modals = useModals();
 
-const showSideBar = ref(false);
+const showSidebar = ref(false);
+const toggleSidebar = () => {
+    showSidebar.value = !showSidebar.value;
+};
 
 const jobDescriptions = [
     {
@@ -184,12 +189,6 @@ const funFacts = [
         data: 1286,
     },
 ];
-
-const toggleSidebar = () => {
-    console.log("hello");
-    document.body.classList.toggle("ov-hid");
-    showSideBar.value = !showSideBar.value;
-};
 </script>
 
 <style lang="scss" scoped>
@@ -427,6 +426,7 @@ const toggleSidebar = () => {
         width: 100%;
     }
     .container {
+        max-width: 100%;
         width: 100%;
         margin: 0;
         border-radius: 0;
