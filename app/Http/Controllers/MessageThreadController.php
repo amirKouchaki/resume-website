@@ -20,7 +20,7 @@ class MessageThreadController extends Controller
 
     public function __construct()
     {
-        $this->authorizeResource(MessageThread::class,'messageThread');
+//        $this->authorizeResource(MessageThread::class,'messageThread');
         $this->middleware('auth:sanctum')->only(['index']);
 
     }

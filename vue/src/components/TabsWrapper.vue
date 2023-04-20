@@ -10,7 +10,7 @@
             >{{ title }}</span
         >
     </div>
-    <div class="pages" v-else-if="type == 'multi-page'">
+    <div class="pages" ref="pages" v-else-if="type == 'multi-page'">
         <span
             v-for="(title, index) in slotTitles"
             :key="title"
@@ -45,6 +45,9 @@ const props = defineProps({
 const tabNum = ref(0);
 const slots = useSlots();
 const slotTitles = ref(slots.default().map((tab) => tab.props.title));
+const selectedTitle = ref(slotTitles.value[tabNum.value]);
+const pages = ref(null);
+provide("selectedTitle", selectedTitle);
 
 const slotRenderRules = computed(() => {
     return slots.default().reduce((acc, tab, index) => {
@@ -53,11 +56,18 @@ const slotRenderRules = computed(() => {
     }, new Map());
 });
 
-const selectedTitle = ref(slotTitles.value[tabNum.value]);
-provide("selectedTitle", selectedTitle);
+const isAllowedToRender = (tabIndex) => {
+    if (slotRenderRules.value.get(tabIndex)) return true;
+    const selectedPage = pages.value.children[tabIndex];
+    selectedPage.classList.add("error-animation");
+    setTimeout(() => {
+        selectedPage.classList.remove("error-animation");
+    }, 820);
+    return false;
+};
 
 const changeSelectedTitle = (index) => {
-    if (!slotRenderRules.value.get(index)) return;
+    if (!isAllowedToRender(index)) return;
     tabNum.value = index;
     updateTitle();
 };
@@ -65,7 +75,7 @@ const changeSelectedTitle = (index) => {
 const next = (num = 1) => {
     if (
         tabNum.value + num < slotTitles.value.length &&
-        slotRenderRules.value.get(tabNum.value + num)
+        isAllowedToRender(tabNum.value + num)
     ) {
         tabNum.value = tabNum.value + num;
         updateTitle();
@@ -73,7 +83,7 @@ const next = (num = 1) => {
 };
 
 const previous = (num = 1) => {
-    if (tabNum.value >= num && slotRenderRules.value.get(tabNum.value - num)) {
+    if (tabNum.value >= num && isAllowedToRender(tabNum.value - num)) {
         tabNum.value = tabNum.value - num;
         updateTitle();
     }
@@ -161,5 +171,33 @@ defineExpose({
 
 .active-page {
     background-color: $main-color !important;
+}
+
+.error-animation {
+    animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    transform: translateX(0);
+}
+
+@keyframes shake {
+    10%,
+    90% {
+        transform: translateX(-1px);
+    }
+
+    20%,
+    80% {
+        transform: translateX(2px);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translateX(-4px);
+    }
+
+    40%,
+    60% {
+        transform: translateX(4px);
+    }
 }
 </style>

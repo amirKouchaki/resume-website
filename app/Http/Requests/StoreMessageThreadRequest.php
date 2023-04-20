@@ -25,12 +25,12 @@ class StoreMessageThreadRequest extends FormRequest
     {
         $userExists = is_null($this->user());
         return [
-            'title' => ['required','string','max:400'],
-            'body' => ['required','string','max:2000'],
+            'title' => ['required','string','max:400','min:3'],
+            'body' => ['required','string','max:800'],
 
 
             'name' => [Rule::requiredIf(!$userExists),'string','max:100'],
-            'phone' => [Rule::requiredIf(!$userExists),'string','max:40'],
+            'phone' => [Rule::requiredIf(!$userExists),'string','regex:/^09\d{9}$/'],
             'email' => [Rule::requiredIf(!$userExists),'string','email','max:255'],
         ];
     }

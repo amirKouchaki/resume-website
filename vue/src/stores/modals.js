@@ -5,7 +5,6 @@ const useModals = defineStore("modals", {
         return {
             showMessageThreadModal: false,
             showTrackMessageModal: false,
-            showMobileSidebar: false,
         };
     },
     getters: {},
@@ -17,10 +16,6 @@ const useModals = defineStore("modals", {
         toggleTrackMessageModal() {
             this.showTrackMessageModal = !this.showTrackMessageModal;
             this.updateScrollStatus(this.showTrackMessageModal);
-        },
-        toggleSidebar() {
-            this.showMobileSidebar = !this.showMobileSidebar;
-            this.updateScrollStatus(this.showMobileSidebar);
         },
         updateScrollStatus(visibilityStatus) {
             const doc = document.body.classList;

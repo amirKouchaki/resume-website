@@ -8,6 +8,7 @@
 
 <script setup>
 import { inject } from "vue";
+const selectedTitle = inject("selectedTitle");
 
 const props = defineProps({
     title: String,
@@ -16,8 +17,6 @@ const props = defineProps({
         default: true,
     },
 });
-
-const selectedTitle = inject("selectedTitle");
 </script>
 
 <style>

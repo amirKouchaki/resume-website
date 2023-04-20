@@ -16,6 +16,8 @@
                             type="number"
                             label="Thread code"
                             v-model="trackMessage"
+                            validation="required|number|length:15,15"
+                            validation-visibility="live"
                         />
                     </FormKit>
                 </tab>
@@ -46,9 +48,6 @@
                     >
                         <h3 class="contact-form-heading">Add a reply</h3>
                         <FormKit type="text" label="Title" name="title" />
-                        <!-- <FormKit
-                        type="textarea"
-                        label="Floating Textarea Label via prop" /> -->
                         <FormKit type="textarea" label="Body" name="body"
                     /></FormKit>
                 </tab>

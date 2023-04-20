@@ -13,6 +13,7 @@ const config = defaultConfig({
                 label: "my-formkit-label",
                 inner: "my-formkit-inner",
                 input: "my-formkit-input",
+                message: "my-formkit-message",
             },
         }),
     },
