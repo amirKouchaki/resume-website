@@ -50,6 +50,14 @@ const close = () => {
     }
 }
 
+.modal-form-heading {
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 2rem;
+    letter-spacing: 0.7px;
+    line-height: 1.6;
+}
+
 @media (max-width: $sm-screen) {
     .modal {
         max-width: unset;

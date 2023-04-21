@@ -9,7 +9,7 @@
                 @submit="createMessageThread"
                 submit-label="Create Thread"
             >
-                <h3 class="contact-form-heading">Contact me</h3>
+                <h3 class="modal-form-heading">Contact me</h3>
                 <FormKit
                     type="text"
                     label="Name"
@@ -100,14 +100,5 @@ const createMessageThread = async () => {
 <style lang="scss" scoped>
 .support-form {
     padding: 1em;
-}
-
-.contact-form-heading {
-    font-family: sans-serif;
-    font-weight: bold;
-    font-size: 2rem;
-    letter-spacing: 0.7px;
-    line-height: 1.6;
-    margin-bottom: 1em;
 }
 </style>

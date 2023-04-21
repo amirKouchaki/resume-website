@@ -11,13 +11,12 @@
                         @submit="trackMessageThread"
                         submit-label="Find Thread"
                     >
-                        <h3 class="contact-form-heading">Track Your message</h3>
+                        <h3 class="modal-form-heading">Track Your message</h3>
                         <FormKit
                             type="number"
                             label="Thread code"
                             v-model="trackMessage"
                             validation="required|number|length:15,15"
-                            validation-visibility="live"
                         />
                     </FormKit>
                 </tab>
@@ -116,14 +115,6 @@ const getMessageThread = async () => {
 
 <style lang="scss" scoped>
 @use "../../abstracts" as *;
-
-.contact-form-heading {
-    font-family: sans-serif;
-    font-weight: bold;
-    font-size: 2rem;
-    letter-spacing: 0.7px;
-    line-height: 1.6;
-}
 
 .edit-thread-btns {
     display: flex;

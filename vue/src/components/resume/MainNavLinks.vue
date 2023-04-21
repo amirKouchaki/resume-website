@@ -12,7 +12,11 @@
         @click.prevent="modals.toggleMessageModal"
         >Contact</router-link
     >
-    <router-link :to="{ name: 'resume' }">Extra</router-link>
+    <router-link
+        :to="{ name: 'resume' }"
+        @click.prevent="modals.toggleAuthModal"
+        >Login / Sign Up</router-link
+    >
 </template>
 
 <script setup>
