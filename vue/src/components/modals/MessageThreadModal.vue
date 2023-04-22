@@ -16,6 +16,7 @@
                     name="name"
                     v-model="contactPerson.name"
                     validation="length:0,100"
+                    :errors="errors.name"
                 />
 
                 <FormKit
@@ -24,6 +25,7 @@
                     name="email"
                     v-model="contactPerson.email"
                     validation="email|length:0,255"
+                    :errors="errors.email"
                 />
 
                 <FormKit
@@ -32,6 +34,7 @@
                     name="phone"
                     v-model="contactPerson.phone"
                     validation="length:0,11|matches:/^09\d{9}$/"
+                    :errors="errors.phone"
                 />
 
                 <FormKit
@@ -40,6 +43,7 @@
                     name="title"
                     v-model="messageThread.title"
                     validation="required|length:1,200"
+                    :errors="errors.title"
                 />
 
                 <FormKit
@@ -48,11 +52,10 @@
                     name="body"
                     v-model="messageThread.body"
                     validation="required|length:1,800"
+                    :errors="errors.body"
                 />
-                <p class="error" v-if="errors">{{ errors }}</p>
-            </FormKit>
-        </modal></modal-transition
-    >
+            </FormKit> </modal
+    ></modal-transition>
 </template>
 
 <script setup>
@@ -62,37 +65,36 @@ import useModals from "../../stores/modals";
 import ModalTransition from "../transitions/ModalTransition.vue";
 import { ref } from "vue";
 const modals = useModals();
-let contactPerson = {
+let contactPerson = ref({
     name: "",
     email: "",
     phone: "",
-};
+});
 
-let messageThread = {
+let messageThread = ref({
     title: "",
     body: "",
-};
+});
 
-const errors = ref(null);
+const errors = ref({});
 const createMessageThread = async () => {
     try {
-        errors.value = null;
+        errors.value = {};
         await axiosClient.post("/api/messageThread", {
-            ...messageThread,
-            ...contactPerson,
+            ...messageThread.value,
+            ...contactPerson.value,
         });
-        contactPerson = {
+        contactPerson.value = {
             name: "",
             email: "",
             phone: "",
         };
-        messageThread = {
+        messageThread.value = {
             title: "",
             body: "",
         };
     } catch (e) {
-        alert("error");
-        errors.value = e.response.data.message;
+        errors.value = e.response.data.errors;
     }
 };
 </script>

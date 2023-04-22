@@ -10,6 +10,7 @@
                             label="Email"
                             name="email"
                             v-model="loginData.email"
+                            :errors="loginErrors.email"
                         ></FormKit>
 
                         <FormKit
@@ -17,8 +18,8 @@
                             label="Password"
                             name="password"
                             v-model="loginData.password"
+                            :errors="loginErrors.password"
                         ></FormKit>
-                        <p class="error" v-if="errors">{{ errors }}</p>
                     </FormKit>
                     <button @click="test">test login</button>
                 </tab>
@@ -35,6 +36,7 @@
                             name="name"
                             v-model="SignUpData.name"
                             validation="length:0,100"
+                            :errors="signUpErrors.name"
                         />
                         <FormKit
                             type="email"
@@ -42,6 +44,7 @@
                             name="email"
                             validation="required"
                             v-model="SignUpData.email"
+                            :errors="signUpErrors.email"
                         ></FormKit>
                         <FormKit
                             type="tel"
@@ -49,6 +52,7 @@
                             name="phone"
                             v-model="SignUpData.phone"
                             validation="length:0,11|matches:/^09\d{9}$/"
+                            :errors="signUpErrors.phone"
                         />
                         <FormKit type="group">
                             <FormKit
@@ -57,6 +61,7 @@
                                 label="Password"
                                 validation="required"
                                 v-model="SignUpData.password"
+                                :errors="signUpErrors.password"
                             />
                             <FormKit
                                 type="password"
@@ -74,7 +79,6 @@
                             v-model="SignUpData.remember"
                             validation="required"
                         />
-                        <p class="error" v-if="errors">{{ errors }}</p>
                     </FormKit>
                 </tab>
             </tabs-wrapper>
@@ -91,38 +95,40 @@ import Tab from "../Tab.vue";
 import { ref } from "vue";
 import axiosClient from "../../../axios";
 const modals = useModals();
-const errors = ref(null);
-let loginData = {
+const signUpErrors = ref({});
+const loginErrors = ref({});
+const loginData = ref({
     email: "",
     password: "",
-};
-let SignUpData = {
+});
+const SignUpData = ref({
     name: "",
     email: "",
     phone: "",
     password: "",
     password_confirmation: "",
     remember: false,
-};
+});
 
 const login = async () => {
     try {
-        errors.value = null;
-        await axiosClient.post("login", loginData);
-        loginData = {
+        loginErrors.value = {};
+        await axiosClient.post("login", loginData.value);
+        loginData.value = {
             email: "",
             password: "",
         };
     } catch (e) {
-        errors.value = e.response.message;
+        loginErrors.value = e.response.data.errors;
     }
+    loginData.value.password = "";
 };
 
 const register = async () => {
     try {
-        errors.value = null;
-        await axiosClient.post("register", SignUpData);
-        SignUpData = {
+        signUpErrors.value = {};
+        await axiosClient.post("register", SignUpData.value);
+        SignUpData.value = {
             name: "",
             email: "",
             phone: "",
@@ -131,7 +137,7 @@ const register = async () => {
             remember: false,
         };
     } catch (e) {
-        errors.value = e.response.message;
+        signUpErrors.value = e.response.data.errors;
     }
 };
 

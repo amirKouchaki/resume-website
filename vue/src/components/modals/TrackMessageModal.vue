@@ -68,15 +68,11 @@ const tabWrapper = ref();
 const modals = useModals();
 const messageThread = ref({});
 const trackMessage = ref("");
+const trackMessageErrors = ref(null);
 
 const reply = ref({
     title: "",
     body: "",
-});
-
-const testData = ref({
-    username: "",
-    email: "",
 });
 
 const addReply = async () => {
