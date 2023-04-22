@@ -22,10 +22,10 @@ class UpdateAdminOnUserRegistration
     /**
      * Handle the event.
      *
-     * @param  \App\Events\Registered  $event
+     * @param Registered $event
      * @return void
      */
-    public function handle(Registered $event)
+    public function handle(Registered $event): void
     {
         $event->user->notify(new EmailUserOnRegistration());
     }

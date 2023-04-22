@@ -62,13 +62,13 @@ import useModals from "../../stores/modals";
 import ModalTransition from "../transitions/ModalTransition.vue";
 import { ref } from "vue";
 const modals = useModals();
-const contactPerson = {
+let contactPerson = {
     name: "",
     email: "",
     phone: "",
 };
 
-const messageThread = {
+let messageThread = {
     title: "",
     body: "",
 };
@@ -77,7 +77,6 @@ const errors = ref(null);
 const createMessageThread = async () => {
     try {
         errors.value = null;
-        await axiosClient.get("/sanctum/csrf-cookie");
         await axiosClient.post("/api/messageThread", {
             ...messageThread,
             ...contactPerson,
@@ -92,6 +91,7 @@ const createMessageThread = async () => {
             body: "",
         };
     } catch (e) {
+        alert("error");
         errors.value = e.response.data.message;
     }
 };

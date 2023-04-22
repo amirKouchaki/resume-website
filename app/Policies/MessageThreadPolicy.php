@@ -11,7 +11,7 @@ class MessageThreadPolicy
 {
 
 
-    #[Pure] public function before(?User $user, string $ability)
+    public function before(?User $user, string $ability): ?bool
     {
         if ($user?->isAdministrator())
             return true;
@@ -56,7 +56,7 @@ class MessageThreadPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(?User $user): bool
     {
         return true;
     }

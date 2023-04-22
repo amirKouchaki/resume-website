@@ -1,5 +1,7 @@
 <script setup>
 import { loadFull } from "tsparticles";
+import { onMounted } from "vue";
+import axiosClient from "../axios";
 
 const particlesInit = async (engine) => {
     await loadFull(engine);
@@ -8,6 +10,14 @@ const particlesInit = async (engine) => {
 const particlesLoaded = async (container) => {
     console.log("Particles container loaded", container);
 };
+
+onMounted(() => {
+    try {
+        axiosClient.get("sanctum/csrf-cookie");
+    } catch (error) {
+        console.log(error);
+    }
+});
 </script>
 
 <template>
