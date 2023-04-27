@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SocialiteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,3 +18,5 @@ Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
 
+Route::get('/oauth/{provider}/redirect',[SocialiteController::class,'redirect']);
+Route::get('/oauth/{provider}/callback',[SocialiteController::class,'handleCallback']);

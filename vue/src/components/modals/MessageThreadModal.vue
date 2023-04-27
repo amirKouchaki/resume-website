@@ -99,8 +99,4 @@ const createMessageThread = async () => {
 };
 </script>
 
-<style lang="scss" scoped>
-.support-form {
-    padding: 1em;
-}
-</style>
+<style lang="scss" scoped></style>

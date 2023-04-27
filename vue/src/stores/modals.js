@@ -20,7 +20,7 @@ const useModals = defineStore("modals", {
         },
         toggleAuthModal() {
             this.showAuthModal = !this.showAuthModal;
-            this.updateScrollStatus(this.showAuthMessageModal);
+            this.updateScrollStatus(this.showAuthModal);
         },
         updateScrollStatus(visibilityStatus) {
             const doc = document.body.classList;

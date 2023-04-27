@@ -143,7 +143,8 @@ const register = async () => {
 
 const test = async () => {
     try {
-        console.log(await axiosClient.get("api/user"));
+        const res = await axiosClient.get("oauth/google/redirect");
+        window.location.href = res.data.redirectUrl;
     } catch (e) {
         console.log(e);
     }

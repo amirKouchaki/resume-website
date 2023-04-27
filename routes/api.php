@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\MessageThreadController;
+use App\Http\Controllers\SocialiteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 /*
@@ -22,5 +24,6 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 
 
-Route::apiResource('/messageThread',\App\Http\Controllers\MessageThreadController::class);
-Route::post('/messageThread/{messageThread}/reply/',[\App\Http\Controllers\MessageThreadController::class,'reply']);
+Route::apiResource('/messageThread', MessageThreadController::class);
+Route::post('/messageThread/{messageThread}/reply/',[MessageThreadController::class,'reply']);
+
