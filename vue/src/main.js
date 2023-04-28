@@ -43,3 +43,5 @@ app.directive("modal-click-away", {
 // });
 
 app.use(router).use(plugin, config).use(pinia).use(Particles).mount("#app");
+
+export default { pinia, router, app };

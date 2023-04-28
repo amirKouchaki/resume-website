@@ -13,9 +13,9 @@ class SocialiteController extends Controller
         return response()->json(['redirectUrl' => Socialite::driver($provider)->redirect()->getTargetUrl()]);
     }
     public function handleCallback($provider) {
-        $oauthUser = Socialite::driver($provider)->user();
-        try {
 
+        try {
+            $oauthUser = Socialite::driver($provider)->user();
 
             $user = User::query()->updateOrCreate(['email' => $oauthUser->getEmail()],[
                 'name' => $oauthUser->getName(),
@@ -24,11 +24,11 @@ class SocialiteController extends Controller
 
             Auth::login($user);
 
-            return response()->json(['message' => 'Login successful']);
+            return response()->json(['message' => 'Login successful','success' => true]);
 
         }
         catch (\Throwable $e) {
-            dd('something went wrong!!'. $e->getMessage());
+            return response()->json(['message' => $e->getMessage(),'success' => false],400);
         }
     }
 
