@@ -17,6 +17,7 @@ const useModals = defineStore("modals", {
         toggleTrackMessageModal() {
             this.showTrackMessageModal = !this.showTrackMessageModal;
             this.updateScrollStatus(this.showTrackMessageModal);
+            console.log(this.showTrackMessageModal);
         },
         toggleAuthModal() {
             this.showAuthModal = !this.showAuthModal;
