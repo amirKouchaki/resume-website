@@ -14,17 +14,21 @@
                     </h1>
                 </div>
                 <nav class="main-nav desktop">
-                    <main-nav-links />
+                    <a
+                        class="link"
+                        v-for="(link, idx) in navLinks"
+                        :key="idx"
+                        @click.prevent="link.click"
+                        >{{ link.text }}</a
+                    >
                 </nav>
-                <aside class="mobile sidebar">
-                    <div class="sidebar-logo" @click="toggleSidebar"></div>
+                <aside class="sidebar mobile">
+                    <mobile-menu :links="navLinks"></mobile-menu>
+                    <!-- <div class="sidebar-logo" @click="toggleSidebar"></div> -->
                 </aside>
             </header>
             <section class="main-section">
-                <div></div>
-                <Transition name="mobile-sidebar">
-                    <mobile-sidebar-nav v-if="showSidebar"
-                /></Transition>
+                <mobile-sidebar-nav v-if="showSidebar" />
                 <section class="hero-section">
                     <img
                         src="../assets/images/profile.jpg"
@@ -116,8 +120,6 @@
 
 <script setup>
 import { publicPath } from "../composables/publicUrl";
-import MobileSidebarNav from "../components/resume/MobileSidebarNav.vue";
-import mainNavLinks from "../components/resume/MainNavLinks.vue";
 import GenericSection from "../components/resume/GenericSection.vue";
 import Carousel from "../components/Carousel.vue";
 import FactCard from "../components/resume/FactCard.vue";
@@ -125,14 +127,12 @@ import MessageThreadModal from "../components/modals/MessageThreadModal.vue";
 import TrackMessageModal from "../components/modals/TrackMessageModal.vue";
 import useModals from "../stores/modals";
 import AuthModal from "../components/modals/AuthModal.vue";
+import MobileMenu from "../components/MobileMenu.vue";
 import { ref } from "vue";
 
 const modals = useModals();
 
 const showSidebar = ref(false);
-const toggleSidebar = () => {
-    showSidebar.value = !showSidebar.value;
-};
 
 const jobDescriptions = [
     {
@@ -191,6 +191,33 @@ const funFacts = [
         data: 1286,
     },
 ];
+
+const navLinks = [
+    {
+        text: "About Me",
+        click: "",
+    },
+    {
+        text: "Resume",
+        click: "",
+    },
+    {
+        text: "Track Message",
+        click: modals.toggleTrackMessageModal,
+    },
+    {
+        text: "Blog",
+        click: "",
+    },
+    {
+        text: "Contact",
+        click: modals.toggleMessageModal,
+    },
+    {
+        text: "Login -- Sign Up",
+        click: modals.toggleAuthModal,
+    },
+];
 </script>
 
 <style lang="scss" scoped>
@@ -230,7 +257,7 @@ const funFacts = [
 
 .main-nav {
     display: flex;
-    gap: 2.7em;
+    gap: clamp(1.5em, 1em + 1vw, 2.7em);
 }
 
 .hero-section {

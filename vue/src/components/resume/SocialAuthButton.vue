@@ -6,7 +6,7 @@
     >
         <img
             class="social-btn-icon"
-            :src="'../../../public/svgs/' + iconSrc"
+            :src="'/svgs/' + iconSrc"
             style="width: 30px; height: 30px"
             alt=""
         />

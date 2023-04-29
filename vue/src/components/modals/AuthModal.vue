@@ -112,9 +112,11 @@ import TabsWrapper from "../TabsWrapper.vue";
 import TabPanelTransition from "../transitions/TabPanelTransition.vue";
 import { ref } from "vue";
 import axiosClient from "../../../axios";
+import { useRouter } from "vue-router";
 const modals = useModals();
 const signUpErrors = ref({});
 const loginErrors = ref({});
+const router = useRouter();
 const loginData = ref({
     email: "",
     password: "",
@@ -136,6 +138,7 @@ const login = async () => {
             email: "",
             password: "",
         };
+        router.push({ name: "dashboard" });
     } catch (e) {
         loginErrors.value = e.response.data.errors;
     }

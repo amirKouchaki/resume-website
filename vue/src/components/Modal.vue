@@ -41,6 +41,7 @@ const props = defineProps({
 @use "../abstracts" as *;
 .modal-container {
     position: fixed;
+    z-index: 999;
     inset: 0;
     background-color: rgba(0, 0, 0, 0.6);
     display: flex;
