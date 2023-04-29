@@ -1,11 +1,24 @@
 <template>
-    <modal-transition>
-        <modal
-            v-if="modals.showTrackMessageModal"
-            :toggle="modals.toggleTrackMessageModal"
+    <modal
+        :show="modals.showTrackMessageModal"
+        :close="modals.toggleTrackMessageModal"
+    >
+        <tabs-wrapper
+            ref="tabWrapper"
+            :tabs="[
+                { title: 'track', disabled: false },
+                {
+                    title: 'show',
+                    disabled: Object.keys(messageThread).length == 0,
+                },
+                {
+                    title: 'reply',
+                    disabled: Object.keys(messageThread).length == 0,
+                },
+            ]"
         >
-            <tabs-wrapper ref="tabWrapper" type="multi-page">
-                <tab title="track">
+            <template #tab-panels>
+                <tab-panel-transition>
                     <FormKit
                         type="form"
                         @submit="trackMessageThread"
@@ -13,17 +26,15 @@
                     >
                         <h3 class="modal-form-heading">Track Your message</h3>
                         <FormKit
-                            type="number"
+                            type="text"
                             label="Thread code"
                             v-model="trackMessage"
                             validation="required|number|length:15,15"
                         />
                     </FormKit>
-                </tab>
-                <tab
-                    title="show"
-                    :renderRule="Object.keys(messageThread).length !== 0"
-                    ><show-messages :thread="messageThread" />
+                </tab-panel-transition>
+                <tab-panel-transition>
+                    <show-messages :thread="messageThread" />
                     <div class="edit-thread-btns">
                         <button
                             class="reply-btn thread-btn"
@@ -34,11 +45,9 @@
                             finish
                         </button>
                     </div>
-                </tab>
-                <tab
-                    title="reply"
-                    :renderRule="Object.keys(messageThread).length !== 0"
-                >
+                </tab-panel-transition>
+
+                <tab-panel-transition>
                     <FormKit
                         type="form"
                         @submit="addReply"
@@ -49,20 +58,21 @@
                         <FormKit type="text" label="Title" name="title" />
                         <FormKit type="textarea" label="Body" name="body"
                     /></FormKit>
-                </tab>
-            </tabs-wrapper> </modal
-    ></modal-transition>
+                </tab-panel-transition>
+            </template>
+        </tabs-wrapper>
+    </modal>
 </template>
 
 <script setup>
-import Modal from "../../components/Modal.vue";
+import tabPanelTransition from "../transitions/TabPanelTransition.vue";
 import { ref } from "vue";
 import axiosClient from "../../../axios";
 import useModals from "../../stores/modals";
 import TabsWrapper from "../TabsWrapper.vue";
-import Tab from "../Tab.vue";
+// import Tab from "../Tab.vue";
 import ShowMessages from "../ShowMessages.vue";
-import ModalTransition from "../transitions/ModalTransition.vue";
+import modal from "../Modal.vue";
 
 const tabWrapper = ref();
 const modals = useModals();
@@ -89,12 +99,12 @@ const addReply = async () => {
         body: "",
     };
 
-    tabWrapper.value.previous();
+    tabWrapper.value.previousTab();
 };
 
 const trackMessageThread = async () => {
     await getMessageThread();
-    tabWrapper.value.next();
+    tabWrapper.value.nextTab();
 };
 
 const getMessageThread = async () => {

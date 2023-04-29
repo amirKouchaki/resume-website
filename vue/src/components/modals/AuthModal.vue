@@ -1,8 +1,13 @@
 <template>
-    <modal-transition>
-        <modal v-if="modals.showAuthModal" :toggle="modals.toggleAuthModal">
-            <tabs-wrapper type="multi-page">
-                <tab title="Login">
+    <modal :show="modals.showAuthModal" :close="modals.toggleAuthModal">
+        <tabs-wrapper
+            :tabs="[
+                { title: 'Login', disabled: false },
+                { title: 'Sign Up', disabled: false },
+            ]"
+        >
+            <template #tab-panels>
+                <tab-panel-transition>
                     <h3 class="modal-form-heading">Login</h3>
                     <FormKit type="form" submit-label="Login" @submit="login">
                         <FormKit
@@ -21,9 +26,23 @@
                             :errors="loginErrors.password"
                         ></FormKit>
                     </FormKit>
-                    <button @click="test">test login</button>
-                </tab>
-                <tab title="Sign Up">
+                    <social-auth-button
+                        text="Login With Google"
+                        iconSrc="google.svg"
+                        :onClick="test"
+                        bgColor="#007bff"
+                        text-color="#f2f2f2"
+                    />
+                    <!-- <button @click="test">
+                        <img
+                            src="../../../public/svgs/google.svg"
+                            style="width: 30px; height: 30px"
+                            alt=""
+                        />
+                        <span> login with google</span>
+                    </button> -->
+                </tab-panel-transition>
+                <tab-panel-transition>
                     <h3 class="modal-form-heading">Sign Up</h3>
                     <FormKit
                         type="form"
@@ -79,19 +98,18 @@
                             v-model="SignUpData.remember"
                             validation="required"
                         />
-                    </FormKit>
-                </tab>
-            </tabs-wrapper>
-        </modal>
-    </modal-transition>
+                    </FormKit> </tab-panel-transition
+            ></template>
+        </tabs-wrapper>
+    </modal>
 </template>
 
 <script setup>
+import SocialAuthButton from "../resume/SocialAuthButton.vue";
 import useModals from "../../stores/modals";
-import ModalTransition from "../transitions/ModalTransition.vue";
-import Modal from "../Modal.vue";
+import modal from "../Modal.vue";
 import TabsWrapper from "../TabsWrapper.vue";
-import Tab from "../Tab.vue";
+import TabPanelTransition from "../transitions/TabPanelTransition.vue";
 import { ref } from "vue";
 import axiosClient from "../../../axios";
 const modals = useModals();

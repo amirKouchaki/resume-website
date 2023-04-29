@@ -1,8 +1,5 @@
 <template>
-    <div class="close-container" @click="$emit('close')">
-        <div class="leftright"></div>
-        <div class="rightleft"></div>
-    </div>
+    <button id="close" @click="$emit('close')">close</button>
 </template>
 
 <script setup>
@@ -11,62 +8,44 @@ const emits = defineEmits(["close"]);
 
 <style lang="scss" scoped>
 @use "../abstracts" as *;
-// COLORS
-
-.close-container {
+#close {
+    overflow: hidden;
     position: relative;
-    margin-left: auto;
-    margin-block: 0.3em 0.7em;
-    margin-right: 0.3em;
-    width: 25px;
-    height: 25px;
+    border: none;
+    padding: 0;
+    width: 2.2em;
+    height: 2.2em;
+    border-radius: 50%;
+    background: transparent;
+    color: $main-color;
+    font: inherit;
+    text-indent: 100%;
     cursor: pointer;
-}
+    transition: all 0.2s ease-in-out;
+    margin-left: auto;
 
-.leftright {
-    height: 4px;
-    width: 25px;
-    position: absolute;
-    margin-top: 12px;
-    background-color: $secondary-text-color;
-    border-radius: 2px;
-    transform: rotate(45deg);
-    transition: all 0.3s ease-in;
-}
+    &:hover,
+    &:focus {
+        outline: solid 0 transparent;
+        box-shadow: 0 0 0 2px rgba($main-color, 0.5);
+        background-color: rgba($main-color, 0.08);
+    }
 
-.rightleft {
-    height: 4px;
-    width: 25px;
-    position: absolute;
-    margin-top: 12px;
-    background-color: $secondary-text-color;
-    border-radius: 2px;
-    transform: rotate(-45deg);
-    transition: all 0.3s ease-in;
-}
+    &:before,
+    &:after {
+        position: absolute;
+        top: 15%;
+        left: calc(50% - 0.0625em);
+        width: 0.125em;
+        height: 70%;
+        border-radius: 0.125em;
+        transform: rotate(45deg);
+        background: currentcolor;
+        content: "";
+    }
 
-label {
-    color: white;
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 0.6em;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    transition: all 0.3s ease-in;
-    opacity: 0;
-}
-.close {
-    position: absolute;
-}
-
-.close-container:hover .leftright {
-    transform: rotate(-45deg);
-    background-color: $main-color;
-}
-.close-container:hover .rightleft {
-    transform: rotate(45deg);
-    background-color: $main-color;
-}
-.close-container:hover label {
-    opacity: 1;
+    &:after {
+        transform: rotate(-45deg);
+    }
 }
 </style>
