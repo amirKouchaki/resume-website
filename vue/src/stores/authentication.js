@@ -13,6 +13,9 @@ const useAuthentication = defineStore("authentication", {
         },
     },
     actions: {
+        async login() {},
+        async register() {},
+        async logout() {},
         setAuthenticated(authStatus) {
             this.authenticated = authStatus;
             if (authStatus == true)

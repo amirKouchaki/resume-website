@@ -26,7 +26,21 @@
                             :errors="loginErrors.password"
                         ></FormKit>
                     </FormKit>
-                    <button @click="test">test login</button>
+                    <social-auth-button
+                        text="Login With Google"
+                        iconSrc="google.svg"
+                        :onClick="test"
+                        bgColor="#007bff"
+                        text-color="#f2f2f2"
+                    />
+                    <!-- <button @click="test">
+                        <img
+                            src="../../../public/svgs/google.svg"
+                            style="width: 30px; height: 30px"
+                            alt=""
+                        />
+                        <span> login with google</span>
+                    </button> -->
                 </tab-panel-transition>
                 <tab-panel-transition>
                     <h3 class="modal-form-heading">Sign Up</h3>
@@ -91,6 +105,7 @@
 </template>
 
 <script setup>
+import SocialAuthButton from "../resume/SocialAuthButton.vue";
 import useModals from "../../stores/modals";
 import modal from "../Modal.vue";
 import TabsWrapper from "../TabsWrapper.vue";
