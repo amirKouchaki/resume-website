@@ -1,5 +1,5 @@
 <template>
-    <new-modals
+    <modal
         :show="modals.showMessageThreadModal"
         :close="modals.toggleMessageModal"
     >
@@ -54,15 +54,13 @@
                 :errors="errors.body"
             />
         </FormKit>
-    </new-modals>
+    </modal>
 </template>
 
 <script setup>
-import NewModals from "../tabs/NewModals.vue";
-import Modal from "../../components/Modal.vue";
+import Modal from "../Modal.vue";
 import axiosClient from "../../../axios";
 import useModals from "../../stores/modals";
-import ModalTransition from "../transitions/ModalTransition.vue";
 import { ref } from "vue";
 const modals = useModals();
 let contactPerson = ref({

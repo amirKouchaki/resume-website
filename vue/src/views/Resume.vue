@@ -111,7 +111,6 @@
     </div>
     <message-thread-modal />
     <track-message-modal />
-    <!-- <new-modals /> -->
     <auth-modal />
 </template>
 
@@ -126,7 +125,6 @@ import MessageThreadModal from "../components/modals/MessageThreadModal.vue";
 import TrackMessageModal from "../components/modals/TrackMessageModal.vue";
 import useModals from "../stores/modals";
 import AuthModal from "../components/modals/AuthModal.vue";
-import NewModals from "../components/tabs/NewModals.vue";
 import { ref } from "vue";
 
 const modals = useModals();

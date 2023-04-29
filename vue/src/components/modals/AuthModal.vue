@@ -1,92 +1,100 @@
 <template>
-    <new-modals :show="modals.showAuthModal" :close="modals.toggleAuthModal">
-        <tabs-wrapper type="multi-page">
-            <tab title="Login">
-                <h3 class="modal-form-heading">Login</h3>
-                <FormKit type="form" submit-label="Login" @submit="login">
-                    <FormKit
-                        type="email"
-                        label="Email"
-                        name="email"
-                        v-model="loginData.email"
-                        :errors="loginErrors.email"
-                    ></FormKit>
+    <modal :show="modals.showAuthModal" :close="modals.toggleAuthModal">
+        <tabs-wrapper
+            :tabs="[
+                { title: 'Login', disabled: false },
+                { title: 'Sign Up', disabled: false },
+            ]"
+        >
+            <template #tab-panels>
+                <tab-panel-transition>
+                    <h3 class="modal-form-heading">Login</h3>
+                    <FormKit type="form" submit-label="Login" @submit="login">
+                        <FormKit
+                            type="email"
+                            label="Email"
+                            name="email"
+                            v-model="loginData.email"
+                            :errors="loginErrors.email"
+                        ></FormKit>
 
-                    <FormKit
-                        type="password"
-                        label="Password"
-                        name="password"
-                        v-model="loginData.password"
-                        :errors="loginErrors.password"
-                    ></FormKit>
-                </FormKit>
-                <button @click="test">test login</button>
-            </tab>
-            <tab title="Sign Up">
-                <h3 class="modal-form-heading">Sign Up</h3>
-                <FormKit type="form" submit-label="Sign Up" @submit="register">
-                    <FormKit
-                        type="text"
-                        label="Name"
-                        name="name"
-                        v-model="SignUpData.name"
-                        validation="length:0,100"
-                        :errors="signUpErrors.name"
-                    />
-                    <FormKit
-                        type="email"
-                        label="Email"
-                        name="email"
-                        validation="required"
-                        v-model="SignUpData.email"
-                        :errors="signUpErrors.email"
-                    ></FormKit>
-                    <FormKit
-                        type="tel"
-                        label="Phone"
-                        name="phone"
-                        v-model="SignUpData.phone"
-                        validation="length:0,11|matches:/^09\d{9}$/"
-                        :errors="signUpErrors.phone"
-                    />
-                    <FormKit type="group">
                         <FormKit
                             type="password"
-                            name="password"
                             label="Password"
-                            validation="required"
-                            v-model="SignUpData.password"
-                            :errors="signUpErrors.password"
+                            name="password"
+                            v-model="loginData.password"
+                            :errors="loginErrors.password"
+                        ></FormKit>
+                    </FormKit>
+                    <button @click="test">test login</button>
+                </tab-panel-transition>
+                <tab-panel-transition>
+                    <h3 class="modal-form-heading">Sign Up</h3>
+                    <FormKit
+                        type="form"
+                        submit-label="Sign Up"
+                        @submit="register"
+                    >
+                        <FormKit
+                            type="text"
+                            label="Name"
+                            name="name"
+                            v-model="SignUpData.name"
+                            validation="length:0,100"
+                            :errors="signUpErrors.name"
                         />
                         <FormKit
-                            type="password"
-                            name="password_confirm"
-                            label="Confirm Password"
-                            validation="required|confirm"
-                            validation-label="Confirmation"
-                            v-model="SignUpData.password_confirmation"
+                            type="email"
+                            label="Email"
+                            name="email"
+                            validation="required"
+                            v-model="SignUpData.email"
+                            :errors="signUpErrors.email"
+                        ></FormKit>
+                        <FormKit
+                            type="tel"
+                            label="Phone"
+                            name="phone"
+                            v-model="SignUpData.phone"
+                            validation="length:0,11|matches:/^09\d{9}$/"
+                            :errors="signUpErrors.phone"
                         />
-                    </FormKit>
-                    <FormKit
-                        type="checkbox"
-                        label="Remember Me"
-                        name="remember_me"
-                        v-model="SignUpData.remember"
-                        validation="required"
-                    />
-                </FormKit>
-            </tab>
+                        <FormKit type="group">
+                            <FormKit
+                                type="password"
+                                name="password"
+                                label="Password"
+                                validation="required"
+                                v-model="SignUpData.password"
+                                :errors="signUpErrors.password"
+                            />
+                            <FormKit
+                                type="password"
+                                name="password_confirm"
+                                label="Confirm Password"
+                                validation="required|confirm"
+                                validation-label="Confirmation"
+                                v-model="SignUpData.password_confirmation"
+                            />
+                        </FormKit>
+                        <FormKit
+                            type="checkbox"
+                            label="Remember Me"
+                            name="remember_me"
+                            v-model="SignUpData.remember"
+                            validation="required"
+                        />
+                    </FormKit> </tab-panel-transition
+            ></template>
         </tabs-wrapper>
-    </new-modals>
+    </modal>
 </template>
 
 <script setup>
 import useModals from "../../stores/modals";
-import NewModals from "../tabs/NewModals.vue";
-import ModalTransition from "../transitions/ModalTransition.vue";
-import Modal from "../Modal.vue";
+import modal from "../Modal.vue";
 import TabsWrapper from "../TabsWrapper.vue";
-import Tab from "../Tab.vue";
+import TabPanelTransition from "../transitions/TabPanelTransition.vue";
 import { ref } from "vue";
 import axiosClient from "../../../axios";
 const modals = useModals();
