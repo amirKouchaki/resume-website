@@ -4,7 +4,9 @@
             :tabs="[
                 { title: 'Login', disabled: false },
                 { title: 'Sign Up', disabled: false },
+                { title: 'Forgot Password', disabled: false },
             ]"
+            ref="tabsWrapper"
         >
             <template #tab-panels>
                 <tab-panel-transition>
@@ -24,8 +26,10 @@
                             name="password"
                             v-model="loginData.password"
                             :errors="loginErrors.password"
-                        ></FormKit>
+                        ></FormKit
+                        ><a @click.prevent="forgotPassTab">Forgot password</a>
                     </FormKit>
+
                     <social-auth-button
                         text="Login With Google"
                         iconSrc="google.svg"
@@ -33,14 +37,6 @@
                         bgColor="#007bff"
                         text-color="#f2f2f2"
                     />
-                    <!-- <button @click="test">
-                        <img
-                            src="../../../public/svgs/google.svg"
-                            style="width: 30px; height: 30px"
-                            alt=""
-                        />
-                        <span> login with google</span>
-                    </button> -->
                 </tab-panel-transition>
                 <tab-panel-transition>
                     <h3 class="modal-form-heading">Sign Up</h3>
@@ -98,8 +94,25 @@
                             v-model="SignUpData.remember"
                             validation="required"
                         />
-                    </FormKit> </tab-panel-transition
-            ></template>
+                    </FormKit>
+                </tab-panel-transition>
+                <tab-panel-transition>
+                    <FormKit
+                        type="form"
+                        submit-label="Sign Up"
+                        @submit="forgotPassword"
+                    >
+                        <FormKit
+                            type="email"
+                            label="Email"
+                            name="email"
+                            validation="required"
+                            v-model="loginData.email"
+                            :errors="forgotPassErrors.email"
+                        ></FormKit>
+                    </FormKit>
+                </tab-panel-transition>
+            </template>
         </tabs-wrapper>
     </modal>
 </template>
@@ -116,6 +129,8 @@ import { useRouter } from "vue-router";
 const modals = useModals();
 const signUpErrors = ref({});
 const loginErrors = ref({});
+const forgotPassErrors = ref({});
+const tabsWrapper = ref();
 const router = useRouter();
 const loginData = ref({
     email: "",
@@ -129,6 +144,10 @@ const SignUpData = ref({
     password_confirmation: "",
     remember: false,
 });
+
+const forgotPassTab = () => {
+    tabsWrapper.value.changeTab(2);
+};
 
 const login = async () => {
     try {
@@ -162,6 +181,16 @@ const register = async () => {
     }
 };
 
+const forgotPassword = async () => {
+    try {
+        signUpErrors.value = {};
+        await axiosClient.post("forgot-password", {
+            email: loginData.value.email,
+        });
+    } catch (error) {
+        forgotPassErrors.value = error.response.data.errors;
+    }
+};
 const test = async () => {
     try {
         const res = await axiosClient.get("oauth/google/redirect");

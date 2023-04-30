@@ -107,5 +107,5 @@ return [
     */
 
     'password_timeout' => 10800,
-
+    'frontend_url' => env('FRONTEND_URL')
 ];

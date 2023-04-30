@@ -28,7 +28,6 @@
                 </aside>
             </header>
             <section class="main-section">
-                <mobile-sidebar-nav v-if="showSidebar" />
                 <section class="hero-section">
                     <img
                         src="../assets/images/profile.jpg"
