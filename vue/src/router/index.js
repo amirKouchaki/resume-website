@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Resume from "../views/Resume.vue";
 import SocialAuthCallback from "../views/SocialAuthCallback.vue";
+import ResetPassword from "../views/ResetPassword.vue";
 import Dashboard from "../views/Dashboard.vue";
 import middlewares from "./middlewares";
 const routes = [
@@ -23,6 +24,12 @@ const routes = [
         path: "/oauth/:provider/callback",
         name: "oauth.callback",
         component: SocialAuthCallback,
+        beforeEnter: middlewares.guest,
+    },
+    {
+        path: "/reset-password",
+        name: "password.reset",
+        component: ResetPassword,
         beforeEnter: middlewares.guest,
     },
     { path: "/:pathMatch(.*)*", redirect: { name: "resume" } },

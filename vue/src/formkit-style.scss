@@ -1,5 +1,9 @@
 @use "./abstracts/" as *;
 
+.my-formkit-form {
+    width: 100%;
+}
+
 .my-formkit-outer {
     margin-block: 2em !important;
 }

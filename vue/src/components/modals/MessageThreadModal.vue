@@ -62,6 +62,7 @@ import Modal from "../Modal.vue";
 import axiosClient from "../../../axios";
 import useModals from "../../stores/modals";
 import { ref } from "vue";
+import { successToast } from "../../composables/helpers";
 const modals = useModals();
 let contactPerson = ref({
     name: "",
@@ -91,6 +92,8 @@ const createMessageThread = async () => {
             title: "",
             body: "",
         };
+        modals.toggleMessageModal();
+        successToast("your message has been sent!");
     } catch (e) {
         errors.value = e.response.data.errors;
     }

@@ -61,7 +61,7 @@ return [
     |
     */
 
-    'home' => RouteServiceProvider::HOME,
+    'home' => config('auth.frontend_url').'/dashboard',
 
     /*
     |--------------------------------------------------------------------------
@@ -88,7 +88,6 @@ return [
     | these middleware but typically this provided default is preferred.
     |
     */
-
     'middleware' => ['web'],
 
     /*

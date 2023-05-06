@@ -453,13 +453,5 @@ const navLinks = [
     .hero-description {
         width: 100%;
     }
-    .container {
-        max-width: 100%;
-        width: 100%;
-        margin: 0;
-        border-radius: 0;
-        min-height: 100vh;
-        padding-block: 0.5em;
-    }
 }
 </style>

@@ -33,7 +33,7 @@
                     <social-auth-button
                         text="Login With Google"
                         iconSrc="google.svg"
-                        :onClick="test"
+                        :onClick="googleOauthLogin"
                         bgColor="#007bff"
                         text-color="#f2f2f2"
                     />
@@ -119,6 +119,7 @@
 
 <script setup>
 import SocialAuthButton from "../resume/SocialAuthButton.vue";
+import { successToast, errorToast } from "../../composables/helpers";
 import useModals from "../../stores/modals";
 import modal from "../Modal.vue";
 import TabsWrapper from "../TabsWrapper.vue";
@@ -126,12 +127,13 @@ import TabPanelTransition from "../transitions/TabPanelTransition.vue";
 import { ref } from "vue";
 import axiosClient from "../../../axios";
 import { useRouter } from "vue-router";
+import { useToast } from "vue-toastification";
 const modals = useModals();
+const router = useRouter();
 const signUpErrors = ref({});
 const loginErrors = ref({});
 const forgotPassErrors = ref({});
 const tabsWrapper = ref();
-const router = useRouter();
 const loginData = ref({
     email: "",
     password: "",
@@ -184,14 +186,15 @@ const register = async () => {
 const forgotPassword = async () => {
     try {
         signUpErrors.value = {};
-        await axiosClient.post("forgot-password", {
+        const response = await axiosClient.post("forgot-password", {
             email: loginData.value.email,
         });
+        successToast(response.data.message);
     } catch (error) {
         forgotPassErrors.value = error.response.data.errors;
     }
 };
-const test = async () => {
+const googleOauthLogin = async () => {
     try {
         const res = await axiosClient.get("oauth/google/redirect");
         window.location.href = res.data.redirectUrl;

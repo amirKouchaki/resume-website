@@ -8,11 +8,17 @@ import router from "./router";
 import Particles from "vue3-particles";
 import { plugin } from "@formkit/vue";
 import config from "../formkit.config";
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
+const toastificationOptions = {
+    transition: "Vue-Toastification__fade",
+    maxToasts: 4,
+    newestOnTop: true,
+};
 
 const pinia = createPinia();
 
 const app = createApp(App);
-
 app.directive("modal-click-away", {
     mounted: (el, bindings) => {
         document.addEventListener("click", (e) => {
@@ -27,21 +33,11 @@ app.directive("modal-click-away", {
     },
 });
 
-// app.directive("click-outside", {
-//     mounted: function (el, binding, vnode) {
-//         console.log(el);
-//         event = function (event) {
-//             if (!(el == event.target || el.contains(event.target))) {
-//                 binding.value();
-//             }
-//         };
-//         document.body.addEventListener("click", event);
-//     },
-//     unbind: function (el) {
-//         document.body.removeEventListener("click", event);
-//     },
-// });
-
-app.use(router).use(plugin, config).use(pinia).use(Particles).mount("#app");
+app.use(router)
+    .use(plugin, config)
+    .use(pinia)
+    .use(Particles)
+    .use(Toast, toastificationOptions)
+    .mount("#app");
 
 export default { pinia, router, app };

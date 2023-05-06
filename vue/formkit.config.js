@@ -8,6 +8,7 @@ const config = defaultConfig({
     config: {
         classes: generateClasses({
             global: {
+                form: "my-formkit-form",
                 outer: "my-formkit-outer",
                 wrapper: "my-formkit-wrapper",
                 label: "my-formkit-label",
