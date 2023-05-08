@@ -99,7 +99,7 @@
                 <tab-panel-transition>
                     <FormKit
                         type="form"
-                        submit-label="Sign Up"
+                        submit-label="Reset Password"
                         @submit="forgotPassword"
                     >
                         <FormKit
@@ -119,7 +119,8 @@
 
 <script setup>
 import SocialAuthButton from "../resume/SocialAuthButton.vue";
-import { successToast, errorToast } from "../../composables/helpers";
+import { successToast, errorToast } from "../../composables/toasts";
+import { forgotPasswordReq } from "../../services/authService";
 import useModals from "../../stores/modals";
 import modal from "../Modal.vue";
 import TabsWrapper from "../TabsWrapper.vue";
@@ -127,7 +128,6 @@ import TabPanelTransition from "../transitions/TabPanelTransition.vue";
 import { ref } from "vue";
 import axiosClient from "../../../axios";
 import { useRouter } from "vue-router";
-import { useToast } from "vue-toastification";
 const modals = useModals();
 const router = useRouter();
 const signUpErrors = ref({});
@@ -186,9 +186,7 @@ const register = async () => {
 const forgotPassword = async () => {
     try {
         signUpErrors.value = {};
-        const response = await axiosClient.post("forgot-password", {
-            email: loginData.value.email,
-        });
+        const response = await forgotPasswordReq();
         successToast(response.data.message);
     } catch (error) {
         forgotPassErrors.value = error.response.data.errors;

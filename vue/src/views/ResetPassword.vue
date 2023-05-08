@@ -4,7 +4,7 @@
             <FormKit
                 type="form"
                 @submit="resetPassword"
-                submit-label="Create Thread"
+                submit-label="Reset Password"
             >
                 <h3 class="modal-form-heading">Reset Password</h3>
                 <FormKit type="group">

@@ -62,7 +62,7 @@ import Modal from "../Modal.vue";
 import axiosClient from "../../../axios";
 import useModals from "../../stores/modals";
 import { ref } from "vue";
-import { successToast } from "../../composables/helpers";
+import { successToast } from "../../composables/toasts";
 const modals = useModals();
 let contactPerson = ref({
     name: "",
