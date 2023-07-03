@@ -21,7 +21,9 @@
                 <tab-panel-transition>
                     <FormKit
                         type="form"
-                        @submit="trackMessageThread"
+                        id="trackMessageForm"
+                        ref="trackMessageForm"
+                        @submit="trackMessageIsEnabled = true"
                         submit-label="Find Thread"
                     >
                         <h3 class="modal-form-heading">Track Your message</h3>
@@ -30,6 +32,7 @@
                             label="Thread code"
                             v-model="trackMessage"
                             validation="required|number|length:15,15"
+                            :errors="trackMessageErrors"
                         />
                     </FormKit>
                 </tab-panel-transition>
@@ -70,15 +73,17 @@ import { ref } from "vue";
 import axiosClient from "../../../axios";
 import useModals from "../../stores/modals";
 import TabsWrapper from "../TabsWrapper.vue";
-// import Tab from "../Tab.vue";
 import ShowMessages from "../ShowMessages.vue";
 import modal from "../Modal.vue";
-
+import { useQueries, useQuery, useQueryClient } from "@tanstack/vue-query";
+import { showMessageThreadReq } from "../../services/messageThread";
+const trackMessageForm = ref(null);
 const tabWrapper = ref();
 const modals = useModals();
 const messageThread = ref({});
 const trackMessage = ref("");
-const trackMessageErrors = ref(null);
+const trackMessageIsEnabled = ref(false);
+const trackMessageErrors = ref([]);
 
 const reply = ref({
     title: "",
@@ -102,10 +107,24 @@ const addReply = async () => {
     tabWrapper.value.previousTab();
 };
 
-const trackMessageThread = async () => {
-    await getMessageThread();
-    tabWrapper.value.nextTab();
-};
+// const trackMessageThread = ({ queryKey }) => console.log(trackMessage.value);
+
+const { data, error } = useQuery({
+    queryKey: ["messageThread", trackMessage],
+    queryFn: showMessageThreadReq,
+    enabled: trackMessageIsEnabled,
+    onSuccess: () => {
+        messageThread.value = data.value.data;
+        tabWrapper.value.nextTab();
+    },
+    onError: () => {
+        console.log(error.value.response.data);
+        trackMessageErrors.value = error.value.response.data.errors;
+    },
+    onSettled: () => {
+        trackMessageIsEnabled.value = false;
+    },
+});
 
 const getMessageThread = async () => {
     try {

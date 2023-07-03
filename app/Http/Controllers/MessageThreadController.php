@@ -60,6 +60,7 @@ class MessageThreadController extends Controller
     {
         $data = $request->validated();
 
+        sleep(2);
         /*
          * TODO: might be better to use polymorphic relationship to choose between contact person and user instead of saving extra information
          */
