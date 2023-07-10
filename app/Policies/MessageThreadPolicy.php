@@ -25,11 +25,7 @@ class MessageThreadPolicy
         /*
          * TODO: handle snowflake authentication
          */
-        if (is_null($user) && $messageThread->isCreatedByAnAuthenticatedUser())
-            return false;
-
-
-        return true;
+        return !(is_null($user) && $messageThread->isCreatedByAnAuthenticatedUser());
     }
 
 
@@ -46,11 +42,7 @@ class MessageThreadPolicy
      */
     public function view(?User $user, MessageThread $messageThread): bool
     {
-        if (is_null($user) && $messageThread->isCreatedByAnAuthenticatedUser())
-            return false;
-
-
-        return true;
+        return !(is_null($user) && $messageThread->isCreatedByAnAuthenticatedUser());
     }
 
     /**

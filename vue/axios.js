@@ -1,12 +1,12 @@
 import axios from "axios";
 import useAuthentication from "./src/stores/authentication";
-import { useRouter } from "vue-router";
+import router from "./src/router";
 const axiosClient = axios.create({
     baseURL: "http://localhost:8000",
     withCredentials: true,
     headers: { Accept: "application/json" },
 });
-const router = useRouter();
+
 axiosClient.interceptors.response.use(
     (response) => Promise.resolve(response),
     (error) => {

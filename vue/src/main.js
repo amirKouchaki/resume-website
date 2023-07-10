@@ -34,9 +34,9 @@ app.directive("modal-click-away", {
     },
 });
 
-app.use(router)
-    .use(plugin, config)
+app.use(plugin, config)
     .use(pinia)
+    .use(router)
     .use(Particles)
     .use(VueQueryPlugin)
     .use(Toast, toastificationOptions)

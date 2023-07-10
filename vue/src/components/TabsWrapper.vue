@@ -4,8 +4,8 @@
             <tab
                 as="template"
                 v-slot="{ selected }"
-                v-for="(tab, idx) in tabs"
-                :key="idx"
+                v-for="(tab, idx) in props.tabs"
+                :key="tab.title"
                 :disabled="tab.disabled"
             >
                 <button
@@ -29,13 +29,24 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed, ref, toRef } from "vue";
 import { TabGroup, TabList, TabPanels, Tab } from "@headlessui/vue";
+
 const props = defineProps({ tabs: Array });
+
+const tabTitlesArray = computed(() =>
+    props.tabs.reduce((acc, tab) => acc.concat(tab.title), [])
+);
 const selectedIndex = ref(0);
 const changeTab = (index) => {
     selectedIndex.value = index;
 };
+
+const changeTabByTitle = (title) => {
+    changeTab(tabTitlesArray.value.findIndex((tabTitle) => tabTitle === title));
+    // selectedIndex.value = 2;
+};
+
 const nextTab = () => {
     selectedIndex.value++;
 };
@@ -43,7 +54,7 @@ const previousTab = () => {
     selectedIndex.value--;
 };
 
-defineExpose({ changeTab, nextTab, previousTab });
+defineExpose({ changeTab, nextTab, previousTab, changeTabByTitle });
 </script>
 
 <style lang="scss" scoped>

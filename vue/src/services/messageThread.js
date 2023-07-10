@@ -13,3 +13,9 @@ export function useShowMessageThreadQuery(messageThreadId) {
         axiosClient.get(`/api/messageThread/${messageThreadId}`)
     );
 }
+
+export const replyToMessageThread = (payload) =>
+    axiosClient.post(`/api/messageThread/${payload.messageThreadId}/reply`, {
+        title: payload.reply.title,
+        body: payload.reply.body,
+    });

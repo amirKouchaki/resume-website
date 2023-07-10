@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMessageThreadRequest;
 use App\Http\Requests\StoreReplyRequest;
 use App\Http\Resources\ContactPersonResource;
@@ -60,7 +59,6 @@ class MessageThreadController extends Controller
     {
         $data = $request->validated();
 
-        sleep(2);
         /*
          * TODO: might be better to use polymorphic relationship to choose between contact person and user instead of saving extra information
          */

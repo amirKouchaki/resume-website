@@ -113,7 +113,7 @@
         </article>
     </div>
     <message-thread-modal />
-    <track-message-modal />
+    <show-message-thread-modal />
     <auth-modal />
 </template>
 
@@ -123,7 +123,7 @@ import GenericSection from "../components/resume/GenericSection.vue";
 import Carousel from "../components/Carousel.vue";
 import FactCard from "../components/resume/FactCard.vue";
 import MessageThreadModal from "../components/modals/MessageThreadModal.vue";
-import TrackMessageModal from "../components/modals/TrackMessageModal.vue";
+import ShowMessageThreadModal from "../components/modals/ShowMessageThreadModal.vue";
 import useModals from "../stores/modals";
 import AuthModal from "../components/modals/AuthModal.vue";
 import MobileMenu from "../components/MobileMenu.vue";
@@ -202,7 +202,7 @@ const navLinks = [
     },
     {
         text: "Track Message",
-        click: modals.toggleTrackMessageModal,
+        click: modals.toggleSearchMessageModal,
     },
     {
         text: "Blog",
