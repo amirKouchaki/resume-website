@@ -16,7 +16,6 @@ class SocialiteController extends Controller
 
         try {
             $oauthUser = Socialite::driver($provider)->user();
-
             $user = User::query()->updateOrCreate(['email' => $oauthUser->getEmail()],[
                 'name' => $oauthUser->getName(),
                 $provider.'_id' => $oauthUser->getId(),

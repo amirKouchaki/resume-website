@@ -62,7 +62,7 @@
 <script setup>
 import Modal from "../Modal.vue";
 import useModals from "../../stores/modals";
-import { computed, onMounted, onUpdated, ref } from "vue";
+import { computed, ref } from "vue";
 import { errorToast, successToast } from "../../composables/toasts";
 import { createMessageThreadReq } from "../../services/messageThread";
 import { useMutation } from "@tanstack/vue-query";

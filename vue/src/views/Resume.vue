@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" @mousemove="handleMouseMove">
         <article class="resume">
             <header class="resume-header">
                 <div class="header-profile-info">
@@ -29,11 +29,14 @@
             </header>
             <section class="main-section">
                 <section class="hero-section">
-                    <img
-                        src="../assets/images/profile.jpg"
-                        alt=""
-                        class="hero-img"
-                    />
+                    <div class="hero-img-container">
+                        <img
+                            src="../assets/images/profile.jpg"
+                            alt=""
+                            class="hero-img"
+                            :style="imageStyle"
+                        />
+                    </div>
                     <div class="hero-info">
                         <p class="short-intro">Fullstack Web Developer</p>
                         <h2 class="hero-name">Amir Kouchaki</h2>
@@ -127,7 +130,7 @@ import ShowMessageThreadModal from "../components/modals/ShowMessageThreadModal.
 import useModals from "../stores/modals";
 import AuthModal from "../components/modals/AuthModal.vue";
 import MobileMenu from "../components/MobileMenu.vue";
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 
 const modals = useModals();
 
@@ -201,7 +204,7 @@ const navLinks = [
         click: "",
     },
     {
-        text: "Track Message",
+        text: "Find Message",
         click: modals.toggleSearchMessageModal,
     },
     {
@@ -217,6 +220,50 @@ const navLinks = [
         click: modals.toggleAuthModal,
     },
 ];
+
+const imageStyle = ref("");
+
+let timeoutId = null;
+let lastMouseX = null;
+let lastMouseY = null;
+
+const handleMouseMove = (event) => {
+    const { clientX, clientY } = event;
+
+    if (clientX !== lastMouseX || clientY !== lastMouseY) {
+        lastMouseX = clientX;
+        lastMouseY = clientY;
+
+        clearTimeout(timeoutId);
+
+        imageStyle.value = `
+      transition: transform 0.2s ease-out;
+      transform: translate(${calculateOffsetX()}px, ${calculateOffsetY()}px);
+    `;
+
+        timeoutId = setTimeout(() => {
+            imageStyle.value = "";
+        }, 500); // Adjust the timeout duration as needed
+    }
+};
+
+const calculateOffsetX = () => {
+    const container = document.querySelector(".container");
+    const containerRect = container.getBoundingClientRect();
+    const offsetX = (lastMouseX - containerRect.left) / containerRect.width;
+    const maxOffset = 10;
+    const offsetXRange = offsetX * maxOffset - maxOffset / 2;
+    return -offsetXRange;
+};
+
+const calculateOffsetY = () => {
+    const container = document.querySelector(".container");
+    const containerRect = container.getBoundingClientRect();
+    const offsetY = (lastMouseY - containerRect.top) / containerRect.height;
+    const maxOffset = 10;
+    const offsetYRange = offsetY * maxOffset - maxOffset / 2;
+    return -offsetYRange;
+};
 </script>
 
 <style lang="scss" scoped>
@@ -273,10 +320,28 @@ const navLinks = [
 }
 
 .hero-img {
-    max-width: 200px;
-    min-width: 180px;
+    max-width: 220px;
+    min-width: 200px;
+    transition: transform 0.2s ease-out;
+    transform-origin: center center;
+}
+
+.container .hero-img {
+    transform: translate(0, 0);
+}
+
+.hero-img-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    max-width: 230px;
+    max-width: 210px;
+    aspect-ratio: 1;
     border-radius: 999px;
-    object-position: left;
+    object-position: center;
+    overflow: hidden;
     box-shadow: 0 0 23px 0 rgba(0, 0, 0, 0.8);
     border: 10px solid $hero-border-color;
 }

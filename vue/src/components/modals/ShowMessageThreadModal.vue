@@ -58,7 +58,7 @@
 
 <script setup>
 import tabPanelTransition from "../transitions/TabPanelTransition.vue";
-import { computed, nextTick, ref, watch } from "vue";
+import { computed, nextTick, onMounted, ref, watch } from "vue";
 import useModals from "../../stores/modals";
 import TabsWrapper from "../TabsWrapper.vue";
 import ShowMessages from "../ShowMessages.vue";
@@ -70,17 +70,29 @@ import {
 } from "../../services/messageThread";
 import { useRoute } from "vue-router";
 import { updateRouteQuery } from "../../composables/routerHelper";
+import { successToast } from "../../composables/toasts";
 
+const route = useRoute();
 const messageThreadKey = "messageThread";
 const searchMessageThreadForm = ref(null);
 const tabWrapper = ref();
 const modals = useModals();
-const messageThreadId = ref("");
+const messageThreadId = ref(route.query[messageThreadKey] ?? "");
 const reply = ref({});
+const searchMessageThreadSuccessFlag = ref(true);
 
 const activateMessageThreadSearch = () => {
-    refetchMessageThread();
-    updateRouteQuery(messageThreadKey, messageThreadId.value);
+    console.log("activate");
+    console.log("messageThread :" + messageThread?.value?.id);
+    console.log("messageThreadId :" + messageThreadId.value);
+    console.log(messageThread?.value?.id == messageThreadId.value);
+    if (messageThread?.value?.id == messageThreadId.value) {
+        tabWrapper.value.changeTabByTitle("show");
+    } else {
+        searchMessageThreadSuccessFlag.value = true;
+        refetchMessageThread();
+        updateRouteQuery(messageThreadKey, messageThreadId.value);
+    }
 };
 
 const {
@@ -124,21 +136,37 @@ const addReply = () => {
     });
 };
 
+onMounted(() => {
+    if (route.query.hasOwnProperty(messageThreadKey)) {
+        refetchMessageThread();
+    }
+});
+
 watch(searchMessageThreadSuccess, async () => {
-    if (searchMessageThreadSuccess.value) {
+    if (
+        searchMessageThreadSuccess.value &&
+        searchMessageThreadSuccessFlag.value &&
+        tabWrapper.value
+    ) {
+        console.log("nextPageCauseOfSuccess");
+        searchMessageThreadSuccessFlag.value = false;
         await nextTick();
         tabWrapper.value.changeTabByTitle("show");
     }
 });
 
 watch(replySuccess, () => {
-    if (replySuccess.value) refetchMessageThread();
-    reply.value = {
-        title: "",
-        body: "",
-    };
+    if (replySuccess.value) {
+        refetchMessageThread();
+        reply.value = {
+            title: "",
+            body: "",
+        };
 
-    tabWrapper.value.changeTabByTitle("show");
+        successToast("Reply was added to your message thread successfully!");
+
+        tabWrapper.value.changeTabByTitle("show");
+    }
 });
 </script>
 
