@@ -30,7 +30,7 @@
                     <div class="edit-thread-btns">
                         <button
                             class="reply-btn thread-btn"
-                            @click="tabWrapper.next()"
+                            @click="tabWrapper.changeTabByTitle('reply')"
                         >
                             reply</button
                         ><button class="finish-thread-btn thread-btn">
@@ -66,7 +66,7 @@ import modal from "../Modal.vue";
 import { useMutation, useQuery } from "@tanstack/vue-query";
 import {
     showMessageThreadReq,
-    replyToMessageThread,
+    replyToMessageThreadReq,
 } from "../../services/messageThread";
 import { useRoute } from "vue-router";
 import { updateRouteQuery } from "../../composables/routerHelper";
@@ -82,16 +82,12 @@ const reply = ref({});
 const searchMessageThreadSuccessFlag = ref(true);
 
 const activateMessageThreadSearch = () => {
-    console.log("activate");
-    console.log("messageThread :" + messageThread?.value?.id);
-    console.log("messageThreadId :" + messageThreadId.value);
-    console.log(messageThread?.value?.id == messageThreadId.value);
+    updateRouteQuery(messageThreadKey, messageThreadId.value);
     if (messageThread?.value?.id == messageThreadId.value) {
         tabWrapper.value.changeTabByTitle("show");
     } else {
         searchMessageThreadSuccessFlag.value = true;
         refetchMessageThread();
-        updateRouteQuery(messageThreadKey, messageThreadId.value);
     }
 };
 
@@ -100,7 +96,7 @@ const {
     mutate: mutateReply,
     isSuccess: replySuccess,
 } = useMutation({
-    mutationFn: replyToMessageThread,
+    mutationFn: replyToMessageThreadReq,
 });
 
 const {
@@ -140,6 +136,15 @@ onMounted(() => {
     if (route.query.hasOwnProperty(messageThreadKey)) {
         refetchMessageThread();
     }
+    watch(
+        () => modals.showSearchMessageModal,
+        async () => {
+            if (modals.showSearchMessageModal && messageThread.value) {
+                await nextTick();
+                tabWrapper.value.changeTabByTitle("show");
+            }
+        }
+    );
 });
 
 watch(searchMessageThreadSuccess, async () => {
@@ -148,7 +153,7 @@ watch(searchMessageThreadSuccess, async () => {
         searchMessageThreadSuccessFlag.value &&
         tabWrapper.value
     ) {
-        console.log("nextPageCauseOfSuccess");
+        console.log("going to next page");
         searchMessageThreadSuccessFlag.value = false;
         await nextTick();
         tabWrapper.value.changeTabByTitle("show");
@@ -180,13 +185,15 @@ watch(replySuccess, () => {
 }
 
 .thread-btn {
-    padding: 0.7em 3em;
+    white-space: nowrap;
+    padding: 0.5em 3em;
     font-size: 1.1rem;
+    border-radius: 3px;
     letter-spacing: 0.7px;
-    margin-block: 1em;
-    border-radius: 0.2em;
-    background-color: $secondary-bg-color;
-    border: 1px solid $fact-border-color;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    background-color: rgba($main-button-border-color, 0.5);
+    border: 1px solid rgba($main-button-border-color, 0.5);
     color: $main-text-color;
 }
 </style>

@@ -105,12 +105,13 @@
                     <a href="mailto:amirkouchaki1@gmail.com">Email</a>
                 </nav>
                 <p class="copywrite">
-                    The design belongs to
+                    The design idea belongs to
                     <a
                         target="_blank"
                         href="https://lmpixels.com/wp/leven-wp/dark/"
-                        >Impixels.com</a
                     >
+                        Impixels.com
+                    </a>
                 </p>
             </section>
         </article>
@@ -131,7 +132,8 @@ import useModals from "../stores/modals";
 import AuthModal from "../components/modals/AuthModal.vue";
 import MobileMenu from "../components/MobileMenu.vue";
 import { reactive, ref } from "vue";
-
+import { useRouter } from "vue-router";
+const router = useRouter();
 const modals = useModals();
 
 const showSidebar = ref(false);
@@ -201,7 +203,7 @@ const navLinks = [
     },
     {
         text: "Resume",
-        click: "",
+        click: () => router.push({ name: "resume" }),
     },
     {
         text: "Find Message",
@@ -237,7 +239,6 @@ const handleMouseMove = (event) => {
         clearTimeout(timeoutId);
 
         imageStyle.value = `
-      transition: transform 0.2s ease-out;
       transform: translate(${calculateOffsetX()}px, ${calculateOffsetY()}px);
     `;
 
@@ -324,6 +325,11 @@ const calculateOffsetY = () => {
     min-width: 200px;
     transition: transform 0.2s ease-out;
     transform-origin: center center;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 .container .hero-img {

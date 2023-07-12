@@ -2,9 +2,10 @@
     <article>
         <section class="messages">
             <section class="main-message message">
-                <h4 class="main-message-heading">{{ thread.title }}</h4>
-                <p class="main-message-body">{{ thread.body }}</p>
-                <span></span>
+                <h4 class="main-message-heading message-title">
+                    {{ thread.title }}
+                </h4>
+                <p class="main-message-body message-body">{{ thread.body }}</p>
             </section>
             <section
                 class="message"
@@ -12,10 +13,10 @@
                 v-for="(reply, index) in thread.replies"
                 :key="index"
             >
-                <h5>
+                <h5 class="message-title">
                     {{ reply.title }}
                 </h5>
-                <p>{{ reply.body }}</p>
+                <p class="message-body">{{ reply.body }}</p>
                 <div class="message-info">
                     <span class="sender-name">{{ reply.sender.name }}</span>
                     <span class="message-time">{{ reply.created_at }}</span>
@@ -48,9 +49,15 @@ const props = defineProps({
     margin-left: auto;
     max-width: 24em;
     padding-inline: 1.3em;
-    padding-block: 0.7em 1.2em;
+    padding-block: 0.7em;
     border-radius: 0.7em;
-    background-color: $main-color;
+    background-color: #294b75;
+}
+
+.message-title {
+    font-size: 1.15rem;
+    font-style: italic;
+    font-weight: bold;
 }
 
 .from-admin {
@@ -63,7 +70,16 @@ const props = defineProps({
     margin-top: 1em;
     font-size: 0.8rem;
     display: flex;
+    gap: 2em;
     justify-content: space-between;
     color: $long-text-color;
+}
+
+.main-message {
+    margin-block: 2em;
+}
+
+.message-body {
+    margin-block: 2em 1em;
 }
 </style>

@@ -8,13 +8,7 @@ export const showMessageThreadReq = ({ queryKey }) =>
     // console.log(messageThreadId);
     axiosClient.get(`/api/messageThread/${queryKey[1]}`);
 
-export function useShowMessageThreadQuery(messageThreadId) {
-    return useQuery(["messageThread", messageThreadId], () =>
-        axiosClient.get(`/api/messageThread/${messageThreadId}`)
-    );
-}
-
-export const replyToMessageThread = (payload) =>
+export const replyToMessageThreadReq = (payload) =>
     axiosClient.post(`/api/messageThread/${payload.messageThreadId}/reply`, {
         title: payload.reply.title,
         body: payload.reply.body,
