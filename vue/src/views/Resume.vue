@@ -133,6 +133,8 @@ import AuthModal from "../components/modals/AuthModal.vue";
 import MobileMenu from "../components/MobileMenu.vue";
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
+import axios from "axios";
+import axiosClient from "../../axios";
 const router = useRouter();
 const modals = useModals();
 
@@ -203,24 +205,34 @@ const navLinks = [
     },
     {
         text: "Resume",
-        click: () => router.push({ name: "resume" }),
+        click: async () => {
+            const res = await axiosClient.get("/api/resumes", {
+                responseType: "blob",
+            });
+            const url = window.URL.createObjectURL(new Blob([res.data]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "resume.pdf");
+            document.body.appendChild(link);
+            link.click();
+        },
     },
-    {
-        text: "Find Message",
-        click: modals.toggleSearchMessageModal,
-    },
-    {
-        text: "Blog",
-        click: "",
-    },
-    {
-        text: "Contact",
-        click: modals.toggleMessageModal,
-    },
-    {
-        text: "Login -- Sign Up",
-        click: modals.toggleAuthModal,
-    },
+    // {
+    //     text: "Find Message",
+    //     click: modals.toggleSearchMessageModal,
+    // },
+    // {
+    //     text: "Blog",
+    //     click: "",
+    // },
+    // {
+    //     text: "Contact",
+    //     click: modals.toggleMessageModal,
+    // },
+    // {
+    //     text: "Login -- Sign Up",
+    //     click: modals.toggleAuthModal,
+    // },
 ];
 
 const imageStyle = ref("");

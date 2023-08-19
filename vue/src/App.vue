@@ -7,10 +7,6 @@ const particlesInit = async (engine) => {
     await loadFull(engine);
 };
 
-const particlesLoaded = async (container) => {
-    console.log("Particles container loaded", container);
-};
-
 onMounted(() => {
     try {
         axiosClient.get("sanctum/csrf-cookie");
