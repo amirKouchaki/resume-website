@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" @mousemove="handleMouseMove">
         <article class="resume">
             <header class="resume-header">
                 <div class="header-profile-info">
@@ -29,11 +29,14 @@
             </header>
             <section class="main-section">
                 <section class="hero-section">
-                    <img
-                        src="../assets/images/profile.jpg"
-                        alt=""
-                        class="hero-img"
-                    />
+                    <div class="hero-img-container">
+                        <img
+                            src="../assets/images/profile.jpg"
+                            alt=""
+                            class="hero-img"
+                            :style="imageStyle"
+                        />
+                    </div>
                     <div class="hero-info">
                         <p class="short-intro">Fullstack Web Developer</p>
                         <h2 class="hero-name">Amir Kouchaki</h2>
@@ -102,18 +105,19 @@
                     <a href="mailto:amirkouchaki1@gmail.com">Email</a>
                 </nav>
                 <p class="copywrite">
-                    The design belongs to
+                    The design idea belongs to
                     <a
                         target="_blank"
                         href="https://lmpixels.com/wp/leven-wp/dark/"
-                        >Impixels.com</a
                     >
+                        Impixels.com
+                    </a>
                 </p>
             </section>
         </article>
     </div>
     <message-thread-modal />
-    <track-message-modal />
+    <show-message-thread-modal />
     <auth-modal />
 </template>
 
@@ -123,12 +127,15 @@ import GenericSection from "../components/resume/GenericSection.vue";
 import Carousel from "../components/Carousel.vue";
 import FactCard from "../components/resume/FactCard.vue";
 import MessageThreadModal from "../components/modals/MessageThreadModal.vue";
-import TrackMessageModal from "../components/modals/TrackMessageModal.vue";
+import ShowMessageThreadModal from "../components/modals/ShowMessageThreadModal.vue";
 import useModals from "../stores/modals";
 import AuthModal from "../components/modals/AuthModal.vue";
 import MobileMenu from "../components/MobileMenu.vue";
-import { ref } from "vue";
-
+import { reactive, ref } from "vue";
+import { useRouter } from "vue-router";
+import axios from "axios";
+import axiosClient from "../../axios";
+const router = useRouter();
 const modals = useModals();
 
 const showSidebar = ref(false);
@@ -198,25 +205,78 @@ const navLinks = [
     },
     {
         text: "Resume",
-        click: "",
+        click: async () => {
+            const res = await axiosClient.get("/api/resumes", {
+                responseType: "blob",
+            });
+            const url = window.URL.createObjectURL(new Blob([res.data]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "resume.pdf");
+            document.body.appendChild(link);
+            link.click();
+        },
     },
-    {
-        text: "Track Message",
-        click: modals.toggleTrackMessageModal,
-    },
-    {
-        text: "Blog",
-        click: "",
-    },
-    {
-        text: "Contact",
-        click: modals.toggleMessageModal,
-    },
-    {
-        text: "Login -- Sign Up",
-        click: modals.toggleAuthModal,
-    },
+    // {
+    //     text: "Find Message",
+    //     click: modals.toggleSearchMessageModal,
+    // },
+    // {
+    //     text: "Blog",
+    //     click: "",
+    // },
+    // {
+    //     text: "Contact",
+    //     click: modals.toggleMessageModal,
+    // },
+    // {
+    //     text: "Login -- Sign Up",
+    //     click: modals.toggleAuthModal,
+    // },
 ];
+
+const imageStyle = ref("");
+
+let timeoutId = null;
+let lastMouseX = null;
+let lastMouseY = null;
+
+const handleMouseMove = (event) => {
+    const { clientX, clientY } = event;
+
+    if (clientX !== lastMouseX || clientY !== lastMouseY) {
+        lastMouseX = clientX;
+        lastMouseY = clientY;
+
+        clearTimeout(timeoutId);
+
+        imageStyle.value = `
+      transform: translate(${calculateOffsetX()}px, ${calculateOffsetY()}px);
+    `;
+
+        timeoutId = setTimeout(() => {
+            imageStyle.value = "";
+        }, 500); // Adjust the timeout duration as needed
+    }
+};
+
+const calculateOffsetX = () => {
+    const container = document.querySelector(".container");
+    const containerRect = container.getBoundingClientRect();
+    const offsetX = (lastMouseX - containerRect.left) / containerRect.width;
+    const maxOffset = 10;
+    const offsetXRange = offsetX * maxOffset - maxOffset / 2;
+    return -offsetXRange;
+};
+
+const calculateOffsetY = () => {
+    const container = document.querySelector(".container");
+    const containerRect = container.getBoundingClientRect();
+    const offsetY = (lastMouseY - containerRect.top) / containerRect.height;
+    const maxOffset = 10;
+    const offsetYRange = offsetY * maxOffset - maxOffset / 2;
+    return -offsetYRange;
+};
 </script>
 
 <style lang="scss" scoped>
@@ -273,10 +333,33 @@ const navLinks = [
 }
 
 .hero-img {
-    max-width: 200px;
-    min-width: 180px;
+    max-width: 220px;
+    min-width: 200px;
+    transition: transform 0.2s ease-out;
+    transform-origin: center center;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.container .hero-img {
+    transform: translate(0, 0);
+}
+
+.hero-img-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    max-width: 230px;
+    max-width: 210px;
+    aspect-ratio: 1;
     border-radius: 999px;
-    object-position: left;
+    object-position: center;
+    overflow: hidden;
     box-shadow: 0 0 23px 0 rgba(0, 0, 0, 0.8);
     border: 10px solid $hero-border-color;
 }

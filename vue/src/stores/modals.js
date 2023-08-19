@@ -4,7 +4,7 @@ const useModals = defineStore("modals", {
     state: () => {
         return {
             showMessageThreadModal: false,
-            showTrackMessageModal: false,
+            showSearchMessageModal: false,
             showAuthModal: false,
         };
     },
@@ -14,9 +14,9 @@ const useModals = defineStore("modals", {
             this.showMessageThreadModal = !this.showMessageThreadModal;
             this.updateScrollStatus(this.showMessageThreadModal);
         },
-        toggleTrackMessageModal() {
-            this.showTrackMessageModal = !this.showTrackMessageModal;
-            this.updateScrollStatus(this.showTrackMessageModal);
+        toggleSearchMessageModal() {
+            this.showSearchMessageModal = !this.showSearchMessageModal;
+            this.updateScrollStatus(this.showSearchMessageModal);
         },
         toggleAuthModal() {
             this.showAuthModal = !this.showAuthModal;

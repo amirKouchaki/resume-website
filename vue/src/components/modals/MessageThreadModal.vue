@@ -7,6 +7,8 @@
             type="form"
             @submit="createMessageThread"
             submit-label="Create Thread"
+            ref="contactForm"
+            id="contactForm"
         >
             <h3 class="modal-form-heading">Contact me</h3>
             <FormKit
@@ -59,44 +61,41 @@
 
 <script setup>
 import Modal from "../Modal.vue";
-import axiosClient from "../../../axios";
 import useModals from "../../stores/modals";
-import { ref } from "vue";
-import { successToast } from "../../composables/toasts";
+import { computed, ref } from "vue";
+import { errorToast, successToast } from "../../composables/toasts";
+import { createMessageThreadReq } from "../../services/messageThread";
+import { useMutation } from "@tanstack/vue-query";
+import { reset } from "@formkit/core";
+import {
+    submitStarted,
+    submitFinished,
+} from "../../composables/formLoadingHandler";
+const contactForm = ref(null);
+
 const modals = useModals();
-let contactPerson = ref({
+const contactPerson = ref({
     name: "",
     email: "",
     phone: "",
 });
 
-let messageThread = ref({
+const messageThread = ref({
     title: "",
     body: "",
 });
 
-const errors = ref({});
-const createMessageThread = async () => {
-    try {
-        errors.value = {};
-        await axiosClient.post("/api/messageThread", {
-            ...messageThread.value,
-            ...contactPerson.value,
-        });
-        contactPerson.value = {
-            name: "",
-            email: "",
-            phone: "",
-        };
-        messageThread.value = {
-            title: "",
-            body: "",
-        };
-        modals.toggleMessageModal();
-        successToast("your message has been sent!");
-    } catch (e) {
-        errors.value = e.response.data.errors;
-    }
+const { error, mutate } = useMutation({
+    mutationFn: createMessageThreadReq,
+    onSuccess: () => reset("contactForm"),
+    onSettled: () => submitFinished(contactForm),
+});
+
+const errors = computed(() => error.value?.response?.data.errors ?? {});
+
+const createMessageThread = () => {
+    mutate({ ...messageThread.value, ...contactPerson.value });
+    submitStarted(contactForm);
 };
 </script>
 

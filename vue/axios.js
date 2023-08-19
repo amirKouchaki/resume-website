@@ -1,5 +1,6 @@
 import axios from "axios";
 import useAuthentication from "./src/stores/authentication";
+import router from "./src/router";
 const axiosClient = axios.create({
     baseURL: "http://localhost:8000",
     withCredentials: true,
@@ -7,12 +8,12 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.response.use(
-    (response) => response,
+    (response) => Promise.resolve(response),
     (error) => {
         if (error.response.status == 401 || error.response.status == 419) {
             const authentication = useAuthentication();
             authentication.setAuthenticated(false);
-            window.location.reload();
+            router.push({ name: "resume" });
         }
 
         return Promise.reject(error);
