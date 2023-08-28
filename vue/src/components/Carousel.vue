@@ -7,11 +7,13 @@
     >
         <Slide v-for="technology in technologies" :key="technology.id">
             <div class="carousel__item">
+                <!-- <a :href="technology.link" target="_blank"> -->
                 <img
                     class="technology-logo"
                     :src="publicPath(technology.logo)"
                     alt=""
                 />
+                <!-- </a> -->
             </div>
         </Slide>
 
@@ -28,17 +30,22 @@ import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 
 const technologies = [
-    { id: 1, logo: "svgs/css.svg" },
-    { id: 2, logo: "svgs/database.svg" },
-    { id: 3, logo: "svgs/docker.svg" },
-    { id: 4, logo: "svgs/git.svg" },
+    {
+        id: 1,
+        logo: "svgs/css.svg",
+        link: "https://developer.mozilla.org/en-US/docs/Web/CSS",
+    },
+    { id: 2, logo: "svgs/database.svg", link: "https://www.mysql.com/" },
+    { id: 3, logo: "svgs/docker.svg", link: "https://www.docker.com/" },
+    { id: 4, logo: "svgs/git.svg", link: "https://git-scm.com/" },
     {
         id: 5,
         logo: "svgs/javascript.svg",
+        link: "https://www.javascript.com/",
     },
-    { id: 6, logo: "svgs/laravel.svg" },
-    { id: 7, logo: "svgs/linux.svg" },
-    { id: 8, logo: "svgs/vue.svg" },
+    { id: 6, logo: "svgs/laravel.svg", link: "https://laravel.com/" },
+    { id: 7, logo: "svgs/linux.svg", link: "https://www.linux.org/" },
+    { id: 8, logo: "svgs/vue.svg", link: "https://vuejs.org/" },
 ];
 </script>
 
@@ -46,7 +53,7 @@ const technologies = [
 @use "../abstracts" as *;
 
 .technology-logo {
-    width: 50px;
+    width: 60px;
 }
 
 .carousel__item {

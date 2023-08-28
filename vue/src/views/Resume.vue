@@ -38,14 +38,14 @@
                         />
                     </div>
                     <div class="hero-info">
-                        <p class="short-intro">Fullstack Web Developer</p>
+                        <p class="hero-short-intro">Fullstack Web Developer</p>
                         <h2 class="hero-name">Amir Kouchaki</h2>
                         <p class="hero-description">
                             Software Engineering major in Guilan University.
                             Experienced in Laravel and php with a good
                             understanding of MySQL , HTML , CSS , Vue ,
                             Javascript. Enthusiastic to learn new
-                            frameworks,languages or patterns .
+                            frameworks,languages or patterns.
                         </p>
                         <div class="hero-btns">
                             <button class="hero-cv-btn hero-btn">
@@ -291,7 +291,7 @@ const calculateOffsetY = () => {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 2em $container-inline-padding;
+    padding: 3em $container-inline-padding;
 }
 
 .header-profile-info {
@@ -302,7 +302,7 @@ const calculateOffsetY = () => {
 
 .header-name {
     font-weight: bold;
-    font-size: 1.1em;
+    font-size: 1.6em;
     .last-name {
         font-weight: normal;
     }
@@ -317,24 +317,25 @@ const calculateOffsetY = () => {
 .main-nav {
     display: flex;
     gap: clamp(1.5em, 1em + 1vw, 2.7em);
+    font-size: 1.15rem;
 }
 
 .hero-section {
     display: flex;
-    gap: 3em;
+    gap: 5em;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    padding-block: 5em;
+    padding-block: 4em 5em;
 
     .hero-info {
-        max-width: 53ch;
+        max-width: 70ch;
     }
 }
 
 .hero-img {
-    max-width: 220px;
-    min-width: 200px;
+    max-width: 350px;
+    min-width: 330px;
     transition: transform 0.2s ease-out;
     transform-origin: center center;
     -webkit-user-drag: none;
@@ -344,64 +345,64 @@ const calculateOffsetY = () => {
     -ms-user-select: none;
 }
 
-.container .hero-img {
-    transform: translate(0, 0);
-}
-
 .hero-img-container {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
-    max-width: 230px;
-    max-width: 210px;
+    max-width: 360px;
+    max-width: 340px;
     aspect-ratio: 1;
     border-radius: 999px;
     object-position: center;
     overflow: hidden;
-    box-shadow: 0 0 23px 0 rgba(0, 0, 0, 0.8);
-    border: 10px solid $hero-border-color;
+    box-shadow: 0 0 23px 0 rgba(0, 0, 0, 0.7);
+    border: 16px solid $hero-border-color;
 }
 
-.short-intro {
+.hero-short-intro {
     color: $secondary-text-color;
+    font-size: 1.25rem;
 }
 
 .hero-name {
-    font-size: xx-large;
+    font-size: 3.4rem;
+    font-weight: bolder;
 }
 
 .hero-description {
     color: $long-text-color;
     padding-block: 1.7em;
+    font-size: 1.3rem;
 }
 
 .hero-btns {
     display: flex;
     gap: 0.7em;
+    font-size: 1.3rem;
 }
 
 .hero-btn {
-    background-color: $main-bg-color;
+    background-color: $secondary-bg-color;
     color: $main-text-color;
     $border-color: $secondary-button-border-color;
-    border: 1.1px solid $border-color;
+    border: 2px solid $border-color;
     padding: 0.45em 1.4em;
     border-radius: 1.2em;
-
+    transition: all 450ms ease-in-out;
     &:hover,
     &:focus {
         background-color: $border-color;
         color: $o-main-text-color;
-        transition: all 350ms ease-in-out;
+
         outline: none;
     }
 }
 
 .hero-cv-btn {
     $border-color: $main-button-border-color;
-    border: 1.1px solid $border-color;
+    border: 2px solid $border-color;
     user-select: none;
     &:hover,
     &:focus {
@@ -435,6 +436,8 @@ const calculateOffsetY = () => {
 
 .job-description-heading {
     margin-bottom: 0.3em;
+    font-size: 1.3rem;
+    font-weight: bold;
 }
 
 .job-description-logo {
@@ -448,6 +451,7 @@ const calculateOffsetY = () => {
 
 .job-description-info {
     flex: 17;
+    font-size: 1.1rem;
 }
 
 .fact-cards {
@@ -461,7 +465,7 @@ const calculateOffsetY = () => {
     display: flex;
     justify-content: space-between;
     padding-block: 1em;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     background-color: $footer-bg-color;
     border-top: 2px solid $footer-border-color;
 }
@@ -474,6 +478,10 @@ const calculateOffsetY = () => {
 .copywrite {
     display: flex;
     gap: 0.2em;
+}
+
+.link {
+    transition: all 0.3s ease-in-out;
 }
 
 @media (max-width: $sm-screen) {
@@ -500,6 +508,12 @@ const calculateOffsetY = () => {
 @media (max-width: $sm-to-md-screen) {
     .fact-cards {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .resume-footer {
+        flex-direction: column;
+        align-items: center;
+        gap: 1em;
     }
 }
 

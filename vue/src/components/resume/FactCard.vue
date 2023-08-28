@@ -31,45 +31,33 @@ const props = defineProps({
 .fact-card {
     display: flex;
     flex-direction: column;
-    gap: 1em;
+    gap: 1.3em;
     text-align: center;
     padding: 1.5em 1em;
     background-color: $secondary-bg-color;
     border: 2px solid $fact-border-color;
     border-radius: 0.5em;
+    transition: transform 0.3s ease-in-out;
 
     &:hover {
-        animation: moveUp linear 0.3s forwards;
+        transform: translateY(-12px);
     }
 }
 .fact-logo {
     background-color: $main-color;
 
-    width: 25px;
-    height: 25px;
+    width: 35px;
+    height: 35px;
     cursor: pointer;
     margin-inline: auto;
 }
 
 .fact-data {
-    font-size: 2.5rem;
+    font-size: 3.6rem;
 }
 
-@keyframes moveUp {
-    0% {
-        transform: translateY(0px);
-    }
-    100% {
-        transform: translateY(-15px);
-    }
-}
-
-@keyframes moveDown {
-    0% {
-        transform: translateY(0px);
-    }
-    100% {
-        transform: translateY(150px);
-    }
+.fact-heading {
+    font-size: 1.4rem;
+    font-weight: bold;
 }
 </style>

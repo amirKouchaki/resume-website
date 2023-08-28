@@ -3,35 +3,37 @@ import Resume from "../views/Resume.vue";
 import SocialAuthCallback from "../views/SocialAuthCallback.vue";
 import ResetPassword from "../views/ResetPassword.vue";
 import Dashboard from "../views/Dashboard.vue";
+import DefaultFavIcon from "../assets/favicons/default-logo.png";
 import middlewares from "./middlewares";
 const routes = [
-    {
-        path: "/dashboard",
-        name: "dashboard",
-        component: Dashboard,
-        beforeEnter: middlewares.auth,
-    },
+    // {
+    //     path: "/dashboard",
+    //     name: "dashboard",
+    //     component: Dashboard,
+    //     beforeEnter: middlewares.auth,
+    // },
     {
         path: "/",
         name: "resume",
         component: Resume,
         meta: {
             title: "resume",
+            favIcon: DefaultFavIcon,
         },
         beforeEnter: middlewares.guest,
     },
-    {
-        path: "/oauth/:provider/callback",
-        name: "oauth.callback",
-        component: SocialAuthCallback,
-        beforeEnter: middlewares.guest,
-    },
-    {
-        path: "/reset-password",
-        name: "password.reset",
-        component: ResetPassword,
-        beforeEnter: middlewares.guest,
-    },
+    // {
+    //     path: "/oauth/:provider/callback",
+    //     name: "oauth.callback",
+    //     component: SocialAuthCallback,
+    //     beforeEnter: middlewares.guest,
+    // },
+    // {
+    //     path: "/reset-password",
+    //     name: "password.reset",
+    //     component: ResetPassword,
+    //     beforeEnter: middlewares.guest,
+    // },
     { path: "/:pathMatch(.*)*", redirect: { name: "resume" } },
 ];
 
@@ -42,22 +44,18 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    // Get the page title from the route meta data that we have defined
-    // See further down below for how we setup this data
     const title = to.meta.title;
-
-    //Take the title from the parameters
-    const titleFromParams = to.params.pageTitle;
-    // If the route has a title, set it as the page title of the document/page
     if (title) {
         document.title = title;
     }
-    // If we have a title from the params, extend the title with the title
-    // from our params
-    if (titleFromParams) {
-        document.title = `${titleFromParams} - ${document.title}`;
-    }
-    // Continue resolving the route
+
+    const link =
+        document.querySelector("link[rel*='icon']") ||
+        document.createElement("link");
+    link.type = "image/x-icon";
+    link.rel = "shortcut icon";
+    link.href = to.meta.favIcon;
+    document.getElementsByTagName("head")[0].appendChild(link);
     next();
 });
 

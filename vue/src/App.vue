@@ -32,7 +32,7 @@ onMounted(() => {
             :options="{
                 background: {
                     color: {
-                        value: '#0d47a1',
+                        value: '#136aec',
                     },
                 },
                 fpsLimit: 60,
@@ -111,7 +111,7 @@ onMounted(() => {
     <router-view />
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .particles {
     position: relative;
     z-index: -10;

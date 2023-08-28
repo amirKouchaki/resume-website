@@ -19,9 +19,10 @@ const props = defineProps({
 }
 .generic-heading {
     position: relative;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     letter-spacing: 0.6px;
     width: fit-content;
+    font-weight: bold;
     margin-bottom: 1.6em;
 
     &::before {
