@@ -1,5 +1,9 @@
 <template>
-    <div class="fact-card">
+    <div
+        class="fact-card"
+        @mouseenter.self.prevent="animateOnHover"
+        @mouseleave.self.prevent="animateOnHoverOver"
+    >
         <div
             class="fact-logo"
             :style="`-webkit-mask: url(${publicPath(
@@ -19,7 +23,17 @@
 </template>
 
 <script setup>
+import { onMounted } from "vue";
 import { publicPath } from "../../composables/publicUrl";
+import { gsap } from "gsap";
+const animateOnHover = (event) => {
+    gsap.to(event.target, { duration: 0.5, y: "-20px", ease: "ease" });
+};
+
+const animateOnHoverOver = (event) => {
+    gsap.to(event.target, { duration: 1, y: "0px", ease: "bounce" });
+};
+
 const props = defineProps({
     funFact: Object,
 });
@@ -37,11 +51,6 @@ const props = defineProps({
     background-color: $secondary-bg-color;
     border: 2px solid $fact-border-color;
     border-radius: 0.5em;
-    transition: transform 0.3s ease-in-out;
-
-    &:hover {
-        transform: translateY(-12px);
-    }
 }
 .fact-logo {
     background-color: $main-color;

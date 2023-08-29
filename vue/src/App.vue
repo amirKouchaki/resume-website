@@ -2,6 +2,7 @@
 import { loadFull } from "tsparticles";
 import { onMounted } from "vue";
 import axiosClient from "../axios";
+import { gsap } from "gsap";
 
 const particlesInit = async (engine) => {
     await loadFull(engine);
@@ -111,9 +112,11 @@ onMounted(() => {
     <router-view />
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .particles {
     position: relative;
     z-index: -10;
 }
 </style>
+
+<script></script>
