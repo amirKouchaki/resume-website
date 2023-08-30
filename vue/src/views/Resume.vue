@@ -13,7 +13,7 @@
                     >
                         <g
                             transform="translate(0.000000,41.000000) scale(0.010000,-0.009557)"
-                            stroke="#007ced"
+                            stroke="#4e54c8"
                             fill="none"
                             stroke-width="50"
                         >
@@ -301,6 +301,7 @@ import { useRouter } from "vue-router";
 import axios from "axios";
 import axiosClient from "../../axios";
 import anime from "animejs/lib/anime.es.js";
+import { gsap } from "gsap";
 onMounted(() => {
     anime({
         targets: "path",
@@ -316,13 +317,41 @@ onMounted(() => {
 
     anime({
         targets: "path",
-        fill: "#007ced",
-        easing: "easeInOutQuad",
+        fill: "#4e54c8",
+        easing: "easeOutBack",
         duration: 3500,
         loop: false,
         delay: function (el, i) {
-            return i * 100;
+            return i * 190;
         },
+    });
+
+    gsap.from(".hero-info", {
+        duration: 1,
+        opacity: 0,
+        y: "-50px",
+        ease: "sine.out",
+    });
+
+    gsap.from(".hero-img-container", {
+        duration: 0.5,
+        opacity: 0,
+        delay: 1,
+        ease: "sine.in",
+    });
+
+    gsap.from(".generic-heading", {
+        duration: 1,
+        opacity: 0,
+        ease: "sine.in",
+        stagger: 0.3,
+    });
+    gsap.from(".generic-section > .generic-heading +  *", {
+        duration: 1,
+        opacity: 0,
+        x: "-20px",
+        ease: "sine.in",
+        stagger: 0.3,
     });
 });
 

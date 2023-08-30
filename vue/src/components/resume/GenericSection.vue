@@ -6,6 +6,9 @@
 </template>
 
 <script setup>
+import { gsap } from "gsap";
+import { onMounted } from "vue";
+
 const props = defineProps({
     title: String,
 });
