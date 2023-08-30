@@ -25,7 +25,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 
 //Route::apiResource('/messageThread', MessageThreadController::class);
-//Route::post('/messageThread/{messageThread}/reply/',[MessageThreadController::class,'reply']);
+//Route::post('/messageThread/{messageThread}/reply/',[MessageThreadController::class,'reply']);        
 Route::get('/resumes',function () {
    return response()->download(storage_path('app/resumes/quera_resume.pdf'));
 

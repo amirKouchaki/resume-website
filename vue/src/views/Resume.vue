@@ -10,6 +10,7 @@
                         height="41.000000pt"
                         viewBox="0 0 200.000000 41.000000"
                         preserveAspectRatio="xMidYMid meet"
+                        class="main-logo"
                     >
                         <g
                             transform="translate(0.000000,41.000000) scale(0.010000,-0.009557)"
@@ -248,7 +249,9 @@
                     </div>
                 </generic-section>
                 <generic-section title="Technologies I Use">
-                    <carousel></carousel>
+                    <div class="carousel-wrapper" ref="carouselWrapper">
+                        <carousel></carousel>
+                    </div>
                 </generic-section>
 
                 <generic-section title="Fun Facts">
@@ -302,6 +305,9 @@ import axios from "axios";
 import axiosClient from "../../axios";
 import anime from "animejs/lib/anime.es.js";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+const carouselWrapper = ref();
 onMounted(() => {
     anime({
         targets: "path",
@@ -314,7 +320,6 @@ onMounted(() => {
             return i * 100;
         },
     });
-
     anime({
         targets: "path",
         fill: "#4e54c8",
@@ -326,6 +331,8 @@ onMounted(() => {
         },
     });
 
+    gsap.registerPlugin(ScrollTrigger);
+
     gsap.from(".hero-info", {
         duration: 1,
         opacity: 0,
@@ -334,23 +341,45 @@ onMounted(() => {
     });
 
     gsap.from(".hero-img-container", {
-        duration: 0.5,
+        duration: 0.7,
         opacity: 0,
-        delay: 1,
-        ease: "sine.in",
+        delay: 0.8,
+        ease: "sine.inOut",
     });
 
     gsap.from(".generic-heading", {
         duration: 1,
         opacity: 0,
-        ease: "sine.in",
+        ease: "ease.inOut",
         stagger: 0.3,
     });
-    gsap.from(".generic-section > .generic-heading +  *", {
+    gsap.from(".job-description-section > *", {
         duration: 1,
         opacity: 0,
         x: "-20px",
-        ease: "sine.in",
+        ease: "ease.inOut",
+        stagger: 0.2,
+    });
+    gsap.from(carouselWrapper.value, {
+        duration: 1,
+        opacity: 0,
+        scrollTrigger: {
+            trigger: carouselWrapper.value,
+            start: "top 95%",
+        },
+        x: "-20px",
+        ease: "ease.inOut",
+        stagger: 0.3,
+    });
+    gsap.from(".fact-cards > *", {
+        duration: 1,
+        opacity: 0,
+        scrollTrigger: {
+            trigger: ".fact-cards > *",
+            start: "top 97%",
+        },
+        x: "-20px",
+        ease: "ease.inOut",
         stagger: 0.3,
     });
 });
@@ -686,7 +715,7 @@ const calculateOffsetY = () => {
     justify-content: space-between;
     padding-block: 1em;
     font-size: 1.1rem;
-    background-color: $footer-bg-color;
+    background-color: transparent;
     border-top: 2px solid $footer-border-color;
 }
 
