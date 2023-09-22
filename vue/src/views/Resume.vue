@@ -287,6 +287,25 @@
     <message-thread-modal />
     <show-message-thread-modal />
     <auth-modal />
+
+    <new-modal
+        :show="newModalShow"
+        :close="newModalClose"
+        :coordinates="coordinates"
+    >
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, quisquam
+        vel voluptas necessitatibus adipisci consequatur, dicta cumque dolore
+        pariatur enim dolor nostrum blanditiis harum architecto libero a! Quod
+        necessitatibus fuga excepturi, fugiat illum alias corrupti officiis
+        dicta repellat magnam tenetur quo praesentium omnis soluta earum quam
+        est maxime, facilis ducimus rerum a quisquam quis voluptatum natus.
+        Earum doloremque minus eius! Reprehenderit et, distinctio voluptatum
+        facilis eveniet tempora maiores magni deserunt labore numquam expedita
+        pariatur unde illo beatae cum incidunt soluta, deleniti quaerat
+        voluptate possimus in? Ut suscipit dolor perferendis consequatur
+        cupiditate odit autem neque, eius nesciunt labore, molestias asperiores
+        dolores.
+    </new-modal>
 </template>
 
 <script setup>
@@ -306,7 +325,12 @@ import axiosClient from "../../axios";
 import anime from "animejs/lib/anime.es.js";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+import NewModal from "../components/newModal/NewModal.vue";
+const coordinates = ref({});
+const newModalShow = ref(false);
+const newModalClose = () => {
+    newModalShow.value = false;
+};
 const carouselWrapper = ref();
 onMounted(() => {
     anime({
@@ -424,20 +448,20 @@ const funFacts = [
     {
         id: 1,
         logo: "svgs/heart.svg",
-        title: "Happy Clients",
-        data: 578,
+        title: "Projects",
+        data: 7,
     },
     {
         id: 2,
         logo: "svgs/clock.svg",
         title: "Working Hours",
-        data: 4780,
+        data: 780,
     },
     {
         id: 3,
         logo: "svgs/star.svg",
-        title: "Awards Won",
-        data: 15,
+        title: "Days Since Started",
+        data: 449,
     },
     {
         id: 4,
@@ -450,7 +474,11 @@ const funFacts = [
 const navLinks = [
     {
         text: "About Me",
-        click: "",
+        click: (e) => {
+            newModalShow.value = true;
+            coordinates.value.x = e.clientX + window.scrollX;
+            coordinates.value.y = e.clientY + window.scrollY;
+        },
     },
     {
         text: "Resume",

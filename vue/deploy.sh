@@ -10,5 +10,5 @@ cd dist
 git init
 git add -A
 git commit -m 'deploy'
-git push origin production-vue
+git push origin gh-pages
 cd -
