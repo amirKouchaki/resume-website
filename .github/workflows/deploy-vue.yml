@@ -12,14 +12,14 @@ jobs:
     - name: Deploy vue using ssh
       uses: appleboy/ssh-action@master
       with: 
-        host: ${{secrets.HOST}}
-        username: ${{secrets.USERNAME}}
-        password: ${{secrets.PASSWORD}}
-        port: ${{secrets.PORT}}
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
         script: |
-          cd "${{secrets.PROJECT_PATH}}/vue"
+          cd "${{ secrets.PROJECT_PATH }}/vue"
           git pull origin main
           npm install
           npm run build
-          rm -rf "${{secrets.WEBSITE_PUBLIC_PATH}}"
-          ln -s "${{secrets.PROJECT_PATH}}/vue/dist" "${{secrets.WEBSITE_PUBLIC_PATH}}"
+          rm -rf "${{ secrets.WEBSITE_PUBLIC_PATH }}"
+          ln -s "${{ secrets.PROJECT_PATH }}/vue/dist" "${{ secrets.WEBSITE_PUBLIC_PATH }}"
