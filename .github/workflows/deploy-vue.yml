@@ -1,0 +1,25 @@
+name: Deploy vue
+
+on: 
+  push :
+    branches: [main]
+
+jobs: 
+  build:   
+    runs-on: ubuntu-latest
+
+    steps: 
+    - name: Deploy vue using ssh
+      uses: appleboy/ssh-action@master
+      with: 
+        host: ${{secrets.HOST}}
+        username: ${{secrets.USERNAME}}
+        key: ${{secrets.SSH_PRIVATE_KEY}}
+        port: ${{secrets.PORT}}
+        script: |
+          cd "${{secrets.PROJECT_PATH}}/vue"
+          git pull origin main
+          npm install
+          npm run build
+          rm -rf "${{secrets.WEBSITE_PUBLIC_PATH}}"
+          ln -s "${{secrets.PROJECT_PATH}}/vue/dist" "${{secrets.WEBSITE_PUBLIC_PATH}}"
