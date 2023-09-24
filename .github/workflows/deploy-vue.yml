@@ -18,14 +18,12 @@ jobs:
       
     - name: Deploy vue using ssh
       run: |
-        cd ~/.ssh
-        ls -la
-        # ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} -p ${{ secrets.PORT }} <<EOF
-        # cd "${{ secrets.PROJECT_PATH }}/vue"
-        #   git pull origin main
-        #   npm install
-        #   npm run build
-        #   rm -rf "${{ secrets.WEBSITE_PUBLIC_PATH }}"
-        #   ln -s "${{ secrets.PROJECT_PATH }}/vue/dist" "${{ secrets.WEBSITE_PUBLIC_PATH }}"
-        # EOF
+        ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} -o ConnectTimeout=30 -p ${{ secrets.PORT }} <<EOF
+        cd "${{ secrets.PROJECT_PATH }}/vue"
+          git pull origin main
+          npm install
+          npm run build
+          rm -rf "${{ secrets.WEBSITE_PUBLIC_PATH }}"
+          ln -s "${{ secrets.PROJECT_PATH }}/vue/dist" "${{ secrets.WEBSITE_PUBLIC_PATH }}"
+        EOF
           
