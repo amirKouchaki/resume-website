@@ -19,7 +19,7 @@ jobs:
     - name: Deploy vue using ssh
       run: |
         cd ~/.ssh
-        ls
+        ls -la
         # ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} -p ${{ secrets.PORT }} <<EOF
         # cd "${{ secrets.PROJECT_PATH }}/vue"
         #   git pull origin main
