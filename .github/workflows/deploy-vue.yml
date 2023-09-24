@@ -20,7 +20,7 @@ jobs:
       run: |
         cd ~/.ssh
         touch test-ssh-key
-        echo ${{ secrets.SSH_PRIVATE_KEY }} >> test-ssh-key
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" >> test-ssh-key
       
     - name: Deploy vue using ssh
       run: |
