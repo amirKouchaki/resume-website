@@ -7,29 +7,13 @@ on:
 jobs: 
   build:   
     runs-on: ubuntu-latest
+
     steps: 
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Setup SSH key
-      uses: webfactory/ssh-agent@v0.7.0
-      with: 
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-    - name: Check for manual ssh-key
-      run: |
-        cd ~/.ssh
-        touch test-ssh-key
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" >> test-ssh-key
-      
     - name: Deploy vue using ssh
-      run: |
-        ssh -v -i ~/.ssh/test-ssh-key ${{ secrets.USERNAME }}@${{ secrets.HOST }} -o ConnectTimeout=100 -p ${{ secrets.PORT }} <<EOF
-        cd "${{ secrets.PROJECT_PATH }}/vue"
-          git pull origin main
-          npm install
-          npm run build
-          rm -rf "${{ secrets.WEBSITE_PUBLIC_PATH }}"
-          ln -s "${{ secrets.PROJECT_PATH }}/vue/dist" "${{ secrets.WEBSITE_PUBLIC_PATH }}"
-        EOF
-          
+      uses: appleboy/ssh-action@master
+      with: 
+        host:  ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: ${{ secrets.PORT }}
+        script: whoami
