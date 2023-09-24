@@ -24,7 +24,7 @@ jobs:
       
     - name: Deploy vue using ssh
       run: |
-        ssh -i ~/.ssh/test-ssh-key ${{ secrets.USERNAME }}@${{ secrets.HOST }} -o ConnectTimeout=30 -p ${{ secrets.PORT }} <<EOF
+        ssh -v -i ~/.ssh/test-ssh-key ${{ secrets.USERNAME }}@${{ secrets.HOST }} -o ConnectTimeout=30 -p ${{ secrets.PORT }} <<EOF
         cd "${{ secrets.PROJECT_PATH }}/vue"
           git pull origin main
           npm install
