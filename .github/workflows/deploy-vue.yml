@@ -12,10 +12,10 @@ jobs:
     - name: Deploy vue using ssh
       uses: appleboy/ssh-action@master
       with: 
-        host: 45.156.184.243
+        host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port: 9011
+        port: ${{ secrets.PORT }}
         script: |
           cd "${{ secrets.PROJECT_PATH }}/vue"
           git pull origin main
