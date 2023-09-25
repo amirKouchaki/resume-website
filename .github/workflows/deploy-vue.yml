@@ -17,6 +17,8 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.PORT }}
         script: |
+          cd ${{ secrets.PROJECT_PATH }}
+          git pull
           cd ${{ secrets.PROJECT_PATH }}/vue
           npm install
           npm run build
