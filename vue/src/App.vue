@@ -134,7 +134,7 @@ onMounted(() => {
 .area {
     position: fixed;
     inset: 0;
-    background: blue;
+    background: green;
     background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
     z-index: -10;
 }
