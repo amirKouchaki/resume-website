@@ -16,4 +16,9 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.PORT }}
-        script: ls -la
+        script: |
+          cd ${{ secrets.PROJECT_PATH }}/vue
+          npm install
+          npm run build
+          rm -rf ${{ secrets.WEBSITE_PUBLIC_PATH }}/*
+          ln -s ${{ secrets.PROJECT_PATH }}/vue/dist/* ${{ secrets.WEBSITE_PUBLIC_PATH }}/
