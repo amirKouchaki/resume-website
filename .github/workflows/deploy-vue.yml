@@ -18,7 +18,7 @@ jobs:
         port: ${{ secrets.PORT }}
         script: |
           eval "$(ssh-agent -s)"
-          ssh-add ~/.ssh/id_ed25519
+          ssh-add ${{ secrets.DEPLOY_KEY_PATH }}
           cd ${{ secrets.PROJECT_PATH }}
           git pull
           cd ${{ secrets.PROJECT_PATH }}/vue
