@@ -27,7 +27,7 @@ import { onMounted } from "vue";
 import { publicPath } from "../../composables/publicUrl";
 import { gsap } from "gsap";
 const animateOnHover = (event) => {
-    gsap.to(event.target, { duration: 0.5, y: "-20px", ease: "ease" });
+    gsap.to(event.target, { duration: 0.5, y: "-15px", ease: "ease" });
 };
 
 const animateOnHoverOver = (event) => {

@@ -95,12 +95,9 @@ a {
 // }
 
 .container {
-    width: min(103em, 92%);
-    border-radius: 3em;
+    max-width: 110em;
+    width: min(110em, 92%);
     margin-inline: auto;
-    margin-block: 3em;
-    background-color: $main-bg-color;
-    overflow: hidden;
 }
 
 .active {
@@ -111,7 +108,7 @@ a {
     overflow: hidden;
 }
 
-@media (max-width: $md-screen) {
+@media (max-width: $lg-screen) {
     .container {
         max-width: 100%;
         width: 100%;

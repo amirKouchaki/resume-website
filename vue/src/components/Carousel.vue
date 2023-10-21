@@ -1,10 +1,5 @@
 <template>
-    <Carousel
-        :autoplay="4000"
-        :settings="{ itemsToShow: 3 }"
-        :wrap-around="true"
-        :transition="500"
-    >
+    <Carousel :autoplay="4000" :transition="500">
         <Slide v-for="technology in technologies" :key="technology.id">
             <div class="carousel__item">
                 <!-- <a :href="technology.link" target="_blank"> -->
@@ -58,7 +53,6 @@ const technologies = [
 
 .carousel__item {
     min-height: 75px;
-    width: 100%;
     user-select: none;
     font-size: 20px;
     border-radius: 8px;
@@ -69,6 +63,7 @@ const technologies = [
 
 .carousel__slide {
     padding: 10px;
+    width: 33.33% !important;
 }
 
 .carousel__prev,

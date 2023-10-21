@@ -1,6 +1,10 @@
 <template>
-    <div class="container" @mousemove="handleMouseMove">
-        <article class="resume">
+    <div class="container flipper">
+        <div
+            class="front resume"
+            @mousemove="handleMouseMove"
+            ref="frontOfResumeRef"
+        >
             <header class="resume-header">
                 <div class="header-profile-info">
                     <svg
@@ -282,30 +286,26 @@
                     </a>
                 </p>
             </section>
-        </article>
+        </div>
+        <div class="back resume-back" ref="backOfResumeRef">
+            <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Nostrum ratione quia iure quas excepturi natus enim dignissimos
+                earum sapiente voluptate, repellat rem cumque aspernatur minus
+                ex facilis eligendi quae at!
+            </p>
+            <button
+                @click="flipCard"
+                style="text-align: center; margin-inline: auto"
+            >
+                go back
+            </button>
+        </div>
     </div>
+
     <message-thread-modal />
     <show-message-thread-modal />
     <auth-modal />
-
-    <new-modal
-        :show="newModalShow"
-        :close="newModalClose"
-        :coordinates="coordinates"
-    >
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, quisquam
-        vel voluptas necessitatibus adipisci consequatur, dicta cumque dolore
-        pariatur enim dolor nostrum blanditiis harum architecto libero a! Quod
-        necessitatibus fuga excepturi, fugiat illum alias corrupti officiis
-        dicta repellat magnam tenetur quo praesentium omnis soluta earum quam
-        est maxime, facilis ducimus rerum a quisquam quis voluptatum natus.
-        Earum doloremque minus eius! Reprehenderit et, distinctio voluptatum
-        facilis eveniet tempora maiores magni deserunt labore numquam expedita
-        pariatur unde illo beatae cum incidunt soluta, deleniti quaerat
-        voluptate possimus in? Ut suscipit dolor perferendis consequatur
-        cupiditate odit autem neque, eius nesciunt labore, molestias asperiores
-        dolores.
-    </new-modal>
 </template>
 
 <script setup>
@@ -320,18 +320,16 @@ import AuthModal from "../components/modals/AuthModal.vue";
 import MobileMenu from "../components/MobileMenu.vue";
 import { onMounted, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
-import axios from "axios";
 import axiosClient from "../../axios";
 import anime from "animejs/lib/anime.es.js";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import NewModal from "../components/newModal/NewModal.vue";
-const coordinates = ref({});
-const newModalShow = ref(false);
-const newModalClose = () => {
-    newModalShow.value = false;
-};
 const carouselWrapper = ref();
+const frontOfResumeRef = ref();
+const backOfResumeRef = ref();
+const tl = ref();
+const cardIsFlipped = ref(false);
+
 onMounted(() => {
     anime({
         targets: "path",
@@ -406,6 +404,10 @@ onMounted(() => {
         ease: "ease.inOut",
         stagger: 0.3,
     });
+    tl.value = gsap
+        .timeline({ paused: true })
+        .to(".front", { duration: 1, rotationY: 180, ease: "ease.inOut" }, 0)
+        .to(".back", { duration: 1, rotationY: 360, ease: "ease.inOut" }, 0);
 });
 
 const router = useRouter();
@@ -471,13 +473,17 @@ const funFacts = [
     },
 ];
 
+const flipCard = () => {
+    cardIsFlipped.value = !cardIsFlipped.value;
+    if (cardIsFlipped.value) tl.value.play();
+    else tl.value.reverse();
+};
+
 const navLinks = [
     {
         text: "About Me",
         click: (e) => {
-            newModalShow.value = true;
-            coordinates.value.x = e.clientX + window.scrollX;
-            coordinates.value.y = e.clientY + window.scrollY;
+            flipCard();
         },
     },
     {
@@ -559,6 +565,34 @@ const calculateOffsetY = () => {
 <style lang="scss" scoped>
 @use "../abstracts" as *;
 
+.front,
+.back {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    grid-area: 1/1/2/2;
+    background-color: $main-bg-color;
+    border-radius: 3em;
+}
+
+.back {
+    transform: rotateY(180deg);
+}
+
+.front {
+    transform: rotateY(0deg);
+}
+
+.flipper {
+    perspective: 6600px;
+    transform-style: preserve-3d;
+    display: grid;
+    grid-template-rows: 1fr;
+    padding: 2em;
+    margin-block: 4.2em;
+}
+
 .main-section {
     position: relative;
     padding: 2em $container-inline-padding;
@@ -568,6 +602,10 @@ const calculateOffsetY = () => {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 3em $container-inline-padding;
+}
+
+.resume-back {
     padding: 3em $container-inline-padding;
 }
 
@@ -762,15 +800,6 @@ const calculateOffsetY = () => {
 }
 
 @media (max-width: $sm-screen) {
-    .job-descriptions {
-        grid-template-columns: 1fr;
-    }
-
-    .fact-cards {
-        display: flex;
-        flex-direction: column;
-    }
-
     .resume-footer {
         flex-direction: column;
         gap: 0.7em;
@@ -783,14 +812,19 @@ const calculateOffsetY = () => {
 }
 
 @media (max-width: $sm-to-md-screen) {
-    .fact-cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
     .resume-footer {
         flex-direction: column;
         align-items: center;
         gap: 1em;
+    }
+
+    .fact-cards {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .job-descriptions {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -806,11 +840,6 @@ const calculateOffsetY = () => {
     .alphabet-profile {
         width: 30px;
     }
-}
-
-//TODO: add new screen sizes
-
-@media (max-width: $md-screen) {
     .hero-info {
         text-align: center;
     }
@@ -826,6 +855,12 @@ const calculateOffsetY = () => {
 
     .hero-description {
         width: 100%;
+    }
+}
+
+@media (max-width: $lg-screen) {
+    .fact-cards {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 </style>

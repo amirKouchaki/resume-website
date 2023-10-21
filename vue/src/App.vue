@@ -1,8 +1,10 @@
 <script setup>
 import { loadFull } from "tsparticles";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import axiosClient from "../axios";
 import { gsap } from "gsap";
+
+const cardIsFlipped = ref(false);
 
 const particlesInit = async (engine) => {
     await loadFull(engine);
@@ -10,11 +12,23 @@ const particlesInit = async (engine) => {
 
 onMounted(() => {
     try {
+        tl.value = gsap
+            .timeline({ paused: true })
+            .to(".front", { duration: 1, rotationY: -180 }, 0)
+            .to(".back", { duration: 1, rotationY: 0 }, 0)
+            .to(".flipper", { z: 50 }, 0);
         axiosClient.get("sanctum/csrf-cookie");
     } catch (error) {
         console.log(error);
     }
 });
+const tl = ref();
+
+const flip = () => {
+    cardIsFlipped.value = !cardIsFlipped.value;
+    if (cardIsFlipped.value) tl.value.play();
+    else tl.value.reverse();
+};
 </script>
 
 <template>
@@ -32,105 +46,44 @@ onMounted(() => {
             <li></li>
         </ul>
     </div>
-    <!-- <div class="particles">
-        <Particles
-            id="tsparticles"
-            :particlesInit="particlesInit"
-            :particlesLoaded="particlesLoaded"
-            url="http://foo.bar/particles.json"
-        />
 
-        <Particles
-            id="tsparticles"
-            :particlesInit="particlesInit"
-            :particlesLoaded="particlesLoaded"
-            :options="{
-                background: {
-                    color: {
-                        value: '#136aec',
-                    },
-                },
-                fpsLimit: 60,
-                interactivity: {
-                    events: {
-                        onClick: {
-                            enable: false,
-                            mode: 'push',
-                        },
-                        onHover: {
-                            enable: true,
-                            mode: 'repulse',
-                        },
-                        resize: true,
-                    },
-                    modes: {
-                        bubble: {
-                            distance: 400,
-                            duration: 2,
-                            opacity: 0.8,
-                            size: 40,
-                        },
-                        push: {
-                            quantity: 4,
-                        },
-                        repulse: {
-                            distance: 200,
-                            duration: 0.4,
-                        },
-                    },
-                },
-                particles: {
-                    color: {
-                        value: '#ffffff',
-                    },
-                    links: {
-                        color: '#ffffff',
-                        distance: 150,
-                        enable: true,
-                        opacity: 0.5,
-                        width: 1,
-                    },
-                    collisions: {
-                        enable: false,
-                    },
-                    move: {
-                        direction: 'none',
-                        enable: true,
-                        outMode: 'bounce',
-                        random: false,
-                        speed: 2,
-                        straight: false,
-                    },
-                    number: {
-                        density: {
-                            enable: true,
-                            area: 800,
-                        },
-                        value: 20,
-                    },
-                    opacity: {
-                        value: 0.5,
-                    },
-                    shape: {
-                        type: 'circle',
-                    },
-                    size: {
-                        random: true,
-                        value: 5,
-                    },
-                },
-                detectRetina: true,
-            }"
-        />
-    </div> -->
     <router-view />
+    <!-- <div class="container flipper">
+        <div class="front">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quidem
+            quam nemo, cum iusto quae nesciunt iure provident quo suscipit est
+            reiciendis nostrum, similique voluptatibus corrupti quas alias vitae
+            sed in recusandae aliquam velit molestias autem rem. Facilis harum
+            sequi in! Saepe laborum soluta obcaecati inventore odio possimus,
+            iste repellendus porro nulla aut itaque dicta qui, esse dolorem quos
+            aperiam eos architecto deserunt fuga nobis deleniti sequi? Ad
+            laborum a omnis ipsum cum suscipit pariatur sed vel, ut officia
+            consectetur aut quae quaerat, est deleniti excepturi quos? Inventore
+            odit numquam praesentium vel labore ipsa, aspernatur amet omnis
+            officia explicabo dolorem hic?
+        </div>
+        <div class="back">hello</div>
+    </div>
+    <button @click="flip" class="button">click me</button> -->
 </template>
 
 <style lang="scss" scoped>
-// .particles {
-//     position: relative;
-//     z-index: -10;
-// }
+@use "./abstracts/" as *;
+/* entire container, keeps perspective */
+/* hide back of pane during swap */
+
+/* front pane, placed above back */
+
+.button {
+    background-color: #4e54c8;
+}
+
+.flipper {
+    display: grid;
+    grid-template-rows: 1fr;
+    padding: 2em;
+}
+
 .area {
     position: fixed;
     inset: 0;
