@@ -1,28 +1,43 @@
 <template>
-    <Carousel :autoplay="4000" :transition="500">
-        <Slide v-for="technology in technologies" :key="technology.id">
-            <div class="carousel__item">
-                <!-- <a :href="technology.link" target="_blank"> -->
-                <img
-                    class="technology-logo"
-                    :src="publicPath(technology.logo)"
-                    alt=""
-                />
-                <!-- </a> -->
-            </div>
-        </Slide>
+    <div>
+        <swiper-container
+            slides-per-view="4"
+            speed="500"
+            loop="true"
+            Pagination="true"
+            :breakpoints="{
+                440: {
+                    slidesPerView: 1,
+                },
+                640: {
+                    slidesPerView: 2,
+                },
+                1024: {
+                    slidesPerView: 3,
+                },
 
-        <template #addons>
-            <Pagination />
-        </template>
-    </Carousel>
+                1200: {
+                    slidesPerView: 4,
+                },
+            }"
+        >
+            <swiper-slide
+                v-for="technology in technologies"
+                :key="technology.id"
+            >
+                <div class="carousel__item">
+                    <img
+                        class="technology-logo"
+                        :src="publicPath(technology.logo)"
+                        alt=""
+                    /></div
+            ></swiper-slide>
+        </swiper-container>
+    </div>
 </template>
 
 <script setup>
 import { publicPath } from "../composables/publicUrl";
-// If you are using PurgeCSS, make sure to whitelist the carousel CSS classes
-import "vue3-carousel/dist/carousel.css";
-import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 
 const technologies = [
     {
@@ -61,19 +76,8 @@ const technologies = [
     align-items: center;
 }
 
-.carousel__slide {
-    padding: 10px;
-    width: 33.33% !important;
-}
-
-.carousel__prev,
-.carousel__next {
-    box-sizing: content-box;
-    border: 5px solid white;
-}
-
-.carousel__pagination-button:hover::after,
-.carousel__pagination-button--active::after {
-    background-color: $main-color;
+swiper-container::part(pagination) {
+    position: static !important;
+    margin-top: 0.5em;
 }
 </style>

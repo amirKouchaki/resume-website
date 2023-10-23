@@ -588,7 +588,8 @@ const calculateOffsetY = () => {
     perspective: 6600px;
     transform-style: preserve-3d;
     display: grid;
-    grid-template-rows: 1fr;
+    grid-template-rows: 100%;
+    grid-template-columns: 100%;
     padding: 2em;
     margin-block: 4.2em;
 }

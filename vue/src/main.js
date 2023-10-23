@@ -11,6 +11,12 @@ import config from "../formkit.config";
 import Toast from "vue-toastification";
 import { VueQueryPlugin } from "@tanstack/vue-query";
 import "vue-toastification/dist/index.css";
+import { register } from "swiper/element/bundle";
+import { Quasar } from "quasar";
+import "@quasar/extras/material-icons/material-icons.css";
+import "quasar/src/css/index.sass";
+register();
+
 const toastificationOptions = {
     transition: "Vue-Toastification__fade",
     maxToasts: 4,
@@ -40,6 +46,9 @@ app.use(plugin, config)
     .use(Particles)
     .use(VueQueryPlugin)
     .use(Toast, toastificationOptions)
+    .use(Quasar, {
+        plugins: {},
+    })
     .mount("#app");
 
 export default { pinia, router, app };

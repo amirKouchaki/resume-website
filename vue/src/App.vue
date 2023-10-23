@@ -12,23 +12,12 @@ const particlesInit = async (engine) => {
 
 onMounted(() => {
     try {
-        tl.value = gsap
-            .timeline({ paused: true })
-            .to(".front", { duration: 1, rotationY: -180 }, 0)
-            .to(".back", { duration: 1, rotationY: 0 }, 0)
-            .to(".flipper", { z: 50 }, 0);
         axiosClient.get("sanctum/csrf-cookie");
     } catch (error) {
         console.log(error);
     }
 });
 const tl = ref();
-
-const flip = () => {
-    cardIsFlipped.value = !cardIsFlipped.value;
-    if (cardIsFlipped.value) tl.value.play();
-    else tl.value.reverse();
-};
 </script>
 
 <template>
@@ -48,23 +37,6 @@ const flip = () => {
     </div>
 
     <router-view />
-    <!-- <div class="container flipper">
-        <div class="front">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quidem
-            quam nemo, cum iusto quae nesciunt iure provident quo suscipit est
-            reiciendis nostrum, similique voluptatibus corrupti quas alias vitae
-            sed in recusandae aliquam velit molestias autem rem. Facilis harum
-            sequi in! Saepe laborum soluta obcaecati inventore odio possimus,
-            iste repellendus porro nulla aut itaque dicta qui, esse dolorem quos
-            aperiam eos architecto deserunt fuga nobis deleniti sequi? Ad
-            laborum a omnis ipsum cum suscipit pariatur sed vel, ut officia
-            consectetur aut quae quaerat, est deleniti excepturi quos? Inventore
-            odit numquam praesentium vel labore ipsa, aspernatur amet omnis
-            officia explicabo dolorem hic?
-        </div>
-        <div class="back">hello</div>
-    </div>
-    <button @click="flip" class="button">click me</button> -->
 </template>
 
 <style lang="scss" scoped>
@@ -76,12 +48,6 @@ const flip = () => {
 
 .button {
     background-color: #4e54c8;
-}
-
-.flipper {
-    display: grid;
-    grid-template-rows: 1fr;
-    padding: 2em;
 }
 
 .area {
