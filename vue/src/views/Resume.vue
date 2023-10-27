@@ -287,13 +287,8 @@
                 </p>
             </section>
         </div>
-        <div class="back resume-back" ref="backOfResumeRef">
-            <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Nostrum ratione quia iure quas excepturi natus enim dignissimos
-                earum sapiente voluptate, repellat rem cumque aspernatur minus
-                ex facilis eligendi quae at!
-            </p>
+        <div class="back resume-back">
+            <back-side-of-resume />
             <button
                 @click="flipCard"
                 style="text-align: center; margin-inline: auto"
@@ -315,6 +310,7 @@ import Carousel from "../components/Carousel.vue";
 import FactCard from "../components/resume/FactCard.vue";
 import MessageThreadModal from "../components/modals/MessageThreadModal.vue";
 import ShowMessageThreadModal from "../components/modals/ShowMessageThreadModal.vue";
+import backSideOfResume from "../components/resume/BackSideOfResume.vue";
 import useModals from "../stores/modals";
 import AuthModal from "../components/modals/AuthModal.vue";
 import MobileMenu from "../components/MobileMenu.vue";
